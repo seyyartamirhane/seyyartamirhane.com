@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seyyar Tamirhane - Mobil Araç Bakım Servisi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #dc2626;
+            --secondary-color: #1e293b;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-top {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        .header-main {
+            padding: 15px 0;
+        }
+
+        .header-main .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-section img {
+            height: 60px;
+            width: auto;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-button:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.9), rgba(30, 41, 59, 0.9)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZGMyNjI2O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFlMjkzYjtzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTkyMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-text h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 15px 35px;
+            border: 2px solid var(--white);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInRight 0.8s ease;
+        }
+
+        .hero-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .hero-card i {
+            font-size: 60px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .hero-card h3 {
+            color: var(--text-dark);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .hero-card p {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 42px;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-top: 20px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-image i {
+            font-size: 60px;
+            color: var(--white);
+            z-index: 1;
+        }
+
+        .service-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .service-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .service-link {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 15px;
+            transition: gap 0.3s ease;
+        }
+
+        .service-card:hover .service-link {
+            gap: 10px;
+        }
+
+        /* Appointment Form Section */
+        .appointment {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 5px;
+        }
+
+        .checkbox-group label {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .checkbox-group a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+
+        .whatsapp-button {
+            background: #25D366;
+            color: var(--white);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .whatsapp-button:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: var(--bg-light);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary-color), #ef4444);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--white);
+        }
+
+        .feature-item h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .feature-item p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #475569;
+            color: #94a3b8;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-top {
+                display: none;
+            }
+
+            .header-main .container {
+                flex-wrap: wrap;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h2 {
+                font-size: 32px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> 0532 546 27 18</span>
+                    <span><i class="fas fa-envelope"></i> info@seyyartamirhane.com</span>
+                    <span><i class="fas fa-clock"></i> 7/24 Hizmet</span>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/905325462718"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <div class="logo-section">
+                    <img src="Logo.png" alt="Seyyar Tamirhane">
+                    <div class="logo-text">
+                        <h1>Seyyar Tamirhane</h1>
+                        <p>Mühendislik kalitesiyle güvenilir hizmet</p>
+                    </div>
+                </div>
+                <nav id="navbar">
+                    <a href="#home">Ana Sayfa</a>
+                    <a href="#services">Hizmetlerimiz</a>
+                    <a href="hakkimizda.html">Hakkımızda</a>
+                    <a href="iletisim.html">İletişim</a>
+                    <a href="#appointment" class="cta-button">
+                        <i class="fas fa-calendar-check"></i> Randevu Al
+                    </a>
+                </nav>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Aracınız İçin Mobil Çözüm</h2>
+                    <p>Bulunduğunuz yerde profesyonel araç bakım ve onarım hizmeti. 7/24 ulaşabileceğiniz güvenilir servis.</p>
+                    <div class="hero-buttons">
+                        <a href="#appointment" class="btn-primary">
+                            <i class="fas fa-wrench"></i> Hemen Randevu Al
+                        </a>
+                        <a href="https://wa.me/905325462718" class="btn-secondary">
+                            <i class="fab fa-whatsapp"></i> WhatsApp'tan Ulaş
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-card">
+                        <i class="fas fa-tools"></i>
+                        <h3>Profesyonel Hizmet</h3>
+                        <p>Uzman ekibimizle aracınızın tüm bakım ve onarım ihtiyaçlarını karşılıyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Hizmetlerimiz</h2>
+                <p>Aracınız için ihtiyacınız olan tüm bakım ve onarım hizmetleri</p>
+            </div>
+            <div class="services-grid">
+                <a href="periyodik.html" class="service-card">
+                    <div class="service-image">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Periyodik Bakım</h3>
+                        <p>Aracınızın uzun ömürlü olması için düzenli bakım hizmeti. Yağ, filtre değişimi ve genel kontroller.</p>
+                        <span class="service-link">Detaylı Bilgi <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="fren.html" class="service-card">
+                    <div class="service-image">
+                        <i class="fas fa-compact-disc"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Fren Bakımı</h3>
+                        <p>Güvenliğiniz için fren sistemi kontrolü, balata ve disk değişimi hizmetleri.</p>
+                        <span class="service-link">Detaylı Bilgi <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="direksiyon ve süspansiyon.html" class="service-card">
+                    <div class="service-image">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Direksiyon ve Süspansiyon</h3>
+                        <p>Konforlu ve güvenli sürüş için direksiyon ve süspansiyon sistemi bakımı.</p>
+                        <span class="service-link">Detaylı Bilgi <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="aku.html" class="service-card">
+                    <div class="service-image">
+                        <i class="fas fa-car-battery"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Akü Bakımı ve Değişimi</h3>
+                        <p>Akü testi, şarj kontrolü ve gerektiğinde yeni akü değişimi hizmeti.</p>
+                        <span class="service-link">Detaylı Bilgi <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="ariza.html" class="service-card">
+                    <div class="service-image">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Arıza Tespiti</h3>
+                        <p>Modern cihazlarla detaylı arıza tespiti ve çözüm önerileri.</p>
+                        <span class="service-link">Detaylı Bilgi <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <div class="service-card">
+                    <div class="service-image">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Motor Performans</h3>
+                        <p>Motor bakımı, performans artırma ve yakıt tasarrufu optimizasyonu.</p>
+                        <span class="service-link">Yakında <i class="fas fa-clock"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Neden Bizi Tercih Etmelisiniz?</h2>
+                <p>Müşteri memnuniyeti odaklı hizmet anlayışımız</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Mobil Hizmet</h3>
+                    <p>Bulunduğunuz yere geliyoruz. Evinizde, işyerinizde veya yolda kaldığınız yerde hizmet.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>7/24 Destek</h3>
+                    <p>Acil durumlarınızda her zaman yanınızdayız. Gece gündüz ulaşabilirsiniz.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Garantili İşçilik</h3>
+                    <p>Tüm işlemlerimiz garantili. Orijinal yedek parça ve kaliteli işçilik.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Uzman Kadro</h3>
+                    <p>Alanında uzman, sertifikalı teknisyenlerimizle profesyonel hizmet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Form Section -->
+    <section class="appointment" id="appointment">
+        <div class="container">
+            <div class="section-header">
+                <h2>Randevu Al</h2>
+elim</p>
+            </div>
+            <div class="form-container">
+                <form id="appointmentForm" onsubmit="sendWhatsApp(event)">
+                    <h3 class="form-section-title">1. Kişisel Bilgiler</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Ad Soyad *</label>
+                            <input type="text" id="name" name="name" required placeholder="Adınız Soyadınız">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="05XX XXX XX XX">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-posta</label>
+                            <input type="email" id="email" name="email" placeholder="ornek@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="identity">T.C. Kimlik No</label>
+                            <input type="text" id="identity" name="identity" placeholder="T.C. Kimlik Numaranız" maxlength="11">
+                        </div>
+                    </div>
+
+                    <h3 class="form-section-title">2. Araç Bilgileri</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="brand">Marka / Model *</label>
+                            <input type="text" id="brand" name="brand" required placeholder="Örn: Ford Focus">
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Araç Yılı *</label>
+                            <input type="text" id="year" name="year" required placeholder="Örn: 2020">
+                        </div>
+                        <div class="form-group">
+                            <label for="plate">Plaka *</label>
+                            <input type="text" id="plate" name="plate" required placeholder="34 ABC 123">
+                        </div>
+                        <div class="form-group">
+                            <label for="km">Kilometre</label>
+                            <input type="text" id="km" name="km" placeholder="Örn: 50000">
+                        </div>
+                    </div>
+
+                    <h3 class="form-section-title">3. Talep Edilen Servis Bilgileri</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="service">Hizmet Türü *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Seçiniz</option>
+                                <option value="Periyodik Bakım">Periyodik Bakım</option>
+                                <option value="Fren Bakımı">Fren Bakımı</option>
+                                <option value="Direksiyon ve Süspansiyon">Direksiyon ve Süspansiyon</option>
+                                <option value="Akü Bakımı">Akü Bakımı ve Değişimi</option>
+                                <option value="Arıza Tespiti">Arıza Tespiti</option>
+                                <option value="Diğer">Diğer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Tarih *</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Saat *</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Konum *</label>
+                            <input type="text" id="location" name="location" required placeholder="Adres veya konum bilgisi">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="message">Ek Notlar</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Varsa eklemek istediğiniz notlar..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="consent" required>
+                        <label for="consent">
+                            <strong>Aydınlatma Metni:</strong> Kişisel verilerimin 
+                            <a href="Aydınlatma Metni ve Onay Kutucuğu.docx" target="_blank">Aydınlatma Metni</a> 
+                            kapsamında işleneceğini okudum ve onaylıyorum.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="whatsapp-button">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp'tan Gönder
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Seyyar Tamirhane</h3>
+                    <p>Mühendislik kalitesiyle güvenilir hizmet anlayışımızla, aracınızın tüm bakım ve onarım ihtiyaçlarını bulunduğunuz yerde karşılıyoruz.</p>
+                    <div class="social-links" style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/905325462718"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Hizmetlerimiz</h3>
+                    <ul>
+                        <li><a href="periyodik.html">Periyodik Bakım</a></li>
+                        <li><a href="fren.html">Fren Bakımı</a></li>
+                        <li><a href="direksiyon ve süspansiyon.html">Direksiyon ve Süspansiyon</a></li>
+                        <li><a href="aku.html">Akü Bakımı</a></li>
+                        <li><a href="ariza.html">Arıza Tespiti</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Hızlı Linkler</h3>
+                    <ul>
+                        <li><a href="#home">Ana Sayfa</a></li>
+                        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                        <li><a href="iletisim.html">İletişim</a></li>
+                        <li><a href="#appointment">Randevu Al</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>İletişim</h3>
+                    <p><i class="fas fa-phone"></i> 0532 546 27 18</p>
+                    <p><i class="fas fa-envelope"></i> info@seyyartamirhane.com</p>
+                    <p><i class="fas fa-clock"></i> 7/24 Hizmet</p>
+                    <p><i class="fas fa-map-marker-alt"></i> İstanbul, Türkiye</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Seyyar Tamirhane | Tüm Hakları Saklıdır</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('active');
+        }
+
+        // WhatsApp form handler
+        function sendWhatsApp(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value || 'Belirtilmedi';
+            const identity = document.getElementById('identity').value || 'Belirtilmedi';
+            const brand = document.getElementById('brand').value;
+            const year = document.getElementById('year').value;
+            const plate = document.getElementById('plate').value;
+            const km = document.getElementById('km').value || 'Belirtilmedi';
+            const service = document.getElementById('service').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const location = document.getElementById('location').value;
+            const message = document.getElementById('message').value || 'Yok';
+            
+            // Format date
+            const dateObj = new Date(date);
+            const formattedDate = dateObj.toLocaleDateString('tr-TR');
+            
+            // Create WhatsApp message
+            const whatsappMessage = `🚗 *SEYYAR TAMİRHANE RANDEVU TALEBİ*\n\n` +
+                `📋 *KİŞİSEL BİLGİLER*\n` +
+                `👤 Ad Soyad: ${name}\n` +
+                `📞 Telefon: ${phone}\n` +
+                `📧 E-posta: ${email}\n` +
+                `🆔 TC Kimlik: ${identity}\n\n` +
+                `🚙 *ARAÇ BİLGİLERİ*\n` +
+                `🏷️ Marka/Model: ${brand}\n` +
+                `📅 Yıl: ${year}\n` +
+                `🔢 Plaka: ${plate}\n` +
+                `⚙️ Kilometre: ${km}\n\n` +
+                `🔧 *SERVİS BİLGİLERİ*\n` +
+                `🛠️ Hizmet: ${service}\n` +
+                `📆 Tarih: ${formattedDate}\n` +
+                `⏰ Saat: ${time}\n` +
+                `📍 Konum: ${location}\n` +
+                `💬 Ek Notlar: ${message}`;
+            
+            // Encode message for URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            
+            // WhatsApp URL
+            const whatsappURL = `https://wa.me/905325462718?text=${encodedMessage}`;
+            
+            // Open WhatsApp
+            window.open(whatsappURL, '_blank');
+            
+            // Show success message
+            alert('WhatsApp\'a yönlendiriliyorsunuz. Mesajınız hazırlandı, göndermek için WhatsApp\'ta "Gönder" butonuna basın.');
+            
+            // Reset form
+            document.getElementById('appointmentForm').reset();
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1)';
+            }
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+    </script>
+</body>
+</html>
+                <p>Formu doldurun, WhatsApp üzerinden size hemen dön

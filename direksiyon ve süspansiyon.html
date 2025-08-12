@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direksiyon ve Süspansiyon Sistemi - Seyyar Tamirhane</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #dc2626;
+            --secondary-color: #1e293b;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-main {
+            padding: 15px 0;
+        }
+
+        .header-main .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-section img {
+            height: 60px;
+            width: auto;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-button:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .service-hero {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.95), rgba(30, 41, 59, 0.95));
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .service-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .service-hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .breadcrumb {
+            margin-top: 30px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .breadcrumb a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+
+        .breadcrumb span {
+            margin: 0 10px;
+            opacity: 0.6;
+        }
+
+        /* Content Section */
+        .service-content {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .main-content h2 {
+            font-size: 36px;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .main-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .main-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .important-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .important-box h3 {
+            color: #d97706;
+            font-size: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .important-box p {
+            color: #92400e;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .service-list {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .service-list h3 {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .service-list ul {
+            list-style: none;
+        }
+
+        .service-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .service-list li:last-child {
+            border-bottom: none;
+        }
+
+        .service-list i {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-top: 3px;
+        }
+
+        .service-list .service-text {
+            flex: 1;
+        }
+
+        .service-list .service-text strong {
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .service-list .service-text span {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-card h3 {
+            font-size: 22px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-card i {
+            color: var(--primary-color);
+        }
+
+        .price-info {
+            background: linear-gradient(135deg, var(--primary-color), #ef4444);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .price-info .price-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .price-info .price {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .quick-links {
+            list-style: none;
+        }
+
+        .quick-links li {
+            margin-bottom: 15px;
+        }
+
+        .quick-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .quick-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Features Grid */
+        .features-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-card i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h4 {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            padding: 15px 35px;
+            border: 2px solid var(--white);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #475569;
+            color: #94a3b8;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-top {
+                display: none;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .service-hero h1 {
+                font-size: 32px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> 0532 546 27 18</span>
+                    <span><i class="fas fa-envelope"></i> info@seyyartamirhane.com</span>
+                    <span><i class="fas fa-clock"></i> 7/24 Hizmet</span>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="index.html" class="logo-section">
+                    <img src="Logo.png" alt="Seyyar Tamirhane">
+                    <div class="logo-text">
+                        <h1>Seyyar Tamirhane</h1>
+                        <p>Mühendislik kalitesiyle güvenilir hizmet</p>
+                    </div>
+                </a>
+                <nav id="navbar">
+                    <a href="index.html">Ana Sayfa</a>
+                    <a href="index.html#services">Hizmetlerimiz</a>
+                    <a href="hakkimizda.html">Hakkımızda</a>
+                    <a href="iletisim.html">İletişim</a>
+                    <a href="index.html#appointment" class="cta-button">
+                        <i class="fas fa-calendar-check"></i> Randevu Al
+                    </a>
+                </nav>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="service-hero">
+        <div class="container">
+            <h1>Direksiyon ve Süspansiyon Sistemi</h1>
+            <p>Konforlu ve güvenli sürüş için profesyonel direksiyon ve süspansiyon bakımı</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a>
+                <span>/</span>
+                <a href="index.html#services">Hizmetler</a>
+                <span>/</span>
+                <span>Direksiyon ve Süspansiyon</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="service-content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="main-content">
+                    <h2>Profesyonel Direksiyon ve Süspansiyon Bakımı</h2>
+                    <p>
+                        Araçlarda direksiyon ve süspansiyon sistemleri, yol tutuşu, sürüş konforu ve güvenlik açısından 
+                        çok önemli bileşenlerdir. Bu sistemlerde yer alan rot başları, salıncak burçları, amortisörler, 
+                        z rotlar gibi parçalar zamanla yıpranır ve görevlerini tam olarak yerine getiremez hale gelir.
+                    </p>
+                    <p>
+                        Bu parçalar bozulduğunda araçta titreme, direksiyonda boşluk, lastiklerde düzensiz aşınma, 
+                        yol tutuşunda zayıflama ve süspansiyon sisteminden gelen sesler gibi belirtiler görülebilir.
+                    </p>
+
+                    <div class="important-box">
+                        <h3><i class="fas fa-exclamation-circle"></i> Önemli Not</h3>
+                        <p>
+                            Parçaların çift olarak değiştirilmesi kritik öneme sahiptir. Örneğin; sağ amortisör değişiyorsa, 
+                            sol amortisör de birlikte yenilenmelidir. Çünkü bu parçalar aracın sağ ve sol tarafında simetrik 
+                            şekilde çalışır ve aynı yükleri taşırlar.
+                        </p>
+                    </div>
+
+                    <div class="service-list">
+                        <h3>Direksiyon ve Süspansiyon Bakımı Kapsamında Yapılan İşlemler</h3>
+                        <ul>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Rot Başı ve Rot Kolu Kontrolü</strong>
+                                    <span>Rot başları ve rot kollarının aşınma durumu kontrolü ve gerekli değişimler.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Amortisör Kontrolü ve Değişimi</strong>
+                                    <span>Amortisörlerin sızıntı ve performans kontrolü, gerekli durumlarda çift olarak değişimi.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Salıncak ve Burç Kontrolü</strong>
+                                    <span>Salıncak kolları ve burçların kontrol edilmesi, aşınmış parçaların değişimi.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Z Rot Kontrolü</strong>
+                                    <span>Stabilizatör bağlantı rotlarının (Z rot) kontrolü ve değişimi.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Direksiyon Kutusu Kontrolü</strong>
+                                    <span>Direksiyon kutusu ve kremayer sisteminin kontrolü, yağ kaçağı tespiti.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Yay Kontrolü</strong>
+                                    <span>Helezon yayların kırık veya çatlak kontrolü.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Rot Ayarı</strong>
+                                    <span>Parça değişimi sonrası profesyonel rot ayarı.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 style="margin-top: 40px; font-size: 24px; color: var(--text-dark);">Neden Çift Değişim Önemli?</h3>
+                    <p>
+                        Parçaların tek taraflı değiştirilmesi durumunda araç dengesiz hale gelebilir, bu da sürüş sırasında 
+                        kontrol kaybına, yeni parçanın daha çabuk bozulmasına ve diğer sistemlerde ekstra yük oluşmasına 
+                        neden olabilir. Ayrıca konfor kaybı ve lastiklerin erken aşınması gibi problemler de ortaya çıkabilir.
+                    </p>
+                    <p>
+                        Sonuç olarak, direksiyon ve süspansiyon sistemi bakımı yalnızca bozulmuş parçaların değişimiyle 
+                        sınırlı değildir. Aynı zamanda bu sistemlerin bir bütün olarak dengeli ve uyum içinde çalışmasını 
+                        sağlamak, hem aracın performansı hem de sürüş güvenliği için büyük önem taşır.
+                    </p>
+                </div>
+
+                <div class="sidebar">
+                    <div class="sidebar-card">
+                        <h3><i class="fas fa-tag"></i> Fiyat Bilgisi</h3>
+                        <div class="price-info">
+                            <div class="price-label">Başlangıç Fiyatı</div>
+                            <div class="price">₺1.000</div>
+                        </div>
+                        <p style="font-size: 14px; color: var(--text-light); text-align: center;">
+                            Fiyatlar parça ve işçilik dahil, araç modeline göre değişiklik gösterebilir.
+                        </p>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3><i class="fas fa-list"></i> Diğer Hizmetlerimiz</h3>
+                        <ul class="quick-links">
+                            <li><a href="periyodik.html"><i class="fas fa-chevron-right"></i> Periyodik Bakım</a></li>
+                            <li><a href="fren.html"><i class="fas fa-chevron-right"></i> Fren Bakımı</a></li>
+                            <li><a href="aku.html"><i class="fas fa-chevron-right"></i> Akü Bakımı</a></li>
+                            <li><a href="ariza.html"><i class="fas fa-chevron-right"></i> Arıza Tespiti</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white;">
+                        <h3 style="color: white;"><i class="fab fa-whatsapp"></i> Hızlı İletişim</h3>
+                        <p style="margin-bottom: 20px;">Hemen WhatsApp'tan ulaşın, size özel fiyat teklifi alalım!</p>
+                        <a href="https://wa.me/905325462718?text=Merhaba, direksiyon ve süspansiyon bakımı hakkında bilgi almak istiyorum." 
+                           class="btn-white" style="width: 100%; justify-content: center;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp'tan Yaz
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-balance-scale"></i>
+                    <h4>Dengeli Değişim</h4>
+                    <p>Parçaların çift olarak değişimi ile araç dengesi korunur</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-road"></i>
+                    <h4>Güvenli Sürüş</h4>
+                    <p>Yol tutuşu ve sürüş güvenliğinde maksimum performans</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tools"></i>
+                    <h4>Uzman Ekip</h4>
+                    <p>Deneyimli teknisyenlerimizle profesyonel hizmet</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-check-double"></i>
+                    <h4>Kaliteli Parça</h4>
+                    <p>Orijinal ve kaliteli yedek parça kullanımı</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Aracınızda Titreşim veya Ses mi Var?</h2>
+            <p>Direksiyon ve süspansiyon sisteminizi hemen kontrol ettirin!</p>
+            <div class="cta-buttons">
+                <a href="index.html#appointment" class="btn-white">
+                    <i class="fas fa-calendar-check"></i> Randevu Al
+                </a>
+                <a href="tel:905325462718" class="btn-outline">
+                    <i class="fas fa-phone"></i> Hemen Ara
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Seyyar Tamirhane</h3>
+                    <p>Mühendislik kalitesiyle güvenilir hizmet anlayışımızla, aracınızın tüm bakım ve onarım ihtiyaçlarını bulunduğunuz yerde karşılıyoruz.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Hizmetlerimiz</h3>
+                    <ul>
+                        <li><a href="periyodik.html">Periyodik Bakım</a></li>
+                        <li><a href="fren.html">Fren Bakımı</a></li>
+                        <li><a href="direksiyon ve süspansiyon.html">Direksiyon ve Süspansiyon</a></li>
+                        <li><a href="aku.html">Akü Bakımı</a></li>
+                        <li><a href="ariza.html">Arıza Tespiti</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>İletişim</h3>
+                    <p><i class="fas fa-phone"></i> 0532 546 27 18</p>
+                    <p><i class="fas fa-envelope"></i> info@seyyartamirhane.com</p>
+                    <p><i class="fas fa-clock"></i> 7/24 Hizmet</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Seyyar Tamirhane | Tüm Hakları Saklıdır</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('active');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

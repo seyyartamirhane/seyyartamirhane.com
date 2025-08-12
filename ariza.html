@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arıza Tespiti - Seyyar Tamirhane</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #dc2626;
+            --secondary-color: #1e293b;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-main {
+            padding: 15px 0;
+        }
+
+        .header-main .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-section img {
+            height: 60px;
+            width: auto;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-button:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .service-hero {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.95), rgba(30, 41, 59, 0.95));
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .service-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .service-hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .breadcrumb {
+            margin-top: 30px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .breadcrumb a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+
+        .breadcrumb span {
+            margin: 0 10px;
+            opacity: 0.6;
+        }
+
+        /* Content Section */
+        .service-content {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .main-content h2 {
+            font-size: 36px;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .main-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .main-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .tech-box {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-left: 4px solid #0284c7;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .tech-box h3 {
+            color: #0369a1;
+            font-size: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-box p {
+            color: #075985;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .service-list {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .service-list h3 {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .service-list ul {
+            list-style: none;
+        }
+
+        .service-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .service-list li:last-child {
+            border-bottom: none;
+        }
+
+        .service-list i {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-top: 3px;
+        }
+
+        .service-list .service-text {
+            flex: 1;
+        }
+
+        .service-list .service-text strong {
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .service-list .service-text span {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-card h3 {
+            font-size: 22px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-card i {
+            color: var(--primary-color);
+        }
+
+        .price-info {
+            background: linear-gradient(135deg, var(--primary-color), #ef4444);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .price-info .price-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .price-info .price {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .quick-links {
+            list-style: none;
+        }
+
+        .quick-links li {
+            margin-bottom: 15px;
+        }
+
+        .quick-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .quick-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Features Grid */
+        .features-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-card i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h4 {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            padding: 15px 35px;
+            border: 2px solid var(--white);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #475569;
+            color: #94a3b8;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-top {
+                display: none;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .service-hero h1 {
+                font-size: 32px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> 0532 546 27 18</span>
+                    <span><i class="fas fa-envelope"></i> info@seyyartamirhane.com</span>
+                    <span><i class="fas fa-clock"></i> 7/24 Hizmet</span>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="index.html" class="logo-section">
+                    <img src="Logo.png" alt="Seyyar Tamirhane">
+                    <div class="logo-text">
+                        <h1>Seyyar Tamirhane</h1>
+                        <p>Mühendislik kalitesiyle güvenilir hizmet</p>
+                    </div>
+                </a>
+                <nav id="navbar">
+                    <a href="index.html">Ana Sayfa</a>
+                    <a href="index.html#services">Hizmetlerimiz</a>
+                    <a href="hakkimizda.html">Hakkımızda</a>
+                    <a href="iletisim.html">İletişim</a>
+                    <a href="index.html#appointment" class="cta-button">
+                        <i class="fas fa-calendar-check"></i> Randevu Al
+                    </a>
+                </nav>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="service-hero">
+        <div class="container">
+            <h1>Arıza Tespiti</h1>
+            <p>Modern diagnostik cihazlarla detaylı arıza tespiti ve çözüm önerileri</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a>
+                <span>/</span>
+                <a href="index.html#services">Hizmetler</a>
+                <span>/</span>
+                <span>Arıza Tespiti</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="service-content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="main-content">
+                    <h2>Profesyonel Diagnostik Arıza Tespiti</h2>
+                    <p>
+                        Diagnostik arıza tespiti, modern araçlarda meydana gelebilecek mekanik, elektronik veya yazılımsal 
+                        sorunların, aracın kendi bilgisayarı üzerinden özel cihazlarla taranarak doğru ve hızlı şekilde 
+                        belirlenmesini sağlayan ileri düzey bir kontrol yöntemidir.
+                    </p>
+                    <p>
+                        Bu işlem, aracın beyni olarak kabul edilen Motor Kontrol Ünitesi (ECU) ile OBD (On-Board Diagnostics) 
+                        yani "Araç Üzeri Teşhis Sistemi" üzerinden gerçekleştirilir. Araç çalışırken motor, fren, şanzıman, 
+                        ABS, hava yastığı, yakıt sistemi ve egzoz emisyon kontrolü gibi kritik bileşenlerden gelen veriler 
+                        ECU tarafından sürekli olarak takip edilir.
+                    </p>
+
+                    <div class="tech-box">
+                        <h3><i class="fas fa-microchip"></i> İleri Teknoloji</h3>
+                        <p>
+                            Son model diagnostik cihazlarımızla tüm araç markalarında detaylı arıza tespiti yapıyoruz. 
+                            ECU'da kayıtlı arıza kodlarını okuyarak sorunun kaynağını hızlıca belirliyoruz.
+                        </p>
+                    </div>
+
+                    <div class="service-list">
+                        <h3>Arıza Tespiti Kapsamında Kontrol Edilen Sistemler</h3>
+                        <ul>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Motor Yönetim Sistemi</strong>
+                                    <span>Motor performansı, yakıt enjeksiyon sistemi, ateşleme sistemi kontrolü.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Emisyon Kontrol Sistemi</strong>
+                                    <span>Egzoz emisyon değerleri, katalitik konvertör, lambda sensörü kontrolü.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>ABS ve ESP Sistemleri</strong>
+                                    <span>Fren güvenlik sistemleri, ABS sensörleri, elektronik stabilite programı.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Hava Yastığı Sistemi</strong>
+                                    <span>Airbag modülü, çarpışma sensörleri ve güvenlik sistemleri kontrolü.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Şanzıman Kontrolü</strong>
+                                    <span>Otomatik şanzıman modülü, vites sensörleri ve hidrolik sistem kontrolü.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Klima Sistemi</strong>
+                                    <span>Klima kompresörü, gaz basıncı ve soğutma sistemi kontrolü.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div class="service-text">
+                                    <strong>Elektrik ve Elektronik Sistemler</strong>
+                                    <span>Batarya, alternatör, marş motoru ve elektrik devresi kontrolü.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 style="margin-top: 40px; font-size: 24px; color: var(--text-dark);">Arıza Tespitinin Avantajları</h3>
+                    <p>
+                        Bu yöntem, hem zamandan hem de maliyetten büyük ölçüde tasarruf sağlar. Çünkü arızalar büyümeden, 
+                        araca daha fazla zarar vermeden ve sizi yolda bırakmadan önce tespit edilip müdahale edilebilir. 
+                        Ayrıca gereksiz parça değişimlerinin önüne geçilerek daha sağlıklı ve bilinçli bir onarım süreci sağlanır.
+                    </p>
+                    <p>
+                        Sonuç olarak, diagnostik arıza tespiti; modern otomotiv teknolojisinin sunduğu en önemli avantajlardan 
+                        biridir ve düzenli olarak yapılması, aracın performansını, güvenliğini ve uzun ömürlülüğünü doğrudan etkiler.
+                    </p>
+                </div>
+
+                <div class="sidebar">
+                    <div class="sidebar-card">
+                        <h3><i class="fas fa-tag"></i> Fiyat Bilgisi</h3>
+                        <div class="price-info">
+                            <div class="price-label">Arıza Tespiti</div>
+                            <div class="price">₺500</div>
+                        </div>
+                        <p style="font-size: 14px; color: var(--text-light); text-align: center;">
+                            Detaylı rapor ve çözüm önerileri dahildir.
+                        </p>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3><i class="fas fa-list"></i> Diğer Hizmetlerimiz</h3>
+                        <ul class="quick-links">
+                            <li><a href="periyodik.html"><i class="fas fa-chevron-right"></i> Periyodik Bakım</a></li>
+                            <li><a href="fren.html"><i class="fas fa-chevron-right"></i> Fren Bakımı</a></li>
+                            <li><a href="direksiyon ve süspansiyon.html"><i class="fas fa-chevron-right"></i> Direksiyon ve Süspansiyon</a></li>
+                            <li><a href="aku.html"><i class="fas fa-chevron-right"></i> Akü Bakımı</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white;">
+                        <h3 style="color: white;"><i class="fab fa-whatsapp"></i> Hızlı İletişim</h3>
+                        <p style="margin-bottom: 20px;">Hemen WhatsApp'tan ulaşın, aracınızın arızasını tespit edelim!</p>
+                        <a href="https://wa.me/905325462718?text=Merhaba, arıza tespiti hizmeti hakkında bilgi almak istiyorum." 
+                           class="btn-white" style="width: 100%; justify-content: center;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp'tan Yaz
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Modern Cihazlar</h4>
+                    <p>Son teknoloji diagnostik cihazlarla detaylı tarama</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h4>Detaylı Rapor</h4>
+                    <p>Tespit edilen arızaların detaylı raporu ve çözüm önerileri</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h4>Hızlı Sonuç</h4>
+                    <p>30 dakika içinde arıza tespiti ve sonuç</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-car"></i>
+                    <h4>Tüm Markalar</h4>
+                    <p>Her marka ve model araç için arıza tespiti</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Aracınızda Bir Sorun mu Var?</h2>
+            <p>Modern cihazlarımızla arızayı hemen tespit edelim!</p>
+            <div class="cta-buttons">
+                <a href="index.html#appointment" class="btn-white">
+                    <i class="fas fa-calendar-check"></i> Randevu Al
+                </a>
+                <a href="tel:905325462718" class="btn-outline">
+                    <i class="fas fa-phone"></i> Hemen Ara
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Seyyar Tamirhane</h3>
+                    <p>Mühendislik kalitesiyle güvenilir hizmet anlayışımızla, aracınızın tüm bakım ve onarım ihtiyaçlarını bulunduğunuz yerde karşılıyoruz.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Hizmetlerimiz</h3>
+                    <ul>
+                        <li><a href="periyodik.html">Periyodik Bakım</a></li>
+                        <li><a href="fren.html">Fren Bakımı</a></li>
+                        <li><a href="direksiyon ve süspansiyon.html">Direksiyon ve Süspansiyon</a></li>
+                        <li><a href="aku.html">Akü Bakımı</a></li>
+                        <li><a href="ariza.html">Arıza Tespiti</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>İletişim</h3>
+                    <p><i class="fas fa-phone"></i> 0532 546 27 18</p>
+                    <p><i class="fas fa-envelope"></i> info@seyyartamirhane.com</p>
+                    <p><i class="fas fa-clock"></i> 7/24 Hizmet</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Seyyar Tamirhane | Tüm Hakları Saklıdır</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('active');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
