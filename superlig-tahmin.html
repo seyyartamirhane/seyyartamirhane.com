@@ -684,7 +684,7 @@
 <div class="container">
 
   <header>
-    <div class="league-badge">Süper Lig 2024/25</div>
+    <div class="league-badge">Süper Lig 2025/26</div>
     <h1>SKOR TAHMİN</h1>
     <p class="subtitle">Sezon verilerine dayalı istatistiksel analiz · Poisson modeli</p>
   </header>
@@ -816,7 +816,7 @@
 //  CONSTANTS
 // =====================================================
 const LEAGUE_ID = 203;   // Süper Lig
-const SEASON = 2024;
+const SEASON = 2025;
 const BASE = 'https://v3.football.api-sports.io';
 
 let teamFixtures = {};   // teamId -> [{homeGoals, awayGoals, isHome, opponent}]
@@ -875,11 +875,14 @@ async function apiFetch(endpoint) {
 async function loadTeams() {
   if (!apiKey()) { setStatus('error', 'API anahtarı giriniz!'); return; }
   document.getElementById('loadBtn').disabled = true;
-  setStatus('loading', 'Süper Lig takımları yükleniyor...', true);
+  setStatus('loading', 'Süper Lig 2025/26 takımları yükleniyor...', true);
 
   try {
-    const data = await apiFetch(`/teams?league=${LEAGUE_ID}&season=${SEASON}`);
-    teamList = data.response.map(t => ({ id: t.team.id, name: t.team.name }));
+    // Use standings to get exact teams in this season's league
+    const data = await apiFetch(`/standings?league=${LEAGUE_ID}&season=${SEASON}`);
+    const standings = data.response?.[0]?.league?.standings?.[0];
+    if (!standings || standings.length === 0) throw new Error('Lig tablosu bulunamadı. Sezon henüz başlamamış olabilir.');
+    teamList = standings.map(s => ({ id: s.team.id, name: s.team.name }));
     teamList.sort((a, b) => a.name.localeCompare(b.name, 'tr'));
 
     ['homeTeam', 'awayTeam'].forEach(id => {
@@ -894,7 +897,7 @@ async function loadTeams() {
     });
 
     document.getElementById('selectorCard').style.display = 'block';
-    setStatus('success', `✓ ${teamList.length} takım yüklendi. Maç seçebilirsiniz.`);
+    setStatus('success', `✓ ${teamList.length} takım yüklendi (2025/26 sezonu). Maç seçebilirsiniz.`);
   } catch (e) {
     setStatus('error', `Hata: ${e.message}. API anahtarınızı kontrol edin.`);
   }
