@@ -1,142 +1,389 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>Süper Lig Elite Predictor v7 · İY & MS Analiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --red:#e8001d; --gold:#f5c842; --bg:#080810; --surface:#11111c;
-            --border:rgba(255,255,255,0.08); --text:#eeeef8; --muted:#6868a0; --blue:#4fc3f7;
-        }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Outfit', sans-serif; background:var(--bg); color:var(--text); padding:20px; }
-        .wrap { max-width:1200px; margin:0 auto; }
-        header { text-align:center; padding:40px 0; border-bottom:1px solid var(--border); margin-bottom:30px; }
-        h1 { font-family:'Bebas Neue'; font-size:60px; letter-spacing:6px; color:var(--red); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 25px; }
-        .card { background:var(--surface); border:1px solid var(--border); border-radius:24px; padding:25px; position:relative; border-top: 4px solid var(--red); }
-        .m-header { display:flex; justify-content:space-between; font-size:10px; color:var(--muted); font-weight:700; margin-bottom:15px; }
-        .vs-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
-        .team-box { flex:1; text-align:center; font-weight:700; font-size:15px; color:#fff; }
-        .score-box { width:110px; text-align:center; }
-        .s-val { font-family:'Bebas Neue'; font-size:48px; line-height:0.9; color:#fff; }
-        .iy-val { font-size:14px; font-weight:800; color:var(--red); letter-spacing:2px; margin-top:8px; display:block; }
-        .iy-sub { font-size:9px; color:var(--muted); text-transform:uppercase; margin-top:2px; display:block; }
-        .prob-section { margin:20px 0; background:rgba(255,255,255,0.02); padding:12px; border-radius:12px; }
-        .p-bar { height:6px; background:rgba(0,0,0,0.3); border-radius:10px; display:flex; overflow:hidden; margin-bottom:8px; }
-        .pb-h { background:var(--red); } .pb-d { background:var(--muted); } .pb-a { background:var(--blue); }
-        .p-info { display:flex; justify-content:space-between; font-size:10px; font-weight:700; }
-        .details { display:grid; grid-template-columns: 1fr 1fr; gap:8px; border-top:1px solid var(--border); padding-top:15px; font-size:11px; color:var(--muted); }
-        .d-val { color:var(--text); font-weight:700; float:right; }
-    </style>
+<meta charset="UTF-8">
+<title>PRO ELITE V9 · Monte Carlo + Dixon Coles</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--red:#e8001d;
+--gold:#f5c842;
+--bg:#080810;
+--surface:#11111c;
+--border:rgba(255,255,255,0.08);
+--text:#eeeef8;
+--muted:#6868a0;
+--blue:#4fc3f7;
+}
+
+body{
+font-family:'Outfit';
+background:var(--bg);
+color:var(--text);
+padding:20px;
+}
+
+.wrap{
+max-width:1200px;
+margin:auto;
+}
+
+header{
+text-align:center;
+padding:40px;
+border-bottom:1px solid var(--border);
+margin-bottom:30px;
+}
+
+h1{
+font-family:'Bebas Neue';
+font-size:60px;
+letter-spacing:6px;
+color:var(--red);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+gap:25px;
+}
+
+.card{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:20px;
+padding:25px;
+border-top:4px solid var(--red);
+}
+
+.vs{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:15px 0;
+}
+
+.team{
+flex:1;
+text-align:center;
+font-weight:700;
+}
+
+.score{
+font-family:'Bebas Neue';
+font-size:50px;
+}
+
+.iy{
+font-size:13px;
+color:var(--red);
+}
+
+.bar{
+height:6px;
+background:#000;
+display:flex;
+border-radius:10px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.h{background:var(--red)}
+.d{background:#666}
+.a{background:var(--blue)}
+
+.details{
+margin-top:15px;
+font-size:12px;
+color:var(--muted);
+}
+</style>
 </head>
+
 <body>
 
 <div class="wrap">
-    <header>
-        <h1>PRO ELITE V7</h1>
-        <p style="color:var(--muted)">İY/MS Analiz Motoru · 25. Hafta Güncel Veri Seti</p>
-    </header>
-    <div id="mainGrid" class="grid"></div>
+
+<header>
+<h1>PRO ELITE V9</h1>
+<p style="color:#777">Monte Carlo · Dixon-Coles · Poisson Model</p>
+</header>
+
+<div id="grid" class="grid"></div>
+
 </div>
 
 <script>
+
+const SIMS = 10000
+
 const TEAMS = {
-    "Galatasaray": { elo:1845, squad:230, gs:62, gc:19, p:25, missing:0, rest:7, htsr:0.42 },
-    "Fenerbahçe": { elo:1815, squad:210, gs:59, gc:23, p:25, missing:1, rest:6, htsr:0.45 },
-    "Trabzonspor": { elo:1755, squad:135, gs:52, gc:30, p:25, missing:2, rest:5, htsr:0.38 },
-    "Beşiktaş": { elo:1730, squad:148, gs:49, gc:31, p:25, missing:2, rest:8, htsr:0.40 },
-    "Göztepe": { elo:1680, squad:62, gs:30, gc:18, p:25, missing:0, rest:10, htsr:0.35 },
-    "Başakşehir FK": { elo:1695, squad:98, gs:45, gc:29, p:25, missing:1, rest:6, htsr:0.41 },
-    "Samsunspor": { elo:1600, squad:35, gs:28, gc:30, p:25, missing:1, rest:7, htsr:0.33 },
-    "Kocaelispor": { elo:1575, squad:26, gs:24, gc:27, p:25, missing:1, rest:5, htsr:0.36 },
-    "Alanyaspor": { elo:1545, squad:36, gs:28, gc:33, p:25, missing:2, rest:6, htsr:0.34 },
-    "Antalyaspor": { elo:1525, squad:28, gs:26, gc:41, p:25, missing:3, rest:7, htsr:0.31 },
-    "Çaykur Rizespor": { elo:1555, squad:29, gs:33, gc:38, p:25, missing:1, rest:8, htsr:0.36 },
-    "Gaziantep FK": { elo:1565, squad:31, gs:32, gc:43, p:25, missing:2, rest:4, htsr:0.32 },
-    "Eyüpspor": { elo:1515, squad:21, gs:21, gc:37, p:25, missing:2, rest:6, htsr:0.30 },
-    "Gençlerbirliği": { elo:1535, squad:23, gs:30, gc:37, p:25, missing:2, rest:5, htsr:0.35 },
-    "Konyaspor": { elo:1515, squad:24, gs:29, gc:40, p:25, missing:1, rest:9, htsr:0.29 },
-    "Kasımpaşa": { elo:1505, squad:19, gs:22, gc:38, p:25, missing:1, rest:8, htsr:0.33 },
-    "Kayserispor": { elo:1495, squad:17, gs:20, gc:45, p:25, missing:3, rest:5, htsr:0.28 },
-    "Fatih Karagümrük": { elo:1475, squad:14, gs:23, gc:48, p:25, missing:4, rest:4, htsr:0.27 }
-};
 
-const FIXTURES = [
-    {h: "Antalyaspor", a: "Gaziantep FK", ref: "Arda Kardeşler"},
-    {h: "Fatih Karagümrük", a: "Fenerbahçe", ref: "Ali Palabıyık"},
-    {h: "Kocaelispor", a: "Konyaspor", ref: "Mete Kalkavan"},
-    {h: "Trabzonspor", a: "Çaykur Rizespor", ref: "Halil Umut Meler"},
-    {h: "Göztepe", a: "Alanyaspor", ref: "Atilla Karaoğlan"},
-    {h: "Galatasaray", a: "Başakşehir FK", ref: "Zorbay Küçük"},
-    {h: "Kasımpaşa", a: "Eyüpspor", ref: "Abdulkadir Bitigen"},
-    {h: "Gençlerbirliği", a: "Beşiktaş", ref: "Cem Satman"},
-    {h: "Samsunspor", a: "Kayserispor", ref: "Volkan Bayarslan"}
-];
+Galatasaray:{
+elo:1845,
+homeGS:38,
+homeGC:12,
+awayGS:24,
+awayGC:14,
+shots:16,
+shotsOT:6.5,
+bigChances:3.2,
+cleanSheets:12,
+last5points:12,
+missingValue:15,
+starting11:220,
+rest:6,
+position:1
+},
 
-function factorial(n) { let res = 1; for (let i = 2; i <= n; i++) res *= i; return res; }
-function poisson(l, k) { return (Math.exp(-l) * Math.pow(l, k)) / factorial(k); }
+Fenerbahçe:{
+elo:1820,
+homeGS:36,
+homeGC:14,
+awayGS:26,
+awayGC:16,
+shots:15,
+shotsOT:6.2,
+bigChances:3.0,
+cleanSheets:11,
+last5points:10,
+missingValue:20,
+starting11:210,
+rest:6,
+position:2
+},
 
-function calculate() {
-    const grid = document.getElementById('mainGrid');
-    FIXTURES.forEach(m => {
-        const H = TEAMS[m.h]; const A = TEAMS[m.a];
-        const eloDiff = (H.elo - A.elo) / 1200;
-        
-        let hXG = (H.gs / H.p) * (A.gc / A.p) / 1.4 * (1 + eloDiff) * 1.05;
-        let aXG = (A.gs / A.p) * (H.gc / H.p) / 1.4 * (1 - eloDiff);
-        
-        // Sakatlık ve Dinlenme
-        hXG *= (1 - (H.missing * 0.04)); aXG *= (1 - (A.missing * 0.04));
-        if(H.rest < 5) hXG *= 0.95; if(A.rest < 5) aXG *= 0.95;
+Trabzonspor:{
+elo:1750,
+homeGS:30,
+homeGC:16,
+awayGS:22,
+awayGC:18,
+shots:13,
+shotsOT:5,
+bigChances:2.2,
+cleanSheets:8,
+last5points:8,
+missingValue:18,
+starting11:150,
+rest:6,
+position:4
+},
 
-        // Maç Sonu Skor
-        let bH=0, bA=0, mP=0, pW=0, pD=0, pL=0;
-        for(let h=0; h<6; h++){
-            for(let a=0; a<6; a++){
-                let p = poisson(hXG, h) * poisson(aXG, a);
-                if(p > mP){ mP=p; bH=h; bA=a; }
-                if(h>a) pW+=p; else if(h===a) pD+=p; else pL+=p;
-            }
-        }
-
-        // İLK YARI HESABI (xG * HTSR)
-        let hHTXG = hXG * H.htsr; let aHTXG = aXG * A.htsr;
-        let bHTH=0, bHTA=0, mHTP=0;
-        for(let h=0; h<3; h++){
-            for(let a=0; a<3; a++){
-                let p = poisson(hHTXG, h) * poisson(aHTXG, a);
-                if(p > mHTP){ mHTP=p; bHTH=h; bHTA=a; }
-            }
-        }
-
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            <div class="m-header"><span>26. HAFTA</span><span>${m.ref}</span></div>
-            <div class="vs-row">
-                <div class="team-box">${m.h}</div>
-                <div class="score-box">
-                    <div class="s-val">${bH}:${bA}</div>
-                    <div class="iy-val">İY ${bHTH}:${bHTA}</div>
-                    <span class="iy-sub">İlk Yarı Tahmini</span>
-                </div>
-                <div class="team-box">${m.a}</div>
-            </div>
-            <div class="prob-section">
-                <div class="p-bar"><div class="pb-h" style="width:${pW*100}%"></div><div class="pb-d" style="width:${pD*100}%"></div><div class="pb-a" style="width:${pL*100}%"></div></div>
-                <div class="p-info"><span>EV %${(pW*100).toFixed(0)}</span><span>X %${(pD*100).toFixed(0)}</span><span>DEP %${(pL*100).toFixed(0)}</span></div>
-            </div>
-            <div class="details">
-                <div>xG Beklentisi: <span class="d-val">${hXG.toFixed(2)} - ${aXG.toFixed(2)}</span></div>
-                <div>Güven Skoru: <span class="d-val">%${(mP*100+24).toFixed(1)}</span></div>
-            </div>
-        `;
-        grid.appendChild(card);
-    });
+Beşiktaş:{
+elo:1730,
+homeGS:28,
+homeGC:17,
+awayGS:21,
+awayGC:19,
+shots:12,
+shotsOT:4.8,
+bigChances:2.1,
+cleanSheets:7,
+last5points:7,
+missingValue:22,
+starting11:145,
+rest:7,
+position:5
 }
-calculate();
+
+}
+
+const FIXTURES=[
+{h:"Galatasaray",a:"Fenerbahçe"},
+{h:"Trabzonspor",a:"Beşiktaş"}
+]
+
+function poisson(lambda){
+
+let L=Math.exp(-lambda)
+let k=0
+let p=1
+
+do{
+k++
+p*=Math.random()
+}
+while(p>L)
+
+return k-1
+}
+
+function dixonColesAdjust(h,a,lambda,mu){
+
+if(h==0 && a==0) return 1.1
+if(h==0 && a==1) return 1.05
+if(h==1 && a==0) return 1.05
+if(h==1 && a==1) return 1.08
+
+return 1
+}
+
+function calculateXG(H,A){
+
+let eloDiff=(H.elo-A.elo)/1000
+
+let hAttack=H.homeGS/19
+let aDef=A.awayGC/19
+
+let aAttack=A.awayGS/19
+let hDef=H.homeGC/19
+
+let hXG=hAttack*aDef
+let aXG=aAttack*hDef
+
+hXG*=1+eloDiff*0.6
+aXG*=1-eloDiff*0.6
+
+let hForm=H.last5points/15
+let aForm=A.last5points/15
+
+hXG*=0.9+hForm*0.3
+aXG*=0.9+aForm*0.3
+
+let hShot=H.shotsOT/H.shots
+let aShot=A.shotsOT/A.shots
+
+hXG*=0.8+hShot
+aXG*=0.8+aShot
+
+hXG*=1+(H.bigChances*0.04)
+aXG*=1+(A.bigChances*0.04)
+
+hXG*=1-(A.cleanSheets/30)*0.4
+aXG*=1-(H.cleanSheets/30)*0.4
+
+let hMissing=H.missingValue/H.starting11
+let aMissing=A.missingValue/A.starting11
+
+hXG*=1-hMissing*0.6
+aXG*=1-aMissing*0.6
+
+hXG*=1+((H.rest-5)*0.03)
+aXG*=1+((A.rest-5)*0.03)
+
+let hMot=(18-H.position)*0.015
+let aMot=(18-A.position)*0.015
+
+hXG*=1+hMot
+aXG*=1+aMot
+
+return[hXG,aXG]
+
+}
+
+function monteCarlo(hXG,aXG){
+
+let hw=0
+let dr=0
+let aw=0
+
+let scoreMap={}
+
+for(let i=0;i<SIMS;i++){
+
+let h=poisson(hXG)
+let a=poisson(aXG)
+
+let adj=dixonColesAdjust(h,a,hXG,aXG)
+
+if(Math.random()>adj) continue
+
+let key=h+"-"+a
+scoreMap[key]=(scoreMap[key]||0)+1
+
+if(h>a)hw++
+else if(h<a)aw++
+else dr++
+
+}
+
+let bestScore="0-0"
+let max=0
+
+for(let k in scoreMap){
+if(scoreMap[k]>max){
+max=scoreMap[k]
+bestScore=k
+}
+}
+
+return{
+score:bestScore,
+home:hw/SIMS,
+draw:dr/SIMS,
+away:aw/SIMS
+}
+
+}
+
+function run(){
+
+let grid=document.getElementById("grid")
+
+FIXTURES.forEach(m=>{
+
+let H=TEAMS[m.h]
+let A=TEAMS[m.a]
+
+let xg=calculateXG(H,A)
+
+let sim=monteCarlo(xg[0],xg[1])
+
+let card=document.createElement("div")
+card.className="card"
+
+card.innerHTML=`
+
+<div>${m.h} vs ${m.a}</div>
+
+<div class="vs">
+
+<div class="team">${m.h}</div>
+
+<div>
+
+<div class="score">${sim.score}</div>
+
+</div>
+
+<div class="team">${m.a}</div>
+
+</div>
+
+<div class="bar">
+
+<div class="h" style="width:${sim.home*100}%"></div>
+<div class="d" style="width:${sim.draw*100}%"></div>
+<div class="a" style="width:${sim.away*100}%"></div>
+
+</div>
+
+<div class="details">
+
+EV %${(sim.home*100).toFixed(1)} |
+X %${(sim.draw*100).toFixed(1)} |
+DEP %${(sim.away*100).toFixed(1)}
+
+<br>
+
+xG ${xg[0].toFixed(2)} - ${xg[1].toFixed(2)}
+
+</div>
+
+`
+
+grid.appendChild(card)
+
+})
+
+}
+
+run()
+
 </script>
+
 </body>
 </html>
