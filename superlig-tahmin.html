@@ -10,7 +10,7 @@
     --red:#e8001d; --dark-red:#9b0014; --gold:#f5c842;
     --bg:#080810; --surface:#11111c; --surface2:#191924; --surface3:#222230;
     --border:rgba(255,255,255,0.07); --text:#eeeef8; --muted:#6868a0;
-    --green:#00e676; --blue:#4fc3f7;
+    --green:#00e676; --blue:#4fc3f7; --purple:#b57bee;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -27,6 +27,17 @@
   h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,68px);letter-spacing:5px;line-height:.95;background:linear-gradient(130deg,#fff 25%,#e8001d 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
   .sub{margin-top:8px;font-size:13px;color:var(--muted);font-weight:300;}
 
+  /* MODEL SELECTOR */
+  .model-selector{display:flex;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:14px;overflow-x:auto;}
+  .model-btn{flex:1;min-width:120px;padding:9px 12px;text-align:center;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;letter-spacing:.4px;white-space:nowrap;border:none;background:none;}
+  .model-btn.active{background:linear-gradient(135deg,var(--surface3),var(--surface2));color:var(--text);border:1px solid rgba(255,255,255,.12);}
+  .model-btn.active.m-poisson{color:#4fc3f7;border-color:rgba(79,195,247,.3);}
+  .model-btn.active.m-dc{color:var(--gold);border-color:rgba(245,200,66,.3);}
+  .model-btn.active.m-mc{color:var(--green);border-color:rgba(0,230,118,.3);}
+  .model-btn.active.m-ensemble{color:var(--purple);border-color:rgba(181,123,238,.3);}
+  .model-info{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin-bottom:16px;font-size:12px;color:var(--muted);line-height:1.6;}
+  .model-info span{font-weight:600;}
+
   /* TABS */
   .tabs{display:flex;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:20px;}
   .tab{flex:1;padding:11px;text-align:center;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;letter-spacing:.5px;}
@@ -38,9 +49,9 @@
   @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
   .slbl{font-size:10.5px;font-weight:700;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;}
 
-  /* WEEK SCOREBOARD */
+  /* SCORE BOARD */
   .score-board{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-bottom:20px;}
-  .score-board-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .score-board-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
   .score-board-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;}
   .accuracy-pill{background:rgba(245,200,66,.12);border:1px solid rgba(245,200,66,.3);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--gold);}
 
@@ -58,6 +69,11 @@
   .scores-col{display:flex;flex-direction:column;align-items:center;gap:6px;}
   .pred-score{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--text);letter-spacing:2px;line-height:1;}
   .pred-label{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+  .model-tag{font-size:9px;padding:2px 7px;border-radius:100px;font-weight:700;letter-spacing:.5px;}
+  .model-tag.poisson{background:rgba(79,195,247,.15);color:var(--blue);}
+  .model-tag.dc{background:rgba(245,200,66,.15);color:var(--gold);}
+  .model-tag.mc{background:rgba(0,230,118,.15);color:var(--green);}
+  .model-tag.ensemble{background:rgba(181,123,238,.15);color:var(--purple);}
 
   .match-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px;}
   .mini-probs{display:flex;gap:8px;font-size:11px;}
@@ -68,7 +84,6 @@
   .mp.best-h{background:rgba(232,0,29,.35);color:#fff;}
   .mp.best-d{background:rgba(104,104,160,.35);color:#fff;}
   .mp.best-a{background:rgba(79,195,247,.35);color:#fff;}
-
   .au-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
   .au-badge.ust{background:rgba(0,230,118,.15);color:var(--green);}
   .au-badge.alt{background:rgba(255,107,107,.15);color:#ff6b6b;}
@@ -81,9 +96,6 @@
   .score-input:focus{border-color:rgba(232,0,29,.5);}
   .result-btn{background:var(--surface3);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
   .result-btn:hover{border-color:var(--red);color:var(--text);}
-  .result-btn.saved{background:rgba(0,230,118,.1);border-color:rgba(0,230,118,.3);color:var(--green);}
-
-  /* RESULT BADGES */
   .result-row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap;}
   .result-actual{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);}
   .hit-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
@@ -91,7 +103,7 @@
   .hit-badge.result{background:rgba(79,195,247,.2);color:var(--blue);border:1px solid rgba(79,195,247,.35);}
   .hit-badge.miss{background:rgba(232,0,29,.15);color:#ff6b6b;border:1px solid rgba(232,0,29,.25);}
 
-  /* SINGLE MATCH TAB */
+  /* SINGLE MATCH */
   .vs-grid{display:grid;grid-template-columns:1fr 52px 1fr;gap:14px;align-items:end;margin-bottom:20px;}
   .team-col label{display:block;font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
   select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:13px 36px 13px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;outline:none;cursor:pointer;transition:border-color .2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%236868a0' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;}
@@ -138,6 +150,32 @@
   .ausub{font-size:11px;color:var(--muted);margin-top:4px;}
   .auc.yes .auval{color:var(--green);}.auc.no .auval{color:#ff7070;}.auc.mid .auval{color:var(--gold);}
 
+  /* MC SIMULATION BAR */
+  .mc-bar-container{margin-bottom:14px;}
+  .mc-bar-title{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
+  .mc-bars{display:flex;flex-direction:column;gap:6px;}
+  .mc-bar-row{display:flex;align-items:center;gap:10px;}
+  .mc-bar-lbl{font-size:11px;color:var(--muted);min-width:80px;text-align:right;}
+  .mc-bar-track{flex:1;background:rgba(255,255,255,.05);border-radius:100px;height:18px;position:relative;overflow:hidden;}
+  .mc-bar-fill{height:100%;border-radius:100px;transition:width 1.2s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;padding-left:8px;}
+  .mc-bar-val{font-size:10px;font-weight:700;color:#fff;white-space:nowrap;}
+
+  /* DISTRIBUTION CHART */
+  .dist-chart{margin-bottom:14px;}
+  .dist-title{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
+  .dist-canvas-wrap{position:relative;height:120px;display:flex;align-items:flex-end;gap:3px;padding:0 4px;}
+  .dist-bar{flex:1;border-radius:3px 3px 0 0;min-width:4px;transition:height .8s ease;cursor:default;position:relative;}
+  .dist-bar:hover .dist-tooltip{display:block;}
+  .dist-tooltip{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--surface3);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:10px;white-space:nowrap;z-index:10;}
+
+  /* DIXON-COLES COMPARE */
+  .dc-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  .dc-cell{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:12px;text-align:center;}
+  .dc-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+  .dc-val{font-family:'Bebas Neue',sans-serif;font-size:22px;}
+  .dc-diff{font-size:11px;margin-top:4px;}
+  .dc-diff.up{color:var(--green);}.dc-diff.down{color:#ff7070;}.dc-diff.same{color:var(--muted);}
+
   .score-list{display:flex;flex-direction:column;gap:5px;margin-top:10px;}
   .si{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px;font-size:13px;}
   .si.top{background:rgba(232,0,29,.12);border:1px solid rgba(232,0,29,.28);}
@@ -155,11 +193,16 @@
   .fb.D{background:rgba(104,104,160,.18);color:var(--muted);border:1px solid rgba(104,104,160,.3);}
   .fb.L{background:rgba(232,0,29,.18);color:#ff7070;border:1px solid rgba(232,0,29,.3);}
 
+  /* MC spinner */
+  .mc-spinning{display:inline-block;width:12px;height:12px;border:2px solid rgba(0,230,118,.3);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:5px;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
   .disclaimer{text-align:center;font-size:11px;color:var(--muted);padding:14px;border-top:1px solid var(--border);}
 
   @media(max-width:600px){
     .vs-grid{grid-template-columns:1fr;gap:8px;}.vs-mid{display:none;}
     .sg{font-size:60px;} .match-body{gap:8px;}
+    .dc-compare{grid-template-columns:1fr 1fr;}
   }
 </style>
 </head>
@@ -169,8 +212,19 @@
 <header>
   <div class="badge"><span class="bdot"></span>Süper Lig 2025/26</div>
   <h1>SKOR TAHMİN</h1>
-  <p class="sub">Poisson modeli · Transfermarkt & Mackolik sezon verileri · 24. hafta itibarıyla</p>
+  <p class="sub">Poisson · Dixon-Coles · Monte Carlo · Ensemble modeli · 24. hafta verileri</p>
 </header>
+
+<!-- MODEL SEÇİMİ -->
+<div class="model-selector">
+  <button class="model-btn m-poisson active" onclick="setModel('poisson',this)">📐 Poisson</button>
+  <button class="model-btn m-dc" onclick="setModel('dc',this)">🔧 Dixon-Coles</button>
+  <button class="model-btn m-mc" onclick="setModel('mc',this)">🎲 Monte Carlo</button>
+  <button class="model-btn m-ensemble" onclick="setModel('ensemble',this)">🧠 Ensemble</button>
+</div>
+<div class="model-info" id="modelInfo">
+  <span>Poisson:</span> Beklenen gol sayısından (xG) Poisson dağılımı ile skor olasılıkları üretir. Hızlı ve yorumlanması kolaydır.
+</div>
 
 <!-- TABS -->
 <div class="tabs">
@@ -178,11 +232,8 @@
   <div class="tab" onclick="switchTab('single')">⚽ Tekil Maç</div>
 </div>
 
-<!-- ══════════════════════════════════
-     TAB 1: HAFTA
-     ══════════════════════════════════ -->
+<!-- ══════════════════════════════ TAB 1: HAFTA ══ -->
 <div id="tabWeek">
-
   <div class="score-board card-accent">
     <div class="score-board-header">
       <div class="score-board-title">26. HAFTA TAHMİNLERİ</div>
@@ -190,12 +241,9 @@
     </div>
     <div id="weekMatches"></div>
   </div>
-
 </div>
 
-<!-- ══════════════════════════════════
-     TAB 2: TEKİL
-     ══════════════════════════════════ -->
+<!-- ══════════════════════════════ TAB 2: TEKİL ══ -->
 <div id="tabSingle" style="display:none">
   <div class="card">
     <div class="slbl">⚽ Maç Seçimi</div>
@@ -226,13 +274,14 @@
         </select>
       </div>
     </div>
-    <button class="btn btn-full" onclick="predictSingle()">⚡ Tahmin Yap</button>
+    <button class="btn btn-full" id="predictBtn" onclick="predictSingle()">⚡ Tahmin Yap</button>
     <div id="singleErr" style="display:none;margin-top:10px;font-size:13px;color:#ff6b6b;text-align:center;"></div>
   </div>
 
   <div class="result-detail" id="singleResult">
+    <!-- hero score -->
     <div class="card card-accent hero-score ra">
-      <div class="hero-lbl">Maç Sonu Tahmini</div>
+      <div class="hero-lbl" id="sModelLbl">Maç Sonu Tahmini</div>
       <div class="score-row-big">
         <div class="st"><div class="sg" id="sHG">0</div><div class="sn" id="sHN">Ev</div></div>
         <div class="sc">:</div>
@@ -240,37 +289,69 @@
       </div>
       <div style="font-size:12px;color:var(--muted);margin-top:4px;" id="sXG">xG —</div>
     </div>
+
+    <!-- half time -->
     <div class="half-row ra" style="animation-delay:.06s">
       <div class="hc"><div class="ht">⏱ İlk Yarı</div><div class="hs" id="sHT1">0:0</div><div class="hsub" id="sHT1sub">—</div></div>
       <div class="hc"><div class="ht">⚡ İkinci Yarı</div><div class="hs" id="sHT2">0:0</div><div class="hsub">2. yarı gol tahmini</div></div>
     </div>
+
+    <!-- 1X2 probs -->
     <div class="prob-row ra" style="animation-delay:.1s">
       <div class="pc" id="sPCH"><div class="plbl" id="sPHL">Ev</div><div class="pval" id="sPVH">—</div><div class="pb-bg"><div class="pb bar-h" id="sBH" style="width:0%"></div></div></div>
       <div class="pc" id="sPCD"><div class="plbl">Beraberlik</div><div class="pval" id="sPVD">—</div><div class="pb-bg"><div class="pb bar-d" id="sBD" style="width:0%"></div></div></div>
       <div class="pc" id="sPCA"><div class="plbl" id="sPAL">Dep</div><div class="pval" id="sPVA">—</div><div class="pb-bg"><div class="pb bar-a" id="sBA" style="width:0%"></div></div></div>
     </div>
+
+    <!-- AU / KG -->
     <div class="aukg-row ra" style="animation-delay:.13s">
       <div class="auc" id="sAUCard"><div class="aulbl">Alt / Üst 2.5</div><div class="auval" id="sAUVal">—</div><div class="ausub" id="sAUSub">—</div></div>
       <div class="auc" id="sKGCard"><div class="aulbl">KG Var / Yok</div><div class="auval" id="sKGVal">—</div><div class="ausub" id="sKGSub">—</div></div>
     </div>
-    <div class="card ra" style="animation-delay:.16s">
+
+    <!-- Dixon-Coles correction (shown when relevant) -->
+    <div class="card ra" id="sDCCard" style="animation-delay:.15s;display:none;">
+      <div class="slbl">🔧 Dixon-Coles Düzeltmesi</div>
+      <div class="dc-compare" id="sDCCompare"></div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.6;">
+        Düşük skorlu maçlarda (0-0, 1-0, 0-1, 1-1) standart Poisson dağılımı gerçekçi olmayan olasılıklar verir. Dixon-Coles bu skor çiftlerine ρ (rho) parametresiyle düzeltme uygular.
+        <span id="sDCRho" style="font-weight:600;color:var(--gold);"></span>
+      </div>
+    </div>
+
+    <!-- Monte Carlo simulation bars -->
+    <div class="card ra" id="sMCCard" style="animation-delay:.17s;display:none;">
+      <div class="slbl">🎲 Monte Carlo Simülasyon Sonuçları</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:12px;" id="sMCSims">50.000 simülasyon</div>
+      <div class="mc-bars" id="sMCBars"></div>
+      <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
+        <div class="mc-bar-title">Toplam Gol Dağılımı</div>
+        <div class="dist-canvas-wrap" id="sMCDist"></div>
+      </div>
+    </div>
+
+    <!-- Season stats -->
+    <div class="card ra" style="animation-delay:.19s">
       <div class="slbl">📊 Sezon Karşılaştırması</div>
       <div id="sSeasonStats"></div>
     </div>
-    <div class="card ra" style="animation-delay:.19s">
+
+    <!-- Top scores -->
+    <div class="card ra" style="animation-delay:.22s">
       <div class="slbl">🎯 En Yüksek Olasılıklı Skorlar</div>
       <div class="score-list" id="sTopScores"></div>
     </div>
-    <div class="disclaimer">Poisson modeli · 2025/26 sezon verileri (24. hafta)</div>
+
+    <div class="disclaimer">Poisson · Dixon-Coles (ρ=0.11) · Monte Carlo 50K sim · Ensemble ağırlıkları: P×0.35, DC×0.35, MC×0.30 · 2025/26 sez. 24. hafta</div>
   </div>
 </div>
 
-</div>
+</div><!-- /wrap -->
 
 <script>
-// ─────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
 //  VERİ
-// ─────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
 const TEAMS = {
   "Galatasaray":    {p:24,w:18,d:4,l:2,gs:58,gc:18,hgs:36,hgc:9,hp:12,ags:22,agc:9,ap:12,htsr:.41,htcr:.44,form:["W","W","W","D","W"]},
   "Fenerbahçe":     {p:24,w:15,d:9,l:0,gs:54,gc:23,hgs:32,hgc:10,hp:12,ags:22,agc:13,ap:12,htsr:.43,htcr:.40,form:["W","D","W","D","W"]},
@@ -292,7 +373,6 @@ const TEAMS = {
   "Fatih Karagümrük":{p:24,w:3,d:4,l:17,gs:21,gc:45,hgs:13,hgc:20,hp:12,ags:8,agc:25,ap:12,htsr:.40,htcr:.40,form:["L","L","D","L","L"]},
 };
 
-// 26. Hafta maçları
 const WEEK26 = [
   {date:"13 Mart Per", home:"Antalyaspor",     away:"Gaziantep FK"},
   {date:"13 Mart Per", home:"Fatih Karagümrük",away:"Fenerbahçe"},
@@ -305,82 +385,211 @@ const WEEK26 = [
   {date:"15 Mart Cmt", home:"Samsunspor",      away:"Kayserispor"},
 ];
 
-const lgAvg = (() => {
+let currentModel = 'poisson';
+const MODEL_INFO = {
+  poisson: '<span>Poisson:</span> Beklenen gol sayısından (xG) Poisson dağılımı ile skor olasılıkları üretir. Hızlı ve yorumlanması kolaydır.',
+  dc: '<span>Dixon-Coles:</span> Poisson modelini, düşük skorlu maçlarda (0-0, 1-0, 0-1, 1-1) gerçekçi olmayan olasılıkları düzelten ρ (rho) parametresiyle geliştirir.',
+  mc: '<span>Monte Carlo:</span> xG değerlerinden yola çıkarak 50.000 maç simüle eder. Varyans ve dağılım analizine izin veren stokastik bir yaklaşım.',
+  ensemble: '<span>Ensemble:</span> Poisson (%35), Dixon-Coles (%35) ve Monte Carlo (%30) ağırlıklı ortalamasını alır. En yüksek doğruluk hedefi.'
+};
+
+function setModel(m, btn){
+  currentModel = m;
+  document.querySelectorAll('.model-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('modelInfo').innerHTML = MODEL_INFO[m];
+  renderWeek();
+}
+
+// ═══════════════════════════════════════════════════
+//  TEMEL MATEMATİK
+// ═══════════════════════════════════════════════════
+const lgAvg = (()=>{
   let t = Object.values(TEAMS).reduce((s,x)=>s+x.gs,0);
   return (t/2)/(18*24/2);
 })();
 
 function poisson(lam,k){
-  if(lam<=0)return k===0?1:0;
-  let lp=-lam+k*Math.log(lam);
-  for(let i=1;i<=k;i++)lp-=Math.log(i);
+  if(lam<=0) return k===0?1:0;
+  let lp = -lam + k*Math.log(lam);
+  for(let i=1;i<=k;i++) lp -= Math.log(i);
   return Math.exp(lp);
 }
-function scoreMx(hx,ax,max=6){
-  const probs=[];let hW=0,dr=0,aW=0;
-  for(let h=0;h<=max;h++)for(let a=0;a<=max;a++){
-    const p=poisson(hx,h)*poisson(ax,a);
-    probs.push({h,a,p});
-    if(h>a)hW+=p;else if(h===a)dr+=p;else aW+=p;
-  }
-  return{probs,hW,dr,aW};
+
+// xG hesabı (ortak)
+function calcXG(homeName, awayName){
+  const H = TEAMS[homeName], A = TEAMS[awayName];
+  const la = lgAvg/2;
+  const hAtt = (H.hgs/H.hp)/la, hDef = (H.hgc/H.hp)/la;
+  const aAtt = (A.ags/A.ap)/la, aDef = (A.agc/A.ap)/la;
+  const hXg = Math.max(.25, hAtt*aDef*la*1.08);
+  const aXg = Math.max(.15, aAtt*hDef*la*0.92);
+  return {hXg, aXg};
 }
+
+// ── POISSON ──────────────────────────────────────
+function scoreMxPoisson(hx, ax, max=7){
+  const probs=[]; let hW=0,dr=0,aW=0;
+  for(let h=0;h<=max;h++) for(let a=0;a<=max;a++){
+    const p = poisson(hx,h)*poisson(ax,a);
+    probs.push({h,a,p});
+    if(h>a) hW+=p; else if(h===a) dr+=p; else aW+=p;
+  }
+  return {probs, hW, dr, aW};
+}
+
+// ── DIXON-COLES ───────────────────────────────────
+// ρ (rho): negatif korelasyon parametresi. Tipik değer 0.08–0.15
+const DC_RHO = 0.11;
+function dcTau(h, a, lam, mu, rho){
+  if(h===0&&a===0) return 1 - lam*mu*rho;
+  if(h===1&&a===0) return 1 + mu*rho;
+  if(h===0&&a===1) return 1 + lam*rho;
+  if(h===1&&a===1) return 1 - rho;
+  return 1;
+}
+function scoreMxDC(hx, ax, max=7){
+  const probs=[]; let hW=0,dr=0,aW=0;
+  for(let h=0;h<=max;h++) for(let a=0;a<=max;a++){
+    const tau = dcTau(h, a, hx, ax, DC_RHO);
+    const p = tau * poisson(hx,h) * poisson(ax,a);
+    probs.push({h,a,p:Math.max(0,p)});
+    if(h>a) hW+=Math.max(0,p); else if(h===a) dr+=Math.max(0,p); else aW+=Math.max(0,p);
+  }
+  // normalize
+  const tot = hW+dr+aW;
+  return {
+    probs: probs.map(x=>({...x, p:x.p/tot})),
+    hW: hW/tot, dr: dr/tot, aW: aW/tot
+  };
+}
+
+// ── MONTE CARLO ───────────────────────────────────
+const MC_SIMS = 50000;
+function randPoisson(lam){
+  const L = Math.exp(-lam);
+  let k=0, p=1;
+  do { k++; p *= Math.random(); } while(p>L);
+  return k-1;
+}
+function runMonteCarlo(hXg, aXg){
+  const scoreCount = {}, goalDist = new Array(13).fill(0);
+  let hW=0, dr=0, aW=0;
+  let sumH=0, sumA=0;
+  for(let i=0;i<MC_SIMS;i++){
+    const h = randPoisson(hXg), a = randPoisson(aXg);
+    const key = `${h}:${a}`;
+    scoreCount[key] = (scoreCount[key]||0) + 1;
+    if(h>a) hW++; else if(h===a) dr++; else aW++;
+    sumH+=h; sumA+=a;
+    const tot = Math.min(h+a, 12);
+    goalDist[tot]++;
+  }
+  // en olası skorlar
+  const probs = Object.entries(scoreCount)
+    .map(([k,v])=>{const[h,a]=k.split(':').map(Number);return{h,a,p:v/MC_SIMS};})
+    .sort((a,b)=>b.p-a.p);
+  return {
+    probs, hW:hW/MC_SIMS, dr:dr/MC_SIMS, aW:aW/MC_SIMS,
+    avgH: sumH/MC_SIMS, avgA: sumA/MC_SIMS,
+    goalDist: goalDist.map(v=>v/MC_SIMS)
+  };
+}
+
+// ── ENSEMBLE ──────────────────────────────────────
+function scoreMxEnsemble(hXg, aXg){
+  const P = scoreMxPoisson(hXg, aXg);
+  const DC = scoreMxDC(hXg, aXg);
+  const MC = runMonteCarlo(hXg, aXg);
+  const wP=.35, wDC=.35, wMC=.30;
+  const hW = P.hW*wP + DC.hW*wDC + MC.hW*wMC;
+  const dr = P.dr*wP + DC.dr*wDC + MC.dr*wMC;
+  const aW = P.aW*wP + DC.aW*wDC + MC.aW*wMC;
+  // merge probs
+  const scoreMap = {};
+  [...P.probs,...DC.probs,...MC.probs].forEach(x=>{
+    const k=`${x.h}:${x.a}`;
+    scoreMap[k] = scoreMap[k]||{h:x.h,a:x.a,p:0};
+  });
+  P.probs.forEach(x=>{const k=`${x.h}:${x.a}`;scoreMap[k].p+=x.p*wP;});
+  DC.probs.forEach(x=>{const k=`${x.h}:${x.a}`;scoreMap[k].p+=x.p*wDC;});
+  MC.probs.forEach(x=>{const k=`${x.h}:${x.a}`;scoreMap[k].p+=x.p*wMC;});
+  const probs = Object.values(scoreMap).sort((a,b)=>b.p-a.p);
+  return {probs, hW, dr, aW};
+}
+
+// ── GENEL HESAP ───────────────────────────────────
+function calcMatch(homeName, awayName, model){
+  model = model||currentModel;
+  const {hXg, aXg} = calcXG(homeName, awayName);
+  const H = TEAMS[homeName];
+  const htHX = hXg*H.htsr, htAX = aXg*TEAMS[awayName].htsr;
+  const htMx = scoreMxPoisson(htHX, htAX);
+  htMx.probs.sort((a,b)=>b.p-a.p);
+  const bestHT = htMx.probs[0];
+
+  let mx;
+  if(model==='poisson') mx = scoreMxPoisson(hXg,aXg);
+  else if(model==='dc')  mx = scoreMxDC(hXg,aXg);
+  else if(model==='mc')  mx = runMonteCarlo(hXg,aXg);
+  else                   mx = scoreMxEnsemble(hXg,aXg);
+
+  mx.probs.sort((a,b)=>b.p-a.p);
+  const best = mx.probs[0];
+  const h2 = Math.max(0, best.h-bestHT.h);
+  const a2 = Math.max(0, best.a-bestHT.a);
+  const tot = mx.hW+mx.dr+mx.aW;
+  const pH = mx.hW/tot, pD = mx.dr/tot, pA = mx.aW/tot;
+  const xgt = hXg+aXg;
+  const over25 = 1-poisson(xgt,0)-poisson(xgt,1)-poisson(xgt,2);
+  const btts   = (1-poisson(hXg,0))*(1-poisson(aXg,0));
+
+  // MC goal dist for chart (always compute separately)
+  let goalDist = null;
+  if(model==='mc'||model==='ensemble'){
+    const mcData = runMonteCarlo(hXg,aXg);
+    goalDist = mcData.goalDist;
+  }
+
+  return {hXg,aXg,best,bestHT,h2,a2,pH,pD,pA,over25,btts,probs:mx.probs,goalDist};
+}
+
 function pct(v){return Math.round((v||0)*100)+'%';}
 
-function calcMatch(homeName,awayName){
-  const H=TEAMS[homeName], A=TEAMS[awayName];
-  const la=lgAvg/2;
-  const hAtt=(H.hgs/H.hp)/la, hDef=(H.hgc/H.hp)/la;
-  const aAtt=(A.ags/A.ap)/la, aDef=(A.agc/A.ap)/la;
-  const hXg=Math.max(.25,hAtt*aDef*la*1.08);
-  const aXg=Math.max(.15,aAtt*hDef*la*0.92);
-  const htHX=hXg*H.htsr, htAX=aXg*A.htsr;
-  const htMx=scoreMx(htHX,htAX); htMx.probs.sort((a,b)=>b.p-a.p);
-  const bestHT=htMx.probs[0];
-  const ftMx=scoreMx(hXg,aXg); ftMx.probs.sort((a,b)=>b.p-a.p);
-  const best=ftMx.probs[0];
-  const h2=Math.max(0,best.h-bestHT.h), a2=Math.max(0,best.a-bestHT.a);
-  const tot=ftMx.hW+ftMx.dr+ftMx.aW;
-  const pH=ftMx.hW/tot,pD=ftMx.dr/tot,pA=ftMx.aW/tot;
-  const xgt=hXg+aXg;
-  const over25=1-poisson(xgt,0)-poisson(xgt,1)-poisson(xgt,2);
-  const btts=(1-poisson(hXg,0))*(1-poisson(aXg,0));
-  return{hXg,aXg,best,bestHT,h2,a2,pH,pD,pA,over25,btts,probs:ftMx.probs};
-}
-
-// ─────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
 //  HAFTA TAB
-// ─────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
 const savedResults = {};
 
 function renderWeek(){
   const container = document.getElementById('weekMatches');
-  container.innerHTML='';
-  WEEK26.forEach((m,i)=>{
-    const r=calcMatch(m.home,m.away);
-    const mx=Math.max(r.pH,r.pD,r.pA);
-    const auLbl=r.over25>.52?'ÜST':r.over25<.48?'ALT':'KENAR';
-    const bestOutcome=r.pH===mx?'H':r.pD===mx?'D':'A';
+  container.innerHTML = '';
+  const mTag = {poisson:'poisson',dc:'dc',mc:'mc',ensemble:'ensemble'}[currentModel];
+  const mLbl = {poisson:'Poisson',dc:'Dixon-Coles',mc:'Monte Carlo',ensemble:'Ensemble'}[currentModel];
 
-    const saved=savedResults[i];
-    let resultHTML='';
+  WEEK26.forEach((m,i)=>{
+    const r = calcMatch(m.home, m.away, currentModel);
+    const mx = Math.max(r.pH, r.pD, r.pA);
+    const auLbl = r.over25>.52?'ÜST':r.over25<.48?'ALT':'KENAR';
+
+    const saved = savedResults[i];
+    let resultHTML = '';
     if(saved){
-      const predOutcome=r.pH===mx?'H':r.pD===mx?'D':'A';
-      const actualOutcome=saved.h>saved.a?'H':saved.h===saved.a?'D':'A';
-      const exactHit=saved.h===r.best.h&&saved.a===r.best.a;
-      const resultHit=predOutcome===actualOutcome;
-      const badge=exactHit
+      const predOutcome = r.pH===mx?'H':r.pD===mx?'D':'A';
+      const actualOutcome = saved.h>saved.a?'H':saved.h===saved.a?'D':'A';
+      const exactHit = saved.h===r.best.h && saved.a===r.best.a;
+      const resultHit = predOutcome===actualOutcome;
+      const badge = exactHit
         ?'<span class="hit-badge exact">✓ Skor Tuttu!</span>'
-        :resultHit
-          ?'<span class="hit-badge result">~ Sonuç Tuttu</span>'
-          :'<span class="hit-badge miss">✗ Tutmadı</span>';
-      resultHTML=`<div class="result-row">
+        :resultHit?'<span class="hit-badge result">~ Sonuç Tuttu</span>'
+        :'<span class="hit-badge miss">✗ Tutmadı</span>';
+      resultHTML = `<div class="result-row">
         <span style="font-size:11px;color:var(--muted)">Gerçek:</span>
         <span class="result-actual">${saved.h}:${saved.a}</span>
         ${badge}
       </div>`;
     } else {
-      resultHTML=`<div class="result-input-row">
+      resultHTML = `<div class="result-input-row">
         <span>Sonuç:</span>
         <input class="score-input" type="number" min="0" max="20" id="rH${i}" placeholder="0">
         <span>:</span>
@@ -389,9 +598,9 @@ function renderWeek(){
       </div>`;
     }
 
-    const card=document.createElement('div');
-    card.className='match-card';
-    card.innerHTML=`
+    const card = document.createElement('div');
+    card.className = 'match-card';
+    card.innerHTML = `
       <div class="match-date">${m.date}</div>
       <div class="match-body">
         <div class="team-side home">
@@ -402,6 +611,7 @@ function renderWeek(){
           <div class="pred-score">${r.best.h} : ${r.best.a}</div>
           <div class="pred-label">Tahmin</div>
           <div style="font-size:10px;color:var(--muted)">HT ${r.bestHT.h}:${r.bestHT.a}</div>
+          <span class="model-tag ${mTag}">${mLbl}</span>
         </div>
         <div class="team-side away">
           <div class="team-name">${m.away}</div>
@@ -424,91 +634,170 @@ function renderWeek(){
 }
 
 function saveResult(i){
-  const h=parseInt(document.getElementById('rH'+i).value);
-  const a=parseInt(document.getElementById('rA'+i).value);
+  const h = parseInt(document.getElementById('rH'+i).value);
+  const a = parseInt(document.getElementById('rA'+i).value);
   if(isNaN(h)||isNaN(a)||h<0||a<0){alert('Geçerli bir skor girin!');return;}
-  savedResults[i]={h,a};
+  savedResults[i] = {h,a};
   renderWeek();
 }
 
 function updateAccuracy(){
-  const entries=Object.keys(savedResults).length;
-  if(!entries){
-    document.getElementById('accuracyPill').textContent='Sonuç girin →';
-    return;
-  }
+  const entries = Object.keys(savedResults).length;
+  if(!entries){document.getElementById('accuracyPill').textContent='Sonuç girin →';return;}
   let exact=0, correct=0;
   Object.entries(savedResults).forEach(([i,saved])=>{
-    const r=calcMatch(WEEK26[i].home,WEEK26[i].away);
-    const mx=Math.max(r.pH,r.pD,r.pA);
-    const predOutcome=r.pH===mx?'H':r.pD===mx?'D':'A';
-    const actualOutcome=saved.h>saved.a?'H':saved.h===saved.a?'D':'A';
-    if(saved.h===r.best.h&&saved.a===r.best.a)exact++;
-    if(predOutcome===actualOutcome)correct++;
+    const r = calcMatch(WEEK26[i].home, WEEK26[i].away, currentModel);
+    const mx = Math.max(r.pH,r.pD,r.pA);
+    const predOutcome = r.pH===mx?'H':r.pD===mx?'D':'A';
+    const actualOutcome = saved.h>saved.a?'H':saved.h===saved.a?'D':'A';
+    if(saved.h===r.best.h&&saved.a===r.best.a) exact++;
+    if(predOutcome===actualOutcome) correct++;
   });
-  document.getElementById('accuracyPill').textContent=
+  document.getElementById('accuracyPill').textContent =
     `${entries} maç → Skor: ${exact}/${entries} · Sonuç: ${correct}/${entries}`;
 }
 
-// ─────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
 //  TEKİL TAB
-// ─────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
 function predictSingle(){
-  const homeName=document.getElementById('homeTeam').value;
-  const awayName=document.getElementById('awayTeam').value;
-  const err=document.getElementById('singleErr');
-  err.style.display='none';
+  const homeName = document.getElementById('homeTeam').value;
+  const awayName = document.getElementById('awayTeam').value;
+  const err = document.getElementById('singleErr');
+  err.style.display = 'none';
   if(!homeName||!awayName){err.textContent='Lütfen iki takım seçin!';err.style.display='block';return;}
   if(homeName===awayName){err.textContent='Farklı iki takım seçin!';err.style.display='block';return;}
 
-  const r=calcMatch(homeName,awayName);
-  const H=TEAMS[homeName], A=TEAMS[awayName];
-  const auLbl=r.over25>.52?'ÜST':r.over25<.48?'ALT':'KENAR';
-  const kgLbl=r.btts>.52?'VAR':r.btts<.48?'YOK':'MUĞLAK';
+  const btn = document.getElementById('predictBtn');
+  if(currentModel==='mc'||currentModel==='ensemble'){
+    btn.innerHTML='<span class="mc-spinning"></span> Simüle ediliyor…';
+    btn.disabled = true;
+    setTimeout(()=>{doPredict(homeName,awayName); btn.innerHTML='⚡ Tahmin Yap'; btn.disabled=false;}, 30);
+  } else {
+    doPredict(homeName, awayName);
+  }
+}
 
-  document.getElementById('sHN').textContent=homeName;
-  document.getElementById('sAN').textContent=awayName;
-  document.getElementById('sHG').textContent=r.best.h;
-  document.getElementById('sAG').textContent=r.best.a;
-  document.getElementById('sXG').textContent=`xG: ${homeName.split(' ')[0]} ${r.hXg.toFixed(2)} · ${awayName.split(' ')[0]} ${r.aXg.toFixed(2)}`;
-  document.getElementById('sHT1').textContent=`${r.bestHT.h}:${r.bestHT.a}`;
-  document.getElementById('sHT1sub').textContent=`%${(r.bestHT.p*100).toFixed(1)} olasılık`;
-  document.getElementById('sHT2').textContent=`${r.h2}:${r.a2}`;
+function doPredict(homeName, awayName){
+  const r = calcMatch(homeName, awayName, currentModel);
+  const H = TEAMS[homeName], A = TEAMS[awayName];
+  const auLbl = r.over25>.52?'ÜST':r.over25<.48?'ALT':'KENAR';
+  const kgLbl = r.btts>.52?'VAR':r.btts<.48?'YOK':'MUĞLAK';
+  const mLbl = {poisson:'Poisson Modeli',dc:'Dixon-Coles Modeli',mc:'Monte Carlo (50K sim)',ensemble:'Ensemble Modeli'}[currentModel];
 
-  document.getElementById('sPHL').textContent=homeName.split(' ')[0];
-  document.getElementById('sPAL').textContent=awayName.split(' ')[0];
-  document.getElementById('sPVH').textContent=pct(r.pH);
-  document.getElementById('sPVD').textContent=pct(r.pD);
-  document.getElementById('sPVA').textContent=pct(r.pA);
+  document.getElementById('sModelLbl').textContent = mLbl;
+  document.getElementById('sHN').textContent = homeName;
+  document.getElementById('sAN').textContent = awayName;
+  document.getElementById('sHG').textContent = r.best.h;
+  document.getElementById('sAG').textContent = r.best.a;
+  document.getElementById('sXG').textContent = `xG: ${homeName.split(' ')[0]} ${r.hXg.toFixed(2)} · ${awayName.split(' ')[0]} ${r.aXg.toFixed(2)}`;
+  document.getElementById('sHT1').textContent = `${r.bestHT.h}:${r.bestHT.a}`;
+  document.getElementById('sHT1sub').textContent = `%${(r.bestHT.p*100).toFixed(1)} olasılık`;
+  document.getElementById('sHT2').textContent = `${r.h2}:${r.a2}`;
+
+  document.getElementById('sPHL').textContent = homeName.split(' ')[0];
+  document.getElementById('sPAL').textContent = awayName.split(' ')[0];
+  document.getElementById('sPVH').textContent = pct(r.pH);
+  document.getElementById('sPVD').textContent = pct(r.pD);
+  document.getElementById('sPVA').textContent = pct(r.pA);
   setTimeout(()=>{
-    document.getElementById('sBH').style.width=pct(r.pH);
-    document.getElementById('sBD').style.width=pct(r.pD);
-    document.getElementById('sBA').style.width=pct(r.pA);
+    document.getElementById('sBH').style.width = pct(r.pH);
+    document.getElementById('sBD').style.width = pct(r.pD);
+    document.getElementById('sBA').style.width = pct(r.pA);
   },120);
-  const mx=Math.max(r.pH,r.pD,r.pA);
+  const mx = Math.max(r.pH,r.pD,r.pA);
   document.getElementById('sPCH').classList.toggle('best',r.pH===mx);
   document.getElementById('sPCD').classList.toggle('best',r.pD===mx);
   document.getElementById('sPCA').classList.toggle('best',r.pA===mx);
 
-  const auC=document.getElementById('sAUCard');
-  auC.className='auc '+(auLbl==='ÜST'?'yes':auLbl==='ALT'?'no':'mid');
-  document.getElementById('sAUVal').textContent=auLbl;
-  document.getElementById('sAUSub').textContent=`Üst ${pct(r.over25)} · Alt ${pct(1-r.over25)}`;
-  const kgC=document.getElementById('sKGCard');
-  kgC.className='auc '+(kgLbl==='VAR'?'yes':kgLbl==='YOK'?'no':'mid');
-  document.getElementById('sKGVal').textContent=kgLbl;
-  document.getElementById('sKGSub').textContent=`KG Var ${pct(r.btts)} · KG Yok ${pct(1-r.btts)}`;
+  const auC = document.getElementById('sAUCard');
+  auC.className = 'auc '+(auLbl==='ÜST'?'yes':auLbl==='ALT'?'no':'mid');
+  document.getElementById('sAUVal').textContent = auLbl;
+  document.getElementById('sAUSub').textContent = `Üst ${pct(r.over25)} · Alt ${pct(1-r.over25)}`;
+  const kgC = document.getElementById('sKGCard');
+  kgC.className = 'auc '+(kgLbl==='VAR'?'yes':kgLbl==='YOK'?'no':'mid');
+  document.getElementById('sKGVal').textContent = kgLbl;
+  document.getElementById('sKGSub').textContent = `KG Var ${pct(r.btts)} · KG Yok ${pct(1-r.btts)}`;
 
+  // ── Dixon-Coles karşılaştırma paneli
+  const dcCard = document.getElementById('sDCCard');
+  if(currentModel==='dc'||currentModel==='ensemble'){
+    dcCard.style.display = '';
+    const poissonR = calcMatch(homeName,awayName,'poisson');
+    const dcR      = calcMatch(homeName,awayName,'dc');
+    const cells = [
+      {lbl:'0-0 (Poisson)',p:poissonR.probs.find(x=>x.h===0&&x.a===0)?.p||0},
+      {lbl:'0-0 (DC)',p:dcR.probs.find(x=>x.h===0&&x.a===0)?.p||0},
+      {lbl:'1-0 (Poisson)',p:poissonR.probs.find(x=>x.h===1&&x.a===0)?.p||0},
+      {lbl:'1-0 (DC)',p:dcR.probs.find(x=>x.h===1&&x.a===0)?.p||0},
+      {lbl:'1-1 (Poisson)',p:poissonR.probs.find(x=>x.h===1&&x.a===1)?.p||0},
+      {lbl:'1-1 (DC)',p:dcR.probs.find(x=>x.h===1&&x.a===1)?.p||0},
+      {lbl:'0-1 (Poisson)',p:poissonR.probs.find(x=>x.h===0&&x.a===1)?.p||0},
+      {lbl:'0-1 (DC)',p:dcR.probs.find(x=>x.h===0&&x.a===1)?.p||0},
+    ];
+    let html='';
+    for(let i=0;i<cells.length;i+=2){
+      const base=cells[i].p, adj=cells[i+1].p;
+      const diff = ((adj-base)/base*100).toFixed(1);
+      const diffCls = diff>0?'up':diff<0?'down':'same';
+      const diffTxt = diff>0?`↑ +${diff}%`:diff<0?`↓ ${diff}%`:'→ aynı';
+      html+=`<div class="dc-cell"><div class="dc-lbl">${cells[i+1].lbl}</div>
+        <div class="dc-val">${(adj*100).toFixed(1)}%</div>
+        <div class="dc-diff ${diffCls}">${diffTxt} Poisson'dan</div></div>`;
+    }
+    document.getElementById('sDCCompare').innerHTML = html;
+    document.getElementById('sDCRho').textContent = ` · ρ = ${DC_RHO}`;
+  } else {
+    dcCard.style.display = 'none';
+  }
+
+  // ── Monte Carlo paneli
+  const mcCard = document.getElementById('sMCCard');
+  if(currentModel==='mc'||currentModel==='ensemble'){
+    mcCard.style.display = '';
+    document.getElementById('sMCSims').textContent = `${MC_SIMS.toLocaleString()} simülasyon tamamlandı`;
+
+    // outcome bars
+    const outcomes = [
+      {lbl: homeName.split(' ')[0]+' Gal.', val: r.pH, color:'var(--red)'},
+      {lbl: 'Beraberlik',                   val: r.pD, color:'var(--muted)'},
+      {lbl: awayName.split(' ')[0]+' Gal.', val: r.pA, color:'var(--blue)'},
+    ];
+    document.getElementById('sMCBars').innerHTML = outcomes.map(o=>`
+      <div class="mc-bar-row">
+        <div class="mc-bar-lbl">${o.lbl}</div>
+        <div class="mc-bar-track">
+          <div class="mc-bar-fill" style="width:${(o.val*100).toFixed(1)}%;background:${o.color}">
+            <span class="mc-bar-val">${(o.val*100).toFixed(1)}%</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // goal distribution chart
+    if(r.goalDist){
+      const maxY = Math.max(...r.goalDist);
+      const colors=['#4fc3f7','#4fc3f7','#f5c842','#f5c842','#f5c842','#e8001d','#e8001d','#e8001d','#9b0014','#9b0014','#9b0014','#9b0014','#9b0014'];
+      document.getElementById('sMCDist').innerHTML = r.goalDist.map((v,i)=>`
+        <div class="dist-bar" style="height:${Math.max(4,(v/maxY*100)).toFixed(1)}%;background:${colors[i]||'#333'};opacity:${.5+v/maxY*.5}">
+          <div class="dist-tooltip">${i} gol: ${(v*100).toFixed(1)}%</div>
+        </div>
+      `).join('');
+    }
+  } else {
+    mcCard.style.display = 'none';
+  }
+
+  // ── sezon istatistik
   function srow(hv,lbl,av){return`<div class="srow"><span class="sv h">${hv}</span><span class="sln">${lbl}</span><span class="sv a">${av}</span></div>`;}
-  document.getElementById('sSeasonStats').innerHTML=
+  document.getElementById('sSeasonStats').innerHTML =
     srow(H.p,'Oynanan',A.p)+
     srow(`${H.w}G/${H.d}B/${H.l}M`,'G/B/M',`${A.w}G/${A.d}B/${A.l}M`)+
     srow((H.gs/H.p).toFixed(2),'Gol ort. (att.)',(A.gs/A.p).toFixed(2))+
     srow((H.gc/H.p).toFixed(2),'Gol ort. (yed.)',(A.gc/A.p).toFixed(2))+
     srow(r.hXg.toFixed(2),'xG (beklenen)',r.aXg.toFixed(2));
-
-  const badge=f=>`<div class="fb ${f}">${f}</div>`;
-  document.getElementById('sSeasonStats').innerHTML+=
+  const badge = f=>`<div class="fb ${f}">${f}</div>`;
+  document.getElementById('sSeasonStats').innerHTML +=
     `<div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
       <div style="font-size:11px;color:var(--muted);margin-bottom:5px;">${homeName}</div>
       <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">${H.form.map(badge).join('')}</div>
@@ -516,28 +805,29 @@ function predictSingle(){
       <div style="display:flex;gap:5px;flex-wrap:wrap;">${A.form.map(badge).join('')}</div>
     </div>`;
 
-  document.getElementById('sTopScores').innerHTML=
+  // ── top scores
+  document.getElementById('sTopScores').innerHTML =
     r.probs.slice(0,9).map((s,i)=>
       `<div class="si ${i===0?'top':''}">
         <span class="si-lbl">${homeName.split(' ')[0]} ${s.h}–${s.a} ${awayName.split(' ')[0]}</span>
         <span class="si-pct">${(s.p*100).toFixed(1)}%</span>
       </div>`).join('');
 
-  const el=document.getElementById('singleResult');
+  const el = document.getElementById('singleResult');
   el.classList.add('show');
-  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),80);
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}), 80);
 }
 
-// ─────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
 //  TABS
-// ─────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
 function switchTab(tab){
-  document.getElementById('tabWeek').style.display=tab==='week'?'block':'none';
-  document.getElementById('tabSingle').style.display=tab==='single'?'block':'none';
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',(tab==='week'&&i===0)||(tab==='single'&&i===1)));
+  document.getElementById('tabWeek').style.display  = tab==='week'  ? 'block':'none';
+  document.getElementById('tabSingle').style.display = tab==='single'? 'block':'none';
+  document.querySelectorAll('.tab').forEach((t,i)=>
+    t.classList.toggle('active',(tab==='week'&&i===0)||(tab==='single'&&i===1)));
 }
 
-// İlk yükleme
 renderWeek();
 </script>
 </body>
