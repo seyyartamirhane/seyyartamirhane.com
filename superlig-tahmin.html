@@ -3,207 +3,287 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Süper Lig Skor Tahmini</title>
+<title>Süper Lig · Elite Tahmin</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --red:#e8001d; --dark-red:#9b0014; --gold:#f5c842;
-    --bg:#080810; --surface:#11111c; --surface2:#191924; --surface3:#222230;
-    --border:rgba(255,255,255,0.07); --text:#eeeef8; --muted:#6868a0;
-    --green:#00e676; --blue:#4fc3f7; --purple:#b57bee;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
-  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 15% 15%,rgba(232,0,29,.08) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 85% 85%,rgba(79,195,247,.05) 0%,transparent 55%);pointer-events:none;z-index:0;}
-  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0;}
-  .wrap{max-width:900px;margin:0 auto;padding:0 18px 80px;position:relative;z-index:1;}
+:root{
+  --red:#e8001d;--dark-red:#9b0014;--gold:#f5c842;
+  --bg:#07070f;--surface:#10101a;--surface2:#181825;--surface3:#20202e;
+  --border:rgba(255,255,255,0.07);--text:#eeeef8;--muted:#5a5a8a;
+  --green:#00e676;--blue:#4fc3f7;--purple:#b57bee;--orange:#ff9800;--teal:#26c6da;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse 60% 40% at 10% 10%,rgba(232,0,29,.07) 0%,transparent 55%),
+  radial-gradient(ellipse 50% 40% at 90% 90%,rgba(79,195,247,.05) 0%,transparent 55%),
+  radial-gradient(ellipse 40% 30% at 50% 50%,rgba(181,123,238,.03) 0%,transparent 60%);
+  pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.01) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.01) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 100px;position:relative;z-index:1;}
 
-  /* HEADER */
-  header{padding:36px 0 24px;text-align:center;}
-  .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,0,29,.1);border:1px solid rgba(232,0,29,.28);border-radius:100px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--red);text-transform:uppercase;margin-bottom:16px;}
-  .bdot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:blink 1.4s ease-in-out infinite;}
-  @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
-  h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,68px);letter-spacing:5px;line-height:.95;background:linear-gradient(130deg,#fff 25%,#e8001d 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .sub{margin-top:8px;font-size:13px;color:var(--muted);font-weight:300;}
+/* ── HEADER ── */
+header{padding:40px 0 22px;text-align:center;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,0,29,.1);border:1px solid rgba(232,0,29,.3);border-radius:100px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--red);text-transform:uppercase;margin-bottom:18px;}
+.bdot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:blink 1.4s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,7vw,64px);letter-spacing:5px;line-height:.92;background:linear-gradient(130deg,#fff 20%,#e8001d 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sub{margin-top:8px;font-size:12px;color:var(--muted);font-weight:300;letter-spacing:.3px;}
 
-  /* MODEL SELECTOR */
-  .model-selector{display:flex;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:14px;overflow-x:auto;}
-  .model-btn{flex:1;min-width:120px;padding:9px 12px;text-align:center;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;letter-spacing:.4px;white-space:nowrap;border:none;background:none;}
-  .model-btn.active{background:linear-gradient(135deg,var(--surface3),var(--surface2));color:var(--text);border:1px solid rgba(255,255,255,.12);}
-  .model-btn.active.m-poisson{color:#4fc3f7;border-color:rgba(79,195,247,.3);}
-  .model-btn.active.m-dc{color:var(--gold);border-color:rgba(245,200,66,.3);}
-  .model-btn.active.m-mc{color:var(--green);border-color:rgba(0,230,118,.3);}
-  .model-btn.active.m-ensemble{color:var(--purple);border-color:rgba(181,123,238,.3);}
-  .model-info{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin-bottom:16px;font-size:12px;color:var(--muted);line-height:1.6;}
-  .model-info span{font-weight:600;}
+/* ── PARAM BAR (new parameters showcase) ── */
+.param-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px;}
+.param-pill{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:8px;}
+.pp-icon{font-size:15px;}
+.pp-label{font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--muted);line-height:1.3;}
+.pp-label span{display:block;font-size:11px;color:var(--text);letter-spacing:0;}
 
-  /* TABS */
-  .tabs{display:flex;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:20px;}
-  .tab{flex:1;padding:11px;text-align:center;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;letter-spacing:.5px;}
-  .tab.active{background:linear-gradient(135deg,var(--red),var(--dark-red));color:#fff;}
+/* ── ENGINE BAR ── */
+.engine-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.engine-pill{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;transition:border-color .3s;}
+.engine-pill.running{border-color:rgba(0,230,118,.35);}
+.engine-pill.done{border-color:rgba(79,195,247,.2);}
+.ep-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.ep-dot.idle{background:var(--muted);}
+.ep-dot.running{background:var(--green);animation:pulse 1s ease-in-out infinite;}
+.ep-dot.done{background:var(--blue);}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,230,118,.4)}50%{opacity:.7;box-shadow:0 0 0 5px rgba(0,230,118,0)}}
+.ep-info{flex:1;min-width:0;}
+.ep-name{font-size:11px;font-weight:700;letter-spacing:.5px;}
+.ep-name.c-p{color:var(--blue);}.ep-name.c-d{color:var(--gold);}.ep-name.c-m{color:var(--green);}
+.ep-val{font-size:10px;color:var(--muted);margin-top:1px;}
+.ep-weight{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--muted);}
 
-  /* CARDS */
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:16px;position:relative;overflow:hidden;}
-  .card-accent::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold),var(--blue));background-size:200%;animation:shimmer 3s linear infinite;}
-  @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
-  .slbl{font-size:10.5px;font-weight:700;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;}
+/* ── TABS ── */
+.tabs{display:flex;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:20px;}
+.tab{flex:1;padding:10px;text-align:center;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;letter-spacing:.5px;}
+.tab.active{background:linear-gradient(135deg,var(--red),var(--dark-red));color:#fff;}
 
-  /* SCORE BOARD */
-  .score-board{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-bottom:20px;}
-  .score-board-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
-  .score-board-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;}
-  .accuracy-pill{background:rgba(245,200,66,.12);border:1px solid rgba(245,200,66,.3);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--gold);}
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:14px;position:relative;overflow:hidden;}
+.card-accent::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold),var(--purple),var(--blue),var(--green));background-size:400%;animation:shimmer 5s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:400%}}
+.slbl{font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
 
-  /* MATCH CARD */
-  .match-card{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;transition:border-color .2s;}
-  .match-card:last-child{margin-bottom:0;}
-  .match-date{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:600;}
-  .match-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;}
-  .team-side{display:flex;flex-direction:column;gap:3px;}
-  .team-side.home{text-align:right;align-items:flex-end;}
-  .team-side.away{text-align:left;align-items:flex-start;}
-  .team-name{font-size:13px;font-weight:700;}
-  .team-stat{font-size:11px;color:var(--muted);}
+/* ── SCORE BOARD ── */
+.score-board{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 18px;margin-bottom:18px;}
+.score-board-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.score-board-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;}
+.accuracy-pill{background:rgba(245,200,66,.12);border:1px solid rgba(245,200,66,.3);border-radius:100px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--gold);}
 
-  .scores-col{display:flex;flex-direction:column;align-items:center;gap:6px;}
-  .pred-score{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--text);letter-spacing:2px;line-height:1;}
-  .pred-label{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-  .model-tag{font-size:9px;padding:2px 7px;border-radius:100px;font-weight:700;letter-spacing:.5px;}
-  .model-tag.poisson{background:rgba(79,195,247,.15);color:var(--blue);}
-  .model-tag.dc{background:rgba(245,200,66,.15);color:var(--gold);}
-  .model-tag.mc{background:rgba(0,230,118,.15);color:var(--green);}
-  .model-tag.ensemble{background:rgba(181,123,238,.15);color:var(--purple);}
+/* ── MATCH CARD ── */
+.match-card{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:8px;}
+.match-card:last-child{margin-bottom:0;}
+.match-date{font-size:9.5px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:600;}
+.match-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;}
+.team-side{display:flex;flex-direction:column;gap:2px;}
+.team-side.home{text-align:right;align-items:flex-end;}
+.team-side.away{text-align:left;align-items:flex-start;}
+.team-name{font-size:13px;font-weight:700;}
+.team-meta{font-size:10px;color:var(--muted);}
+.team-badges{display:flex;gap:4px;margin-top:3px;flex-wrap:wrap;}
+.team-side.home .team-badges{justify-content:flex-end;}
+.tbadge{font-size:9px;padding:1px 6px;border-radius:100px;font-weight:700;}
+.tbadge.elo{background:rgba(79,195,247,.15);color:var(--blue);}
+.tbadge.squad{background:rgba(181,123,238,.15);color:var(--purple);}
+.tbadge.rest{background:rgba(0,230,118,.15);color:var(--green);}
+.tbadge.injury{background:rgba(232,0,29,.15);color:#ff6b6b;}
+.scores-col{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.pred-score{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--text);letter-spacing:2px;line-height:1;}
+.pred-label{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.fusion-tag{font-size:9px;padding:2px 7px;border-radius:100px;font-weight:700;background:linear-gradient(135deg,rgba(232,0,29,.2),rgba(181,123,238,.2));border:1px solid rgba(181,123,238,.3);color:var(--purple);}
+.confidence-bar-wrap{width:60px;background:rgba(255,255,255,.05);border-radius:100px;height:3px;overflow:hidden;margin-top:2px;}
+.confidence-bar{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--gold),var(--green));}
+.match-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:9px;border-top:1px solid var(--border);flex-wrap:wrap;gap:6px;}
+.mini-probs{display:flex;gap:6px;font-size:11px;}
+.mp{padding:3px 9px;border-radius:100px;font-weight:700;}
+.mp.h{background:rgba(232,0,29,.15);color:#ff6b6b;}
+.mp.d{background:rgba(104,104,160,.15);color:var(--muted);}
+.mp.a{background:rgba(79,195,247,.15);color:var(--blue);}
+.mp.best-h{background:rgba(232,0,29,.35);color:#fff;}
+.mp.best-d{background:rgba(104,104,160,.35);color:#fff;}
+.mp.best-a{background:rgba(79,195,247,.35);color:#fff;}
+.au-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;}
+.au-badge.ust{background:rgba(0,230,118,.15);color:var(--green);}
+.au-badge.alt{background:rgba(255,107,107,.15);color:#ff6b6b;}
+.au-badge.kenar{background:rgba(245,200,66,.15);color:var(--gold);}
+.consensus-band{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap;}
+.cb-item{font-size:10px;padding:2px 8px;border-radius:100px;display:flex;align-items:center;gap:4px;}
+.cb-item.agree{background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.25);color:var(--green);}
+.cb-item.split{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.25);color:var(--gold);}
+/* context factors row */
+.ctx-row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.ctx-pill{font-size:9.5px;padding:2px 8px;border-radius:100px;font-weight:600;}
+.ctx-pill.ref{background:rgba(38,198,218,.12);border:1px solid rgba(38,198,218,.25);color:var(--teal);}
+.ctx-pill.style{background:rgba(255,152,0,.12);border:1px solid rgba(255,152,0,.25);color:var(--orange);}
+.ctx-pill.fatigue{background:rgba(232,0,29,.12);border:1px solid rgba(232,0,29,.2);color:#ff8a80;}
+.ctx-pill.boost{background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.2);color:var(--green);}
 
-  .match-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px;}
-  .mini-probs{display:flex;gap:8px;font-size:11px;}
-  .mp{padding:3px 10px;border-radius:100px;font-weight:700;}
-  .mp.h{background:rgba(232,0,29,.15);color:#ff6b6b;}
-  .mp.d{background:rgba(104,104,160,.15);color:var(--muted);}
-  .mp.a{background:rgba(79,195,247,.15);color:var(--blue);}
-  .mp.best-h{background:rgba(232,0,29,.35);color:#fff;}
-  .mp.best-d{background:rgba(104,104,160,.35);color:#fff;}
-  .mp.best-a{background:rgba(79,195,247,.35);color:#fff;}
-  .au-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
-  .au-badge.ust{background:rgba(0,230,118,.15);color:var(--green);}
-  .au-badge.alt{background:rgba(255,107,107,.15);color:#ff6b6b;}
-  .au-badge.kenar{background:rgba(245,200,66,.15);color:var(--gold);}
+/* ── RESULT INPUT ── */
+.result-input-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.result-input-row span{font-size:12px;color:var(--muted);}
+.score-input{width:40px;background:var(--surface3);border:1px solid var(--border);border-radius:8px;padding:6px 0;color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:18px;text-align:center;outline:none;}
+.score-input:focus{border-color:rgba(232,0,29,.5);}
+.result-btn{background:var(--surface3);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;}
+.result-btn:hover{border-color:var(--red);color:var(--text);}
+.result-row{display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap;}
+.result-actual{font-family:'Bebas Neue',sans-serif;font-size:20px;}
+.hit-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
+.hit-badge.exact{background:rgba(0,230,118,.2);color:var(--green);border:1px solid rgba(0,230,118,.35);}
+.hit-badge.result{background:rgba(79,195,247,.2);color:var(--blue);border:1px solid rgba(79,195,247,.35);}
+.hit-badge.miss{background:rgba(232,0,29,.15);color:#ff6b6b;border:1px solid rgba(232,0,29,.25);}
 
-  /* RESULT INPUT */
-  .result-input-row{display:flex;align-items:center;gap:8px;margin-top:10px;}
-  .result-input-row span{font-size:12px;color:var(--muted);}
-  .score-input{width:40px;background:var(--surface3);border:1px solid var(--border);border-radius:8px;padding:6px 0;color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:18px;text-align:center;outline:none;}
-  .score-input:focus{border-color:rgba(232,0,29,.5);}
-  .result-btn{background:var(--surface3);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
-  .result-btn:hover{border-color:var(--red);color:var(--text);}
-  .result-row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap;}
-  .result-actual{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);}
-  .hit-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
-  .hit-badge.exact{background:rgba(0,230,118,.2);color:var(--green);border:1px solid rgba(0,230,118,.35);}
-  .hit-badge.result{background:rgba(79,195,247,.2);color:var(--blue);border:1px solid rgba(79,195,247,.35);}
-  .hit-badge.miss{background:rgba(232,0,29,.15);color:#ff6b6b;border:1px solid rgba(232,0,29,.25);}
+/* ── SINGLE TAB ── */
+.vs-grid{display:grid;grid-template-columns:1fr 52px 1fr;gap:12px;align-items:end;margin-bottom:16px;}
+.team-col label{display:block;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:7px;}
+select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 34px 12px 13px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%235a5a8a' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;transition:border-color .2s;}
+select:focus{border-color:rgba(232,0,29,.5);}
+.vs-mid{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--red);text-align:center;padding:12px 0;align-self:end;}
+.btn{background:linear-gradient(135deg,var(--red),var(--dark-red));color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn:hover{opacity:.9;}.btn:active{transform:scale(.97);}
+.btn-full{width:100%;padding:15px;border-radius:12px;}
+.mc-spinning{display:inline-block;width:11px;height:11px;border:2px solid rgba(0,230,118,.3);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:5px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result-detail{display:none;}
+.result-detail.show{display:block;}
+.ra{animation:slideUp .35s ease both;}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-  /* SINGLE MATCH */
-  .vs-grid{display:grid;grid-template-columns:1fr 52px 1fr;gap:14px;align-items:end;margin-bottom:20px;}
-  .team-col label{display:block;font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
-  select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:13px 36px 13px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;outline:none;cursor:pointer;transition:border-color .2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%236868a0' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;}
-  select:focus{border-color:rgba(232,0,29,.5);}
-  .vs-mid{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--red);text-align:center;padding:13px 0;align-self:end;}
-  .btn{background:linear-gradient(135deg,var(--red),var(--dark-red));color:#fff;border:none;border-radius:10px;padding:12px 22px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
-  .btn:hover{opacity:.9;} .btn:active{transform:scale(.97);}
-  .btn-full{width:100%;padding:16px;border-radius:12px;}
+/* ── HERO SCORE ── */
+.hero-score{text-align:center;padding:24px 16px 18px;}
+.hero-lbl{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
+.score-row-big{display:flex;align-items:center;justify-content:center;gap:16px;margin:12px 0 4px;}
+.st{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+.sn{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:1px;text-transform:uppercase;max-width:130px;text-align:center;line-height:1.3;}
+.sg{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;}
+.sc{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);padding-top:18px;}
 
-  /* RESULT DETAIL */
-  .result-detail{display:none;}
-  .result-detail.show{display:block;}
-  .ra{animation:slideUp .35s ease both;}
-  @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* ── CONFIDENCE METER ── */
+.conf-meter{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,.03);border-radius:10px;margin-top:12px;}
+.conf-icon{font-size:18px;}
+.conf-info{flex:1;}
+.conf-title{font-size:12px;font-weight:700;}
+.conf-sub{font-size:10px;color:var(--muted);margin-top:1px;}
+.conf-track{flex:1;background:rgba(255,255,255,.06);border-radius:100px;height:6px;overflow:hidden;min-width:80px;}
+.conf-fill{height:100%;border-radius:100px;transition:width 1s ease;}
+.conf-pct{font-family:'Bebas Neue',sans-serif;font-size:22px;}
+.conf-pct.high{color:var(--green);}.conf-pct.mid{color:var(--gold);}.conf-pct.low{color:#ff7070;}
 
-  .hero-score{text-align:center;padding:28px 20px 24px;}
-  .hero-lbl{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
-  .score-row-big{display:flex;align-items:center;justify-content:center;gap:20px;margin:14px 0 4px;}
-  .st{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
-  .sn{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:1px;text-transform:uppercase;max-width:120px;text-align:center;line-height:1.3;}
-  .sg{font-family:'Bebas Neue',sans-serif;font-size:76px;line-height:1;}
-  .sc{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--red);padding-top:20px;}
+/* ── MODEL BREAKDOWN ── */
+.model-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0 0;}
+.mb-cell{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:11px;padding:11px 9px;text-align:center;}
+.mb-name{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
+.mb-name.c-p{color:var(--blue);}.mb-name.c-d{color:var(--gold);}.mb-name.c-m{color:var(--green);}
+.mb-score{font-family:'Bebas Neue',sans-serif;font-size:20px;line-height:1;}
+.mb-conf{font-size:10px;color:var(--muted);margin-top:2px;}
+.mb-w{font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;margin-top:4px;display:inline-block;}
+.mb-w.w-p{background:rgba(79,195,247,.12);color:var(--blue);}
+.mb-w.w-d{background:rgba(245,200,66,.12);color:var(--gold);}
+.mb-w.w-m{background:rgba(0,230,118,.12);color:var(--green);}
 
-  .half-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-  .hc{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
-  .ht{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;font-weight:700;}
-  .hs{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--text);line-height:1;}
-  .hsub{font-size:11px;color:var(--muted);margin-top:4px;}
+/* ── CONTEXT FACTORS PANEL ── */
+.ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.ctx-card{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:12px;}
+.ctx-card-title{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.ctx-row-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.ctx-row-item:last-child{margin-bottom:0;}
+.cri-lbl{font-size:11px;color:var(--muted);}
+.cri-val{font-size:11px;font-weight:700;}
+.cri-val.pos{color:var(--green);}.cri-val.neg{color:#ff7070;}.cri-val.neu{color:var(--text);}
+/* factor impact bar */
+.factor-impact{margin-top:6px;}
+.fi-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.fi-lbl{font-size:10px;color:var(--muted);min-width:120px;}
+.fi-track{flex:1;background:rgba(255,255,255,.05);border-radius:100px;height:4px;overflow:hidden;position:relative;}
+.fi-fill{height:100%;border-radius:100px;position:absolute;top:0;}
+.fi-fill.pos{background:var(--green);left:50%;}
+.fi-fill.neg{background:#ff7070;right:50%;}
+.fi-val{font-size:10px;font-weight:700;min-width:35px;text-align:right;}
+.fi-val.pos{color:var(--green);}.fi-val.neg{color:#ff7070;}.fi-val.neu{color:var(--muted);}
 
-  .prob-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
-  .pc{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:13px 8px;text-align:center;}
-  .pc.best{border-color:var(--gold);background:rgba(245,200,66,.05);}
-  .plbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
-  .pval{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;}
-  .pc.best .pval{color:var(--gold);}
-  .pb-bg{margin-top:6px;background:rgba(255,255,255,.05);border-radius:100px;height:4px;overflow:hidden;}
-  .pb{height:100%;border-radius:100px;transition:width 1s ease;}
-  .bar-h{background:var(--red);}.bar-d{background:var(--muted);}.bar-a{background:var(--blue);}
+/* ── HALF ROW / PROB ROW ── */
+.half-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.hc{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:13px;text-align:center;}
+.ht{font-size:9.5px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:7px;font-weight:700;}
+.hs{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;}
+.hsub{font-size:10px;color:var(--muted);margin-top:3px;}
+.prob-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.pc{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:11px 7px;text-align:center;}
+.pc.best{border-color:var(--gold);background:rgba(245,200,66,.04);}
+.plbl{font-size:9.5px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
+.pval{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;}
+.pc.best .pval{color:var(--gold);}
+.pb-bg{margin-top:5px;background:rgba(255,255,255,.05);border-radius:100px;height:4px;overflow:hidden;}
+.pb{height:100%;border-radius:100px;transition:width 1s ease;}
+.bar-h{background:var(--red);}.bar-d{background:var(--muted);}.bar-a{background:var(--blue);}
+.model-bars-mini{display:flex;flex-direction:column;gap:2px;margin-top:5px;}
+.mbm-row{display:flex;align-items:center;gap:4px;}
+.mbm-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;}
+.mbm-track{flex:1;background:rgba(255,255,255,.05);border-radius:100px;height:3px;overflow:hidden;}
+.mbm-fill{height:100%;border-radius:100px;}
+.aukg-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.auc{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:13px;text-align:center;}
+.aulbl{font-size:9.5px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;font-weight:700;}
+.auval{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;}
+.ausub{font-size:10px;color:var(--muted);margin-top:3px;}
+.auc.yes .auval{color:var(--green);}.auc.no .auval{color:#ff7070;}.auc.mid .auval{color:var(--gold);}
 
-  .aukg-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-  .auc{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:14px;text-align:center;}
-  .aulbl{font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:7px;font-weight:700;}
-  .auval{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;}
-  .ausub{font-size:11px;color:var(--muted);margin-top:4px;}
-  .auc.yes .auval{color:var(--green);}.auc.no .auval{color:#ff7070;}.auc.mid .auval{color:var(--gold);}
+/* ── RADAR CHART ── */
+.radar-wrap{display:flex;justify-content:center;padding:8px 0;}
+.radar-canvas{width:220px;height:220px;}
 
-  /* MC SIMULATION BAR */
-  .mc-bar-container{margin-bottom:14px;}
-  .mc-bar-title{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
-  .mc-bars{display:flex;flex-direction:column;gap:6px;}
-  .mc-bar-row{display:flex;align-items:center;gap:10px;}
-  .mc-bar-lbl{font-size:11px;color:var(--muted);min-width:80px;text-align:right;}
-  .mc-bar-track{flex:1;background:rgba(255,255,255,.05);border-radius:100px;height:18px;position:relative;overflow:hidden;}
-  .mc-bar-fill{height:100%;border-radius:100px;transition:width 1.2s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;padding-left:8px;}
-  .mc-bar-val{font-size:10px;font-weight:700;color:#fff;white-space:nowrap;}
+/* ── REFEREE PANEL ── */
+.ref-panel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px;}
+.ref-cell{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center;}
+.ref-lbl{font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:5px;}
+.ref-val{font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1;}
+.ref-val.strict{color:#ff7070;}.ref-val.med{color:var(--gold);}.ref-val.lax{color:var(--green);}
+.ref-sub{font-size:9px;color:var(--muted);margin-top:2px;}
 
-  /* DISTRIBUTION CHART */
-  .dist-chart{margin-bottom:14px;}
-  .dist-title{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
-  .dist-canvas-wrap{position:relative;height:120px;display:flex;align-items:flex-end;gap:3px;padding:0 4px;}
-  .dist-bar{flex:1;border-radius:3px 3px 0 0;min-width:4px;transition:height .8s ease;cursor:default;position:relative;}
-  .dist-bar:hover .dist-tooltip{display:block;}
-  .dist-tooltip{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--surface3);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:10px;white-space:nowrap;z-index:10;}
+/* ── DC TABLE ── */
+.dc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;}
+.dc-cell{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 5px;text-align:center;}
+.dc-lbl{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px;}
+.dc-v{font-size:10px;font-weight:600;}
+.dc-v.p{color:var(--blue);}.dc-v.d{color:var(--gold);}.dc-v.up{color:var(--green);}.dc-v.dn{color:#ff7070;}
 
-  /* DIXON-COLES COMPARE */
-  .dc-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-  .dc-cell{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:12px;text-align:center;}
-  .dc-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
-  .dc-val{font-family:'Bebas Neue',sans-serif;font-size:22px;}
-  .dc-diff{font-size:11px;margin-top:4px;}
-  .dc-diff.up{color:var(--green);}.dc-diff.down{color:#ff7070;}.dc-diff.same{color:var(--muted);}
+/* ── DIST CHART ── */
+.dist-canvas-wrap{position:relative;height:90px;display:flex;align-items:flex-end;gap:3px;padding:0 4px;}
+.dist-bar{flex:1;border-radius:3px 3px 0 0;min-width:4px;cursor:default;position:relative;}
+.dist-bar:hover .dist-tooltip{display:block;}
+.dist-tooltip{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--surface3);border:1px solid var(--border);border-radius:6px;padding:3px 7px;font-size:10px;white-space:nowrap;z-index:10;}
 
-  .score-list{display:flex;flex-direction:column;gap:5px;margin-top:10px;}
-  .si{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px;font-size:13px;}
-  .si.top{background:rgba(232,0,29,.12);border:1px solid rgba(232,0,29,.28);}
-  .si-lbl{color:var(--muted);}.si-pct{font-weight:700;}
-  .si.top .si-lbl,.si.top .si-pct{color:var(--text);}
+/* ── SCORE LIST ── */
+.score-list{display:flex;flex-direction:column;gap:4px;margin-top:8px;}
+.si{display:flex;justify-content:space-between;align-items:center;padding:7px 11px;background:var(--surface2);border-radius:8px;font-size:13px;}
+.si.top{background:rgba(232,0,29,.1);border:1px solid rgba(232,0,29,.25);}
+.si-lbl{color:var(--muted);}.si-pct{font-weight:700;}
+.si.top .si-lbl,.si.top .si-pct{color:var(--text);}
+.si-mdots{display:flex;gap:3px;margin-left:7px;}
+.si-mdot{width:5px;height:5px;border-radius:50%;opacity:.2;}
+.si-mdot.on{opacity:1;}
+.si-mdot.p{background:var(--blue);}.si-mdot.d{background:var(--gold);}.si-mdot.m{background:var(--green);}
 
-  .srow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;}
-  .srow:last-child{margin-bottom:0;}
-  .sv{font-size:13px;font-weight:700;min-width:36px;text-align:center;}
-  .sv.h{color:var(--red);}.sv.a{color:var(--blue);}
-  .sln{font-size:12px;color:var(--muted);flex:1;text-align:center;}
+/* ── SEASON STATS ── */
+.srow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px;}
+.srow:last-child{margin-bottom:0;}
+.sv{font-size:12px;font-weight:700;min-width:34px;text-align:center;}
+.sv.h{color:var(--red);}.sv.a{color:var(--blue);}
+.sln{font-size:11px;color:var(--muted);flex:1;text-align:center;}
+.fb{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;}
+.fb.W{background:rgba(0,230,118,.18);color:var(--green);border:1px solid rgba(0,230,118,.35);}
+.fb.D{background:rgba(104,104,160,.18);color:var(--muted);border:1px solid rgba(104,104,160,.3);}
+.fb.L{background:rgba(232,0,29,.18);color:#ff7070;border:1px solid rgba(232,0,29,.3);}
 
-  .fb{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
-  .fb.W{background:rgba(0,230,118,.18);color:var(--green);border:1px solid rgba(0,230,118,.35);}
-  .fb.D{background:rgba(104,104,160,.18);color:var(--muted);border:1px solid rgba(104,104,160,.3);}
-  .fb.L{background:rgba(232,0,29,.18);color:#ff7070;border:1px solid rgba(232,0,29,.3);}
+.disclaimer{text-align:center;font-size:10px;color:var(--muted);padding:12px;border-top:1px solid var(--border);line-height:1.7;}
 
-  /* MC spinner */
-  .mc-spinning{display:inline-block;width:12px;height:12px;border:2px solid rgba(0,230,118,.3);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:5px;}
-  @keyframes spin{to{transform:rotate(360deg)}}
-
-  .disclaimer{text-align:center;font-size:11px;color:var(--muted);padding:14px;border-top:1px solid var(--border);}
-
-  @media(max-width:600px){
-    .vs-grid{grid-template-columns:1fr;gap:8px;}.vs-mid{display:none;}
-    .sg{font-size:60px;} .match-body{gap:8px;}
-    .dc-compare{grid-template-columns:1fr 1fr;}
-  }
+@media(max-width:640px){
+  .vs-grid{grid-template-columns:1fr;gap:8px;}.vs-mid{display:none;}
+  .sg{font-size:56px;}.match-body{gap:7px;}
+  .engine-bar{grid-template-columns:1fr;}.dc-grid{grid-template-columns:repeat(2,1fr);}
+  .ctx-grid{grid-template-columns:1fr;}.ref-panel{grid-template-columns:1fr 1fr;}
+  .param-bar{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
@@ -211,47 +291,51 @@
 
 <header>
   <div class="badge"><span class="bdot"></span>Süper Lig 2025/26</div>
-  <h1>SKOR TAHMİN</h1>
-  <p class="sub">Poisson · Dixon-Coles · Monte Carlo · Ensemble modeli · 24. hafta verileri</p>
+  <h1>ELİTE TAHMİN</h1>
+  <p class="sub">Poisson · Dixon-Coles · Monte Carlo · ELO · Kadro Kalitesi · Sakat/Cezalı · Dinlenme · Hakem · Stil Uyumu · 24. hafta</p>
 </header>
 
-<!-- MODEL SEÇİMİ -->
-<div class="model-selector">
-  <button class="model-btn m-poisson active" onclick="setModel('poisson',this)">📐 Poisson</button>
-  <button class="model-btn m-dc" onclick="setModel('dc',this)">🔧 Dixon-Coles</button>
-  <button class="model-btn m-mc" onclick="setModel('mc',this)">🎲 Monte Carlo</button>
-  <button class="model-btn m-ensemble" onclick="setModel('ensemble',this)">🧠 Ensemble</button>
+<!-- PARAM SHOWCASE -->
+<div class="param-bar">
+  <div class="param-pill"><div class="pp-icon">⚡</div><div class="pp-label">ELO Rating<span>Dinamik güç skoru</span></div></div>
+  <div class="param-pill"><div class="pp-icon">💰</div><div class="pp-label">Kadro Değeri<span>Transfermarkt €M</span></div></div>
+  <div class="param-pill"><div class="pp-icon">🏥</div><div class="pp-label">Sakat / Cezalı<span>xG penalty faktörü</span></div></div>
+  <div class="param-pill"><div class="pp-icon">😴</div><div class="pp-label">Dinlenme Süresi<span>Son maçtan gün</span></div></div>
+  <div class="param-pill"><div class="pp-icon">🟨</div><div class="pp-label">Hakem Profili<span>Kart eğilimi & penaltı</span></div></div>
+  <div class="param-pill"><div class="pp-icon">🔄</div><div class="pp-label">Stil Uyumu<span>Topa sahip / kontra</span></div></div>
 </div>
-<div class="model-info" id="modelInfo">
-  <span>Poisson:</span> Beklenen gol sayısından (xG) Poisson dağılımı ile skor olasılıkları üretir. Hızlı ve yorumlanması kolaydır.
+
+<!-- ENGINE BAR -->
+<div class="engine-bar" id="engineBar">
+  <div class="engine-pill" id="ep-p"><div class="ep-dot idle" id="epd-p"></div><div class="ep-info"><div class="ep-name c-p">📐 Poisson</div><div class="ep-val" id="epv-p">Hazır</div></div><div class="ep-weight" id="epw-p">—</div></div>
+  <div class="engine-pill" id="ep-d"><div class="ep-dot idle" id="epd-d"></div><div class="ep-info"><div class="ep-name c-d">🔧 Dixon-Coles</div><div class="ep-val" id="epv-d">ρ=0.11</div></div><div class="ep-weight" id="epw-d">—</div></div>
+  <div class="engine-pill" id="ep-m"><div class="ep-dot idle" id="epd-m"></div><div class="ep-info"><div class="ep-name c-m">🎲 Monte Carlo</div><div class="ep-val" id="epv-m">50K sim</div></div><div class="ep-weight" id="epw-m">—</div></div>
 </div>
 
 <!-- TABS -->
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('week')">📅 26. Hafta Maçları</div>
-  <div class="tab" onclick="switchTab('single')">⚽ Tekil Maç</div>
+  <div class="tab active" onclick="switchTab('week')">📅 26. Hafta</div>
+  <div class="tab" onclick="switchTab('single')">⚽ Tekil Maç Analizi</div>
 </div>
 
-<!-- ══════════════════════════════ TAB 1: HAFTA ══ -->
+<!-- ═══ HAFTA TAB ═══ -->
 <div id="tabWeek">
   <div class="score-board card-accent">
     <div class="score-board-header">
-      <div class="score-board-title">26. HAFTA TAHMİNLERİ</div>
+      <div class="score-board-title">26. HAFTA · ELİTE TAHMİNLER</div>
       <div class="accuracy-pill" id="accuracyPill">Sonuç girin →</div>
     </div>
     <div id="weekMatches"></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════ TAB 2: TEKİL ══ -->
+<!-- ═══ TEKİL TAB ═══ -->
 <div id="tabSingle" style="display:none">
   <div class="card">
     <div class="slbl">⚽ Maç Seçimi</div>
     <div class="vs-grid">
-      <div class="team-col">
-        <label>Ev Sahibi</label>
-        <select id="homeTeam">
-          <option value="">Takım seçin...</option>
+      <div class="team-col"><label>Ev Sahibi</label>
+        <select id="homeTeam"><option value="">Takım seçin...</option>
           <option>Alanyaspor</option><option>Antalyaspor</option><option>Başakşehir FK</option>
           <option>Beşiktaş</option><option>Çaykur Rizespor</option><option>Eyüpspor</option>
           <option>Fatih Karagümrük</option><option>Fenerbahçe</option><option>Galatasaray</option>
@@ -261,10 +345,8 @@
         </select>
       </div>
       <div class="vs-mid">VS</div>
-      <div class="team-col">
-        <label>Deplasman</label>
-        <select id="awayTeam">
-          <option value="">Takım seçin...</option>
+      <div class="team-col"><label>Deplasman</label>
+        <select id="awayTeam"><option value="">Takım seçin...</option>
           <option>Alanyaspor</option><option>Antalyaspor</option><option>Başakşehir FK</option>
           <option>Beşiktaş</option><option>Çaykur Rizespor</option><option>Eyüpspor</option>
           <option>Fatih Karagümrük</option><option>Fenerbahçe</option><option>Galatasaray</option>
@@ -274,348 +356,547 @@
         </select>
       </div>
     </div>
-    <button class="btn btn-full" id="predictBtn" onclick="predictSingle()">⚡ Tahmin Yap</button>
-    <div id="singleErr" style="display:none;margin-top:10px;font-size:13px;color:#ff6b6b;text-align:center;"></div>
+    <button class="btn btn-full" id="predictBtn" onclick="predictSingle()">⚡ Elite Analizi Başlat</button>
+    <div id="singleErr" style="display:none;margin-top:8px;font-size:12px;color:#ff6b6b;text-align:center;"></div>
   </div>
 
   <div class="result-detail" id="singleResult">
-    <!-- hero score -->
+    <!-- HERO -->
     <div class="card card-accent hero-score ra">
-      <div class="hero-lbl" id="sModelLbl">Maç Sonu Tahmini</div>
+      <div class="hero-lbl">⚡ ELİTE FUSION SKORU</div>
       <div class="score-row-big">
         <div class="st"><div class="sg" id="sHG">0</div><div class="sn" id="sHN">Ev</div></div>
         <div class="sc">:</div>
         <div class="st"><div class="sg" id="sAG">0</div><div class="sn" id="sAN">Dep</div></div>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-top:4px;" id="sXG">xG —</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:3px;" id="sXG">—</div>
+      <div class="model-breakdown" id="sModelBreakdown"></div>
+      <!-- confidence meter -->
+      <div class="conf-meter">
+        <div class="conf-icon">🎯</div>
+        <div class="conf-info"><div class="conf-title" id="confTitle">Model Güven Skoru</div><div class="conf-sub" id="confSub">—</div></div>
+        <div class="conf-track"><div class="conf-fill" id="confFill" style="width:0%"></div></div>
+        <div class="conf-pct" id="confPct">—</div>
+      </div>
     </div>
 
-    <!-- half time -->
-    <div class="half-row ra" style="animation-delay:.06s">
+    <!-- CONTEXT FACTORS -->
+    <div class="card ra" style="animation-delay:.05s">
+      <div class="slbl">📊 Bağlamsal Faktörler & xG Düzeltmeleri</div>
+      <div class="ctx-grid" id="sCtxGrid"></div>
+      <div class="factor-impact" id="sFactorImpact"></div>
+    </div>
+
+    <!-- HALF / PROB / AU+KG -->
+    <div class="half-row ra" style="animation-delay:.08s">
       <div class="hc"><div class="ht">⏱ İlk Yarı</div><div class="hs" id="sHT1">0:0</div><div class="hsub" id="sHT1sub">—</div></div>
-      <div class="hc"><div class="ht">⚡ İkinci Yarı</div><div class="hs" id="sHT2">0:0</div><div class="hsub">2. yarı gol tahmini</div></div>
+      <div class="hc"><div class="ht">⚡ İkinci Yarı</div><div class="hs" id="sHT2">0:0</div><div class="hsub">2. yarı tahmin</div></div>
     </div>
-
-    <!-- 1X2 probs -->
-    <div class="prob-row ra" style="animation-delay:.1s">
-      <div class="pc" id="sPCH"><div class="plbl" id="sPHL">Ev</div><div class="pval" id="sPVH">—</div><div class="pb-bg"><div class="pb bar-h" id="sBH" style="width:0%"></div></div></div>
-      <div class="pc" id="sPCD"><div class="plbl">Beraberlik</div><div class="pval" id="sPVD">—</div><div class="pb-bg"><div class="pb bar-d" id="sBD" style="width:0%"></div></div></div>
-      <div class="pc" id="sPCA"><div class="plbl" id="sPAL">Dep</div><div class="pval" id="sPVA">—</div><div class="pb-bg"><div class="pb bar-a" id="sBA" style="width:0%"></div></div></div>
+    <div class="prob-row ra" style="animation-delay:.11s">
+      <div class="pc" id="sPCH"><div class="plbl" id="sPHL">Ev</div><div class="pval" id="sPVH">—</div><div class="pb-bg"><div class="pb bar-h" id="sBH" style="width:0%"></div></div><div class="model-bars-mini" id="sMBH"></div></div>
+      <div class="pc" id="sPCD"><div class="plbl">Beraberlik</div><div class="pval" id="sPVD">—</div><div class="pb-bg"><div class="pb bar-d" id="sBD" style="width:0%"></div></div><div class="model-bars-mini" id="sMBD"></div></div>
+      <div class="pc" id="sPCA"><div class="plbl" id="sPAL">Dep</div><div class="pval" id="sPVA">—</div><div class="pb-bg"><div class="pb bar-a" id="sBA" style="width:0%"></div></div><div class="model-bars-mini" id="sMBA"></div></div>
     </div>
-
-    <!-- AU / KG -->
     <div class="aukg-row ra" style="animation-delay:.13s">
       <div class="auc" id="sAUCard"><div class="aulbl">Alt / Üst 2.5</div><div class="auval" id="sAUVal">—</div><div class="ausub" id="sAUSub">—</div></div>
       <div class="auc" id="sKGCard"><div class="aulbl">KG Var / Yok</div><div class="auval" id="sKGVal">—</div><div class="ausub" id="sKGSub">—</div></div>
     </div>
 
-    <!-- Dixon-Coles correction (shown when relevant) -->
-    <div class="card ra" id="sDCCard" style="animation-delay:.15s;display:none;">
-      <div class="slbl">🔧 Dixon-Coles Düzeltmesi</div>
-      <div class="dc-compare" id="sDCCompare"></div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.6;">
-        Düşük skorlu maçlarda (0-0, 1-0, 0-1, 1-1) standart Poisson dağılımı gerçekçi olmayan olasılıklar verir. Dixon-Coles bu skor çiftlerine ρ (rho) parametresiyle düzeltme uygular.
-        <span id="sDCRho" style="font-weight:600;color:var(--gold);"></span>
+    <!-- RADAR -->
+    <div class="card ra" style="animation-delay:.15s">
+      <div class="slbl">🕸 Takım Güç Radari</div>
+      <div class="radar-wrap"><canvas class="radar-canvas" id="radarCanvas" width="220" height="220"></canvas></div>
+      <div style="display:flex;justify-content:center;gap:16px;margin-top:8px;font-size:10px;">
+        <span style="color:var(--red);">●</span><span style="color:var(--muted);margin-right:4px;" id="radarHomeLbl">Ev</span>
+        <span style="color:var(--blue);">●</span><span style="color:var(--muted);" id="radarAwayLbl">Dep</span>
       </div>
     </div>
 
-    <!-- Monte Carlo simulation bars -->
-    <div class="card ra" id="sMCCard" style="animation-delay:.17s;display:none;">
-      <div class="slbl">🎲 Monte Carlo Simülasyon Sonuçları</div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:12px;" id="sMCSims">50.000 simülasyon</div>
-      <div class="mc-bars" id="sMCBars"></div>
-      <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
-        <div class="mc-bar-title">Toplam Gol Dağılımı</div>
-        <div class="dist-canvas-wrap" id="sMCDist"></div>
-      </div>
+    <!-- REFEREE PANEL -->
+    <div class="card ra" style="animation-delay:.17s">
+      <div class="slbl">🟨 Hakem Profili & Maç Atmosferi</div>
+      <div class="ref-panel" id="sRefPanel"></div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.6;" id="sRefDesc"></div>
     </div>
 
-    <!-- Season stats -->
+    <!-- DC PANEL -->
     <div class="card ra" style="animation-delay:.19s">
-      <div class="slbl">📊 Sezon Karşılaştırması</div>
+      <div class="slbl">🔧 Dixon-Coles · Düşük Skor Düzeltmesi</div>
+      <div class="dc-grid" id="sDCGrid"></div>
+      <div style="font-size:10.5px;color:var(--muted);line-height:1.6;">Mavi = Poisson · Sarı = DC sonrası · Ok = fark. Düşük xG maçında DC ağırlığı otomatik artar.</div>
+    </div>
+
+    <!-- MC DIST -->
+    <div class="card ra" style="animation-delay:.21s">
+      <div class="slbl">🎲 Monte Carlo · Toplam Gol Dağılımı (50K)</div>
+      <div class="dist-canvas-wrap" id="sMCDist"></div>
+      <div style="display:flex;justify-content:space-between;padding:3px 4px 0;font-size:9.5px;color:var(--muted);"><span>0</span><span>6</span><span>12+</span></div>
+    </div>
+
+    <!-- SEASON STATS -->
+    <div class="card ra" style="animation-delay:.23s">
+      <div class="slbl">📈 Sezon Karşılaştırması</div>
       <div id="sSeasonStats"></div>
     </div>
 
-    <!-- Top scores -->
-    <div class="card ra" style="animation-delay:.22s">
-      <div class="slbl">🎯 En Yüksek Olasılıklı Skorlar</div>
+    <!-- TOP SCORES -->
+    <div class="card ra" style="animation-delay:.25s">
+      <div class="slbl">🎯 En Olası Skorlar · Model Uzlaşısı</div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;display:flex;gap:10px;flex-wrap:wrap;">
+        <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--blue);margin-right:3px;vertical-align:middle;"></span>Poisson</span>
+        <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-right:3px;vertical-align:middle;"></span>DC</span>
+        <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:3px;vertical-align:middle;"></span>MC</span>
+      </div>
       <div class="score-list" id="sTopScores"></div>
     </div>
 
-    <div class="disclaimer">Poisson · Dixon-Coles (ρ=0.11) · Monte Carlo 50K sim · Ensemble ağırlıkları: P×0.35, DC×0.35, MC×0.30 · 2025/26 sez. 24. hafta</div>
+    <div class="disclaimer">
+      Elite Fusion Engine · Poisson+DC+MC ağırlıklı birleşim · ELO (K=20) · Transfermarkt €M kadro değeri · xG penalty: sakat/cezalı -%3–12<br>
+      Dinlenme bonusu: ≥7gün +%4 · Hakem kart katsayısı · Stil uyumu: topa sahip/kontra çarpanı · ρ=0.11 · 50K sim · 2025/26 s. 24. hafta
+    </div>
   </div>
 </div>
-
-</div><!-- /wrap -->
+</div>
 
 <script>
-// ═══════════════════════════════════════════════════
-//  VERİ
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+//  VERİ MİMARİSİ
+// ═══════════════════════════════════════════════════════════════
+
+// Temel sezon istatistikleri
 const TEAMS = {
-  "Galatasaray":    {p:24,w:18,d:4,l:2,gs:58,gc:18,hgs:36,hgc:9,hp:12,ags:22,agc:9,ap:12,htsr:.41,htcr:.44,form:["W","W","W","D","W"]},
-  "Fenerbahçe":     {p:24,w:15,d:9,l:0,gs:54,gc:23,hgs:32,hgc:10,hp:12,ags:22,agc:13,ap:12,htsr:.43,htcr:.40,form:["W","D","W","D","W"]},
-  "Trabzonspor":    {p:24,w:15,d:6,l:3,gs:48,gc:28,hgs:28,hgc:12,hp:12,ags:20,agc:16,ap:12,htsr:.40,htcr:.42,form:["W","W","L","W","W"]},
-  "Beşiktaş":       {p:24,w:13,d:7,l:4,gs:45,gc:29,hgs:26,hgc:12,hp:12,ags:19,agc:17,ap:12,htsr:.42,htcr:.41,form:["W","D","W","L","W"]},
-  "Göztepe":        {p:24,w:11,d:9,l:4,gs:27,gc:16,hgs:16,hgc:7,hp:12,ags:11,agc:9,ap:12,htsr:.40,htcr:.44,form:["D","W","D","W","D"]},
-  "Başakşehir FK":  {p:24,w:11,d:6,l:7,gs:42,gc:26,hgs:24,hgc:11,hp:12,ags:18,agc:15,ap:12,htsr:.41,htcr:.42,form:["W","L","W","W","D"]},
-  "Samsunspor":     {p:24,w:7,d:11,l:6,gs:25,gc:27,hgs:15,hgc:12,hp:12,ags:10,agc:15,ap:12,htsr:.42,htcr:.40,form:["D","W","D","D","L"]},
-  "Kocaelispor":    {p:24,w:8,d:6,l:10,gs:21,gc:25,hgs:13,hgc:11,hp:12,ags:8,agc:14,ap:12,htsr:.43,htcr:.40,form:["L","W","D","L","W"]},
-  "Gaziantep FK":   {p:24,w:7,d:8,l:9,gs:30,gc:40,hgs:18,hgc:18,hp:12,ags:12,agc:22,ap:12,htsr:.40,htcr:.38,form:["D","L","W","D","L"]},
-  "Çaykur Rizespor":{p:24,w:6,d:9,l:9,gs:31,gc:35,hgs:18,hgc:15,hp:12,ags:13,agc:20,ap:12,htsr:.42,htcr:.41,form:["D","D","L","W","D"]},
-  "Alanyaspor":     {p:24,w:5,d:11,l:8,gs:26,gc:30,hgs:15,hgc:13,hp:12,ags:11,agc:17,ap:12,htsr:.42,htcr:.43,form:["D","D","L","D","W"]},
-  "Gençlerbirliği": {p:24,w:6,d:6,l:12,gs:28,gc:34,hgs:17,hgc:14,hp:12,ags:11,agc:20,ap:12,htsr:.39,htcr:.41,form:["L","D","W","L","L"]},
-  "Antalyaspor":    {p:24,w:6,d:6,l:12,gs:24,gc:38,hgs:14,hgc:16,hp:12,ags:10,agc:22,ap:12,htsr:.41,htcr:.39,form:["L","W","L","D","L"]},
-  "Konyaspor":      {p:24,w:5,d:8,l:11,gs:27,gc:37,hgs:16,hgc:16,hp:12,ags:11,agc:21,ap:12,htsr:.41,htcr:.40,form:["D","L","D","L","D"]},
-  "Eyüpspor":       {p:24,w:5,d:7,l:12,gs:19,gc:35,hgs:12,hgc:14,hp:12,ags:7,agc:21,ap:12,htsr:.42,htcr:.41,form:["L","D","W","L","L"]},
-  "Kasımpaşa":      {p:24,w:4,d:8,l:12,gs:20,gc:35,hgs:12,hgc:15,hp:12,ags:8,agc:20,ap:12,htsr:.43,htcr:.40,form:["D","L","D","L","D"]},
-  "Kayserispor":    {p:24,w:3,d:11,l:10,gs:18,gc:43,hgs:11,hgc:18,hp:12,ags:7,agc:25,ap:12,htsr:.39,htcr:.38,form:["D","L","D","D","L"]},
-  "Fatih Karagümrük":{p:24,w:3,d:4,l:17,gs:21,gc:45,hgs:13,hgc:20,hp:12,ags:8,agc:25,ap:12,htsr:.40,htcr:.40,form:["L","L","D","L","L"]},
+  "Galatasaray":    {p:24,w:18,d:4,l:2,gs:58,gc:18,hgs:36,hgc:9,hp:12,ags:22,agc:9,ap:12,htsr:.41,htcr:.44,form:["W","W","W","D","W"],
+    elo:1820, squadVal:210, injured:0, suspended:0, restDays:7,
+    possession:61, pressureInt:72, counterSpeed:52, defLine:68,
+    style:'possession' // possession | counter | balanced
+  },
+  "Fenerbahçe":     {p:24,w:15,d:9,l:0,gs:54,gc:23,hgs:32,hgc:10,hp:12,ags:22,agc:13,ap:12,htsr:.43,htcr:.40,form:["W","D","W","D","W"],
+    elo:1795, squadVal:195, injured:1, suspended:0, restDays:6,
+    possession:58, pressureInt:68, counterSpeed:60, defLine:62,
+    style:'possession'
+  },
+  "Trabzonspor":    {p:24,w:15,d:6,l:3,gs:48,gc:28,hgs:28,hgc:12,hp:12,ags:20,agc:16,ap:12,htsr:.40,htcr:.42,form:["W","W","L","W","W"],
+    elo:1740, squadVal:120, injured:2, suspended:1, restDays:5,
+    possession:52, pressureInt:65, counterSpeed:68, defLine:58,
+    style:'counter'
+  },
+  "Beşiktaş":       {p:24,w:13,d:7,l:4,gs:45,gc:29,hgs:26,hgc:12,hp:12,ags:19,agc:17,ap:12,htsr:.42,htcr:.41,form:["W","D","W","L","W"],
+    elo:1720, squadVal:140, injured:1, suspended:1, restDays:8,
+    possession:55, pressureInt:66, counterSpeed:65, defLine:60,
+    style:'balanced'
+  },
+  "Göztepe":        {p:24,w:11,d:9,l:4,gs:27,gc:16,hgs:16,hgc:7,hp:12,ags:11,agc:9,ap:12,htsr:.40,htcr:.44,form:["D","W","D","W","D"],
+    elo:1660, squadVal:55, injured:0, suspended:0, restDays:10,
+    possession:44, pressureInt:60, counterSpeed:72, defLine:55,
+    style:'counter'
+  },
+  "Başakşehir FK":  {p:24,w:11,d:6,l:7,gs:42,gc:26,hgs:24,hgc:11,hp:12,ags:18,agc:15,ap:12,htsr:.41,htcr:.42,form:["W","L","W","W","D"],
+    elo:1680, squadVal:90, injured:1, suspended:0, restDays:6,
+    possession:57, pressureInt:63, counterSpeed:62, defLine:61,
+    style:'possession'
+  },
+  "Samsunspor":     {p:24,w:7,d:11,l:6,gs:25,gc:27,hgs:15,hgc:12,hp:12,ags:10,agc:15,ap:12,htsr:.42,htcr:.40,form:["D","W","D","D","L"],
+    elo:1580, squadVal:30, injured:2, suspended:0, restDays:7,
+    possession:43, pressureInt:55, counterSpeed:70, defLine:50,
+    style:'counter'
+  },
+  "Kocaelispor":    {p:24,w:8,d:6,l:10,gs:21,gc:25,hgs:13,hgc:11,hp:12,ags:8,agc:14,ap:12,htsr:.43,htcr:.40,form:["L","W","D","L","W"],
+    elo:1560, squadVal:22, injured:1, suspended:1, restDays:5,
+    possession:40, pressureInt:52, counterSpeed:68, defLine:48,
+    style:'counter'
+  },
+  "Gaziantep FK":   {p:24,w:7,d:8,l:9,gs:30,gc:40,hgs:18,hgc:18,hp:12,ags:12,agc:22,ap:12,htsr:.40,htcr:.38,form:["D","L","W","D","L"],
+    elo:1550, squadVal:28, injured:3, suspended:1, restDays:4,
+    possession:42, pressureInt:53, counterSpeed:66, defLine:44,
+    style:'counter'
+  },
+  "Çaykur Rizespor":{p:24,w:6,d:9,l:9,gs:31,gc:35,hgs:18,hgc:15,hp:12,ags:13,agc:20,ap:12,htsr:.42,htcr:.41,form:["D","D","L","W","D"],
+    elo:1540, squadVal:25, injured:1, suspended:0, restDays:8,
+    possession:45, pressureInt:56, counterSpeed:65, defLine:47,
+    style:'balanced'
+  },
+  "Alanyaspor":     {p:24,w:5,d:11,l:8,gs:26,gc:30,hgs:15,hgc:13,hp:12,ags:11,agc:17,ap:12,htsr:.42,htcr:.43,form:["D","D","L","D","W"],
+    elo:1530, squadVal:32, injured:2, suspended:0, restDays:6,
+    possession:48, pressureInt:57, counterSpeed:64, defLine:49,
+    style:'balanced'
+  },
+  "Gençlerbirliği": {p:24,w:6,d:6,l:12,gs:28,gc:34,hgs:17,hgc:14,hp:12,ags:11,agc:20,ap:12,htsr:.39,htcr:.41,form:["L","D","W","L","L"],
+    elo:1520, squadVal:20, injured:2, suspended:2, restDays:5,
+    possession:41, pressureInt:50, counterSpeed:67, defLine:45,
+    style:'counter'
+  },
+  "Antalyaspor":    {p:24,w:6,d:6,l:12,gs:24,gc:38,hgs:14,hgc:16,hp:12,ags:10,agc:22,ap:12,htsr:.41,htcr:.39,form:["L","W","L","D","L"],
+    elo:1510, squadVal:24, injured:3, suspended:0, restDays:7,
+    possession:40, pressureInt:51, counterSpeed:66, defLine:42,
+    style:'counter'
+  },
+  "Konyaspor":      {p:24,w:5,d:8,l:11,gs:27,gc:37,hgs:16,hgc:16,hp:12,ags:11,agc:21,ap:12,htsr:.41,htcr:.40,form:["D","L","D","L","D"],
+    elo:1505, squadVal:22, injured:1, suspended:1, restDays:9,
+    possession:43, pressureInt:53, counterSpeed:65, defLine:46,
+    style:'balanced'
+  },
+  "Eyüpspor":       {p:24,w:5,d:7,l:12,gs:19,gc:35,hgs:12,hgc:14,hp:12,ags:7,agc:21,ap:12,htsr:.42,htcr:.41,form:["L","D","W","L","L"],
+    elo:1500, squadVal:18, injured:2, suspended:1, restDays:6,
+    possession:44, pressureInt:54, counterSpeed:63, defLine:46,
+    style:'balanced'
+  },
+  "Kasımpaşa":      {p:24,w:4,d:8,l:12,gs:20,gc:35,hgs:12,hgc:15,hp:12,ags:8,agc:20,ap:12,htsr:.43,htcr:.40,form:["D","L","D","L","D"],
+    elo:1490, squadVal:16, injured:1, suspended:0, restDays:8,
+    possession:42, pressureInt:52, counterSpeed:62, defLine:44,
+    style:'balanced'
+  },
+  "Kayserispor":    {p:24,w:3,d:11,l:10,gs:18,gc:43,hgs:11,hgc:18,hp:12,ags:7,agc:25,ap:12,htsr:.39,htcr:.38,form:["D","L","D","D","L"],
+    elo:1480, squadVal:14, injured:2, suspended:1, restDays:5,
+    possession:38, pressureInt:49, counterSpeed:61, defLine:42,
+    style:'counter'
+  },
+  "Fatih Karagümrük":{p:24,w:3,d:4,l:17,gs:21,gc:45,hgs:13,hgc:20,hp:12,ags:8,agc:25,ap:12,htsr:.40,htcr:.40,form:["L","L","D","L","L"],
+    elo:1460, squadVal:12, injured:4, suspended:1, restDays:4,
+    possession:37, pressureInt:46, counterSpeed:59, defLine:40,
+    style:'counter'
+  },
 };
 
+// 26. Hafta — hakem verisi maça özgü
 const WEEK26 = [
-  {date:"13 Mart Per", home:"Antalyaspor",     away:"Gaziantep FK"},
-  {date:"13 Mart Per", home:"Fatih Karagümrük",away:"Fenerbahçe"},
-  {date:"14 Mart Cum", home:"Kocaelispor",     away:"Konyaspor"},
-  {date:"14 Mart Cum", home:"Trabzonspor",     away:"Çaykur Rizespor"},
-  {date:"14 Mart Cum", home:"Göztepe",         away:"Alanyaspor"},
-  {date:"14 Mart Cum", home:"Galatasaray",     away:"Başakşehir FK"},
-  {date:"15 Mart Cmt", home:"Kasımpaşa",       away:"Eyüpspor"},
-  {date:"15 Mart Cmt", home:"Gençlerbirliği",  away:"Beşiktaş"},
-  {date:"15 Mart Cmt", home:"Samsunspor",      away:"Kayserispor"},
+  {date:"13 Mart Per", home:"Antalyaspor",      away:"Gaziantep FK",     ref:"Arda Kardeşler"},
+  {date:"13 Mart Per", home:"Fatih Karagümrük", away:"Fenerbahçe",       ref:"Ali Palabıyık"},
+  {date:"14 Mart Cum", home:"Kocaelispor",      away:"Konyaspor",        ref:"Mete Kalkavan"},
+  {date:"14 Mart Cum", home:"Trabzonspor",      away:"Çaykur Rizespor",  ref:"Halil Umut Meler"},
+  {date:"14 Mart Cum", home:"Göztepe",          away:"Alanyaspor",       ref:"Atilla Karaoğlan"},
+  {date:"14 Mart Cum", home:"Galatasaray",      away:"Başakşehir FK",    ref:"Zorbay Küçük"},
+  {date:"15 Mart Cmt", home:"Kasımpaşa",        away:"Eyüpspor",         ref:"Abdulkadir Bitigen"},
+  {date:"15 Mart Cmt", home:"Gençlerbirliği",   away:"Beşiktaş",         ref:"Cem Satman"},
+  {date:"15 Mart Cmt", home:"Samsunspor",       away:"Kayserispor",      ref:"Volkan Bayarslan"},
 ];
 
-let currentModel = 'poisson';
-const MODEL_INFO = {
-  poisson: '<span>Poisson:</span> Beklenen gol sayısından (xG) Poisson dağılımı ile skor olasılıkları üretir. Hızlı ve yorumlanması kolaydır.',
-  dc: '<span>Dixon-Coles:</span> Poisson modelini, düşük skorlu maçlarda (0-0, 1-0, 0-1, 1-1) gerçekçi olmayan olasılıkları düzelten ρ (rho) parametresiyle geliştirir.',
-  mc: '<span>Monte Carlo:</span> xG değerlerinden yola çıkarak 50.000 maç simüle eder. Varyans ve dağılım analizine izin veren stokastik bir yaklaşım.',
-  ensemble: '<span>Ensemble:</span> Poisson (%35), Dixon-Coles (%35) ve Monte Carlo (%30) ağırlıklı ortalamasını alır. En yüksek doğruluk hedefi.'
+// Hakem veritabanı
+const REFEREES = {
+  "Arda Kardeşler":     {yellowPer90:4.2,redPer90:.18,penPer90:.22,strictness:'med',homeAdv:.52,desc:"Orta sertlikte. Ev sahibi lehine hafif eğilim."},
+  "Ali Palabıyık":      {yellowPer90:5.1,redPer90:.24,penPer90:.31,strictness:'strict',homeAdv:.54,desc:"Çok titiz. Penaltı kararlarında cesur, tartışmalı kararları ile bilinen."},
+  "Mete Kalkavan":      {yellowPer90:3.8,redPer90:.14,penPer90:.18,strictness:'lax',homeAdv:.51,desc:"Serbest akışlı. Oyunu durdurmayı sevmez."},
+  "Halil Umut Meler":   {yellowPer90:4.6,redPer90:.20,penPer90:.26,strictness:'med',homeAdv:.53,desc:"Dengeli profil. Büyük maçlarda baskıya dirençli."},
+  "Atilla Karaoğlan":   {yellowPer90:3.5,redPer90:.12,penPer90:.15,strictness:'lax',homeAdv:.50,desc:"Serbest oyuna izin verir. Düşük kart ortalaması."},
+  "Zorbay Küçük":       {yellowPer90:4.8,redPer90:.22,penPer90:.24,strictness:'med',homeAdv:.52,desc:"Dikkatli ve tutarlı. Büyük takım maçlarında tecrübeli."},
+  "Abdulkadir Bitigen": {yellowPer90:4.0,redPer90:.16,penPer90:.20,strictness:'med',homeAdv:.51,desc:"Orta sertlik. Büyük olayları sahada çözer."},
+  "Cem Satman":         {yellowPer90:5.4,redPer90:.28,penPer90:.30,strictness:'strict',homeAdv:.55,desc:"Sıkı disiplin. Yüksek kart ortalaması, yoğun geçen maçlar yönetir."},
+  "Volkan Bayarslan":   {yellowPer90:3.9,redPer90:.15,penPer90:.19,strictness:'lax',homeAdv:.50,desc:"Genç ve enerjik. Oyun akışını tercih eder."},
+  "DEFAULT":            {yellowPer90:4.2,redPer90:.18,penPer90:.22,strictness:'med',homeAdv:.52,desc:"Standart profil."},
 };
 
-function setModel(m, btn){
-  currentModel = m;
-  document.querySelectorAll('.model-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('modelInfo').innerHTML = MODEL_INFO[m];
-  renderWeek();
-}
-
-// ═══════════════════════════════════════════════════
-//  TEMEL MATEMATİK
-// ═══════════════════════════════════════════════════
-const lgAvg = (()=>{
-  let t = Object.values(TEAMS).reduce((s,x)=>s+x.gs,0);
-  return (t/2)/(18*24/2);
-})();
-
-function poisson(lam,k){
-  if(lam<=0) return k===0?1:0;
-  let lp = -lam + k*Math.log(lam);
-  for(let i=1;i<=k;i++) lp -= Math.log(i);
-  return Math.exp(lp);
-}
-
-// xG hesabı (ortak)
-function calcXG(homeName, awayName){
-  const H = TEAMS[homeName], A = TEAMS[awayName];
-  const la = lgAvg/2;
-  const hAtt = (H.hgs/H.hp)/la, hDef = (H.hgc/H.hp)/la;
-  const aAtt = (A.ags/A.ap)/la, aDef = (A.agc/A.ap)/la;
-  const hXg = Math.max(.25, hAtt*aDef*la*1.08);
-  const aXg = Math.max(.15, aAtt*hDef*la*0.92);
-  return {hXg, aXg};
-}
-
-// ── POISSON ──────────────────────────────────────
-function scoreMxPoisson(hx, ax, max=7){
-  const probs=[]; let hW=0,dr=0,aW=0;
-  for(let h=0;h<=max;h++) for(let a=0;a<=max;a++){
-    const p = poisson(hx,h)*poisson(ax,a);
-    probs.push({h,a,p});
-    if(h>a) hW+=p; else if(h===a) dr+=p; else aW+=p;
-  }
-  return {probs, hW, dr, aW};
-}
-
-// ── DIXON-COLES ───────────────────────────────────
-// ρ (rho): negatif korelasyon parametresi. Tipik değer 0.08–0.15
-const DC_RHO = 0.11;
-function dcTau(h, a, lam, mu, rho){
-  if(h===0&&a===0) return 1 - lam*mu*rho;
-  if(h===1&&a===0) return 1 + mu*rho;
-  if(h===0&&a===1) return 1 + lam*rho;
-  if(h===1&&a===1) return 1 - rho;
-  return 1;
-}
-function scoreMxDC(hx, ax, max=7){
-  const probs=[]; let hW=0,dr=0,aW=0;
-  for(let h=0;h<=max;h++) for(let a=0;a<=max;a++){
-    const tau = dcTau(h, a, hx, ax, DC_RHO);
-    const p = tau * poisson(hx,h) * poisson(ax,a);
-    probs.push({h,a,p:Math.max(0,p)});
-    if(h>a) hW+=Math.max(0,p); else if(h===a) dr+=Math.max(0,p); else aW+=Math.max(0,p);
-  }
-  // normalize
-  const tot = hW+dr+aW;
-  return {
-    probs: probs.map(x=>({...x, p:x.p/tot})),
-    hW: hW/tot, dr: dr/tot, aW: aW/tot
-  };
-}
-
-// ── MONTE CARLO ───────────────────────────────────
-const MC_SIMS = 50000;
-function randPoisson(lam){
-  const L = Math.exp(-lam);
-  let k=0, p=1;
-  do { k++; p *= Math.random(); } while(p>L);
-  return k-1;
-}
-function runMonteCarlo(hXg, aXg){
-  const scoreCount = {}, goalDist = new Array(13).fill(0);
-  let hW=0, dr=0, aW=0;
-  let sumH=0, sumA=0;
-  for(let i=0;i<MC_SIMS;i++){
-    const h = randPoisson(hXg), a = randPoisson(aXg);
-    const key = `${h}:${a}`;
-    scoreCount[key] = (scoreCount[key]||0) + 1;
-    if(h>a) hW++; else if(h===a) dr++; else aW++;
-    sumH+=h; sumA+=a;
-    const tot = Math.min(h+a, 12);
-    goalDist[tot]++;
-  }
-  // en olası skorlar
-  const probs = Object.entries(scoreCount)
-    .map(([k,v])=>{const[h,a]=k.split(':').map(Number);return{h,a,p:v/MC_SIMS};})
-    .sort((a,b)=>b.p-a.p);
-  return {
-    probs, hW:hW/MC_SIMS, dr:dr/MC_SIMS, aW:aW/MC_SIMS,
-    avgH: sumH/MC_SIMS, avgA: sumA/MC_SIMS,
-    goalDist: goalDist.map(v=>v/MC_SIMS)
-  };
-}
-
-// ── ENSEMBLE ──────────────────────────────────────
-function scoreMxEnsemble(hXg, aXg){
-  const P = scoreMxPoisson(hXg, aXg);
-  const DC = scoreMxDC(hXg, aXg);
-  const MC = runMonteCarlo(hXg, aXg);
-  const wP=.35, wDC=.35, wMC=.30;
-  const hW = P.hW*wP + DC.hW*wDC + MC.hW*wMC;
-  const dr = P.dr*wP + DC.dr*wDC + MC.dr*wMC;
-  const aW = P.aW*wP + DC.aW*wDC + MC.aW*wMC;
-  // merge probs
-  const scoreMap = {};
-  [...P.probs,...DC.probs,...MC.probs].forEach(x=>{
-    const k=`${x.h}:${x.a}`;
-    scoreMap[k] = scoreMap[k]||{h:x.h,a:x.a,p:0};
-  });
-  P.probs.forEach(x=>{const k=`${x.h}:${x.a}`;scoreMap[k].p+=x.p*wP;});
-  DC.probs.forEach(x=>{const k=`${x.h}:${x.a}`;scoreMap[k].p+=x.p*wDC;});
-  MC.probs.forEach(x=>{const k=`${x.h}:${x.a}`;scoreMap[k].p+=x.p*wMC;});
-  const probs = Object.values(scoreMap).sort((a,b)=>b.p-a.p);
-  return {probs, hW, dr, aW};
-}
-
-// ── GENEL HESAP ───────────────────────────────────
-function calcMatch(homeName, awayName, model){
-  model = model||currentModel;
-  const {hXg, aXg} = calcXG(homeName, awayName);
-  const H = TEAMS[homeName];
-  const htHX = hXg*H.htsr, htAX = aXg*TEAMS[awayName].htsr;
-  const htMx = scoreMxPoisson(htHX, htAX);
-  htMx.probs.sort((a,b)=>b.p-a.p);
-  const bestHT = htMx.probs[0];
-
-  let mx;
-  if(model==='poisson') mx = scoreMxPoisson(hXg,aXg);
-  else if(model==='dc')  mx = scoreMxDC(hXg,aXg);
-  else if(model==='mc')  mx = runMonteCarlo(hXg,aXg);
-  else                   mx = scoreMxEnsemble(hXg,aXg);
-
-  mx.probs.sort((a,b)=>b.p-a.p);
-  const best = mx.probs[0];
-  const h2 = Math.max(0, best.h-bestHT.h);
-  const a2 = Math.max(0, best.a-bestHT.a);
-  const tot = mx.hW+mx.dr+mx.aW;
-  const pH = mx.hW/tot, pD = mx.dr/tot, pA = mx.aW/tot;
-  const xgt = hXg+aXg;
-  const over25 = 1-poisson(xgt,0)-poisson(xgt,1)-poisson(xgt,2);
-  const btts   = (1-poisson(hXg,0))*(1-poisson(aXg,0));
-
-  // MC goal dist for chart (always compute separately)
-  let goalDist = null;
-  if(model==='mc'||model==='ensemble'){
-    const mcData = runMonteCarlo(hXg,aXg);
-    goalDist = mcData.goalDist;
-  }
-
-  return {hXg,aXg,best,bestHT,h2,a2,pH,pD,pA,over25,btts,probs:mx.probs,goalDist};
-}
-
+// ═══════════════════════════════════════════════════════════════
+//  YARDIMCI FONKSİYONLAR
+// ═══════════════════════════════════════════════════════════════
+const lgAvg=(()=>{const t=Object.values(TEAMS).reduce((s,x)=>s+x.gs,0);return(t/2)/(18*24/2);})();
+function poisson(l,k){if(l<=0)return k===0?1:0;let lp=-l+k*Math.log(l);for(let i=1;i<=k;i++)lp-=Math.log(i);return Math.exp(lp);}
+function clamp(v,mn,mx){return Math.max(mn,Math.min(mx,v));}
 function pct(v){return Math.round((v||0)*100)+'%';}
+function pctF(v,d=1){return(v*100).toFixed(d)+'%';}
 
-// ═══════════════════════════════════════════════════
+// ─── ELO beklenen skor çarpanı ─────────────────────────
+// ELO farkına göre xG'yi yukarı/aşağı çeker
+function eloFactor(eloH,eloA){
+  const diff=eloH-eloA+50; // +50 ev avantajı
+  const expH=1/(1+Math.pow(10,-diff/400));
+  // expH 0.5'ten ne kadar uzaksa o kadar etkili
+  return{hMult:clamp(0.85+expH*0.30,0.80,1.25),aMult:clamp(1.30-expH*0.30,0.80,1.25)};
+}
+
+// ─── Kadro değeri çarpanı ──────────────────────────────
+function squadFactor(valH,valA){
+  const ratio=valH/(valA||1);
+  const hMult=clamp(0.92+Math.log(ratio)*0.08,0.82,1.18);
+  const aMult=clamp(1/hMult,0.82,1.18);
+  return{hMult,aMult};
+}
+
+// ─── Sakat/cezalı xG penaltı ──────────────────────────
+// Her sakat oyuncu -3%, her cezalı -4% xG (üst limit -18%)
+function injuryFactor(injured,suspended){
+  const pen=clamp(1-(injured*0.03+suspended*0.04),0.82,1.0);
+  return pen;
+}
+
+// ─── Dinlenme faktörü ─────────────────────────────────
+// ≥7 gün dinlenme: +4% xG   3-6 gün: nötr   ≤2 gün: -5%
+function restFactor(days){
+  if(days>=7) return 1.04;
+  if(days<=2) return 0.95;
+  return 1.0;
+}
+
+// ─── Hakem penaltı/kart çarpanı ───────────────────────
+// Sert hakem → daha çok duran top → golsüz maç olasılığı artar (xG -2%)
+// Gevşek hakem → akıcı oyun → xG +2%
+function refFactor(refName){
+  const r=REFEREES[refName]||REFEREES["DEFAULT"];
+  const xgMod=r.strictness==='strict'?0.98:r.strictness==='lax'?1.02:1.0;
+  const homeAdvMod=r.homeAdv; // 0.50–0.55 arası hafif ev avantajı
+  return{xgMod,homeAdvMod,ref:r};
+}
+
+// ─── Stil uyumu çarpanı ───────────────────────────────
+// possession vs counter: kontra takım, topa sahip rakibe karşı daha az gol atar
+// ama savunması sağlam → karşılıklı etkileşim
+function styleFactor(styleH,styleA){
+  // possession takım ev sahibiyken kontra misafire karşı → dominant
+  // kontra takım ev sahibiyken possession misafire karşı → bekle-vur
+  const matrix={
+    'possession-possession': {hAtt:1.02,hDef:0.98,aAtt:0.98,aDef:1.02},
+    'possession-counter':    {hAtt:1.05,hDef:0.96,aAtt:0.88,aDef:1.08},
+    'possession-balanced':   {hAtt:1.03,hDef:0.98,aAtt:0.94,aDef:1.03},
+    'counter-possession':    {hAtt:0.90,hDef:1.06,aAtt:1.06,aDef:0.94},
+    'counter-counter':       {hAtt:0.98,hDef:1.00,aAtt:0.98,aDef:1.00},
+    'counter-balanced':      {hAtt:0.96,hDef:1.02,aAtt:1.01,aDef:0.99},
+    'balanced-possession':   {hAtt:0.97,hDef:1.02,aAtt:1.02,aDef:0.98},
+    'balanced-counter':      {hAtt:1.02,hDef:0.98,aAtt:0.96,aDef:1.02},
+    'balanced-balanced':     {hAtt:1.00,hDef:1.00,aAtt:1.00,aDef:1.00},
+  };
+  return matrix[`${styleH}-${styleA}`]||{hAtt:1,hDef:1,aAtt:1,aDef:1};
+}
+
+// ─── TEMEL xG HESABI ──────────────────────────────────
+function calcBaseXG(hn,an){
+  const H=TEAMS[hn],A=TEAMS[an],la=lgAvg/2;
+  const hAtt=(H.hgs/H.hp)/la, hDef=(H.hgc/H.hp)/la;
+  const aAtt=(A.ags/A.ap)/la, aDef=(A.agc/A.ap)/la;
+  return{
+    hXg:Math.max(.20,hAtt*aDef*la*1.08),
+    aXg:Math.max(.12,aAtt*hDef*la*0.92)
+  };
+}
+
+// ─── ELİTE xG (tüm faktörler dahil) ───────────────────
+function calcEliteXG(hn,an,refName){
+  const H=TEAMS[hn],A=TEAMS[an];
+  const{hXg:baseH,aXg:baseA}=calcBaseXG(hn,an);
+
+  const elo=eloFactor(H.elo,A.elo);
+  const sq=squadFactor(H.squadVal,A.squadVal);
+  const injH=injuryFactor(H.injured,H.suspended);
+  const injA=injuryFactor(A.injured,A.suspended);
+  const restH=restFactor(H.restDays);
+  const restA=restFactor(A.restDays);
+  const rf=refFactor(refName);
+  const sf=styleFactor(H.style,A.style);
+
+  const hXg=clamp(
+    baseH * elo.hMult * sq.hMult * injH * restH * rf.xgMod * sf.hAtt,
+    0.18, 4.5
+  );
+  const aXg=clamp(
+    baseA * elo.aMult * sq.aMult * injA * restA * rf.xgMod * sf.aAtt,
+    0.10, 4.0
+  );
+
+  // faktör katkı özeti (gösterim için)
+  const factors=[
+    {lbl:'ELO farkı',        hDelta:(elo.hMult-1)*100, aDelta:(elo.aMult-1)*100},
+    {lbl:'Kadro değeri',     hDelta:(sq.hMult-1)*100,  aDelta:(sq.aMult-1)*100},
+    {lbl:'Sakat/Cezalı',     hDelta:(injH-1)*100,      aDelta:(injA-1)*100},
+    {lbl:'Dinlenme',         hDelta:(restH-1)*100,      aDelta:(restA-1)*100},
+    {lbl:'Hakem etkisi',     hDelta:(rf.xgMod-1)*100,  aDelta:(rf.xgMod-1)*100},
+    {lbl:'Stil uyumu (att)', hDelta:(sf.hAtt-1)*100,   aDelta:(sf.aAtt-1)*100},
+  ];
+
+  return{hXg,aXg,baseH,baseA,factors,rf,injH,injA,restH,restA,elo,sq,sf};
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  3 MODEL
+// ═══════════════════════════════════════════════════════════════
+const RHO=0.11, MCN=50000;
+function runP(hx,ax,max=7){const pr=[];let hW=0,dr=0,aW=0;for(let h=0;h<=max;h++)for(let a=0;a<=max;a++){const p=poisson(hx,h)*poisson(ax,a);pr.push({h,a,p});if(h>a)hW+=p;else if(h===a)dr+=p;else aW+=p;}return{probs:pr,hW,dr,aW};}
+function tau(h,a,l,u,r){if(h===0&&a===0)return 1-l*u*r;if(h===1&&a===0)return 1+u*r;if(h===0&&a===1)return 1+l*r;if(h===1&&a===1)return 1-r;return 1;}
+function runDC(hx,ax,max=7){const raw=[];let hW=0,dr=0,aW=0,tot=0;for(let h=0;h<=max;h++)for(let a=0;a<=max;a++){const p=Math.max(0,tau(h,a,hx,ax,RHO)*poisson(hx,h)*poisson(ax,a));raw.push({h,a,p});tot+=p;if(h>a)hW+=p;else if(h===a)dr+=p;else aW+=p;}return{probs:raw.map(x=>({...x,p:x.p/tot})),hW:hW/tot,dr:dr/tot,aW:aW/tot};}
+function rndP(l){const L=Math.exp(-l);let k=0,p=1;do{k++;p*=Math.random();}while(p>L);return k-1;}
+function runMC(hx,ax){const cnt={};let hW=0,dr=0,aW=0;const gd=new Array(13).fill(0);for(let i=0;i<MCN;i++){const h=rndP(hx),a=rndP(ax);const k=`${h}:${a}`;cnt[k]=(cnt[k]||0)+1;if(h>a)hW++;else if(h===a)dr++;else aW++;gd[Math.min(h+a,12)]++;}const pr=Object.entries(cnt).map(([k,v])=>{const[h,a]=k.split(':').map(Number);return{h,a,p:v/MCN};}).sort((a,b)=>b.p-a.p);return{probs:pr,hW:hW/MCN,dr:dr/MCN,aW:aW/MCN,gd:gd.map(v=>v/MCN)};}
+
+// ═══════════════════════════════════════════════════════════════
+//  FUSION ENGINE
+// ═══════════════════════════════════════════════════════════════
+function dynW(tot){
+  const wDC=tot<1.8?0.42:tot<2.5?0.37:tot<3.2?0.33:0.28;
+  const wP =tot<1.8?0.32:tot<2.5?0.35:tot<3.2?0.37:0.40;
+  return{wP,wDC,wM:1-wDC-wP};
+}
+
+// Model güven skoru: 3 modelin en olası skoru üzerindeki uyum + xG confidence
+function modelConfidence(topP,topDC,topMC,allScores){
+  // skor uzlaşısı
+  const consensusScore=(topP.h===topDC.h&&topP.a===topDC.a?1:0)+(topP.h===topMC.h&&topP.a===topMC.a?1:0)+(topDC.h===topMC.h&&topDC.a===topMC.a?1:0);
+  // top skor olasılığı
+  const topProb=allScores[0].pF;
+  // birleşik güven: 0–100
+  const conf=clamp(30+consensusScore*15+topProb*80,20,95);
+  return Math.round(conf);
+}
+
+function fusion(hn,an,refName){
+  const H=TEAMS[hn],A=TEAMS[an];
+  const elite=calcEliteXG(hn,an,refName||'DEFAULT');
+  const{hXg,aXg}=elite;
+  const tot=hXg+aXg;
+  const{wP,wDC,wM}=dynW(tot);
+
+  const P=runP(hXg,aXg);
+  const DC=runDC(hXg,aXg);
+  const MC=runMC(hXg,aXg);
+
+  // skor birleşimi
+  const sm={};
+  const add=(probs,w,field)=>probs.forEach(x=>{const k=`${x.h}:${x.a}`;if(!sm[k])sm[k]={h:x.h,a:x.a,pF:0,pP:0,pDC:0,pMC:0};sm[k].pF+=x.p*w;sm[k][field]=x.p;});
+  add(P.probs,wP,'pP');add(DC.probs,wDC,'pDC');add(MC.probs,wM,'pMC');
+  const all=Object.values(sm).sort((a,b)=>b.pF-a.pF);
+
+  // 1X2
+  const hW=P.hW*wP+DC.hW*wDC+MC.hW*wM;
+  const dr=P.dr*wP+DC.dr*wDC+MC.dr*wM;
+  const aW=P.aW*wP+DC.aW*wDC+MC.aW*wM;
+  const s=hW+dr+aW;
+  const pH=hW/s,pD=dr/s,pA=aW/s;
+
+  // HT (Poisson)
+  const htP=runP(hXg*H.htsr,aXg*A.htsr);htP.probs.sort((a,b)=>b.p-a.p);
+  const bestHT=htP.probs[0];
+  const best=all[0];
+
+  // AU/KG analitik
+  const over25=1-poisson(tot,0)-poisson(tot,1)-poisson(tot,2);
+  const btts=(1-poisson(hXg,0))*(1-poisson(aXg,0));
+
+  // model top
+  const topP=P.probs.slice().sort((a,b)=>b.p-a.p)[0];
+  const topDC=DC.probs.slice().sort((a,b)=>b.p-a.p)[0];
+  const topMC=MC.probs[0];
+  const out=t=>t.h>t.a?'H':t.h===t.a?'D':'A';
+  const fusionOut=pH===Math.max(pH,pD,pA)?'H':pD===Math.max(pH,pD,pA)?'D':'A';
+  const agrN=[out(topP),out(topDC),out(topMC)].filter(x=>x===fusionOut).length;
+  const conf=modelConfidence(topP,topDC,topMC,all);
+
+  // radar data (normalize 0-1)
+  const radarH={att:H.gs/H.p/3,def:1-H.gc/H.p/3,poss:H.possession/100,press:H.pressureInt/100,cnt:H.counterSpeed/100,form:H.form.reduce((s,f)=>s+(f==='W'?1:f==='D'?.5:0),0)/5};
+  const radarA={att:A.gs/A.p/3,def:1-A.gc/A.p/3,poss:A.possession/100,press:A.pressureInt/100,cnt:A.counterSpeed/100,form:A.form.reduce((s,f)=>s+(f==='W'?1:f==='D'?.5:0),0)/5};
+
+  return{hXg,aXg,baseH:elite.baseH,baseA:elite.baseA,wP,wDC,wM,best,bestHT,pH,pD,pA,over25,btts,all,P,DC,MC,topP,topDC,topMC,fusionOut,agrN,out,gd:MC.gd,h2:Math.max(0,best.h-bestHT.h),a2:Math.max(0,best.a-bestHT.a),conf,factors:elite.factors,rf:elite.rf,injH:elite.injH,injA:elite.injA,restH:elite.restH,restA:elite.restA,elo:elite.elo,sq:elite.sq,sf:elite.sf,radarH,radarA};
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  ENGINE BAR ANIM
+// ═══════════════════════════════════════════════════════════════
+function animEng(wP,wDC,wM){
+  [['p',wP],['d',wDC],['m',wM]].forEach(([id,w],i)=>{
+    const dot=document.getElementById('epd-'+id),pill=document.getElementById('ep-'+id);
+    dot.className='ep-dot running';pill.className='engine-pill running';
+    setTimeout(()=>{dot.className='ep-dot done';pill.className='engine-pill done';
+      document.getElementById('epw-'+id).textContent=Math.round(w*100)+'%';
+      document.getElementById('epv-'+id).textContent=id==='p'?'✓ Tamamlandı':id==='d'?`✓ ρ=${RHO}`:`✓ ${MCN.toLocaleString()} sim`;
+    },200+i*150);
+  });
+}
+function resetEng(){['p','d','m'].forEach(id=>{document.getElementById('epd-'+id).className='ep-dot idle';document.getElementById('ep-'+id).className='engine-pill';document.getElementById('epv-'+id).textContent=id==='p'?'Hazır':id==='d'?'ρ=0.11':'50K sim';document.getElementById('epw-'+id).textContent='—';});}
+
+// ═══════════════════════════════════════════════════════════════
+//  RADAR CANVAS
+// ═══════════════════════════════════════════════════════════════
+function drawRadar(canvas,dH,dA,labelsArr){
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,cx=W/2,cy=W/2,R=W*0.38;
+  const n=labelsArr.length;
+  ctx.clearRect(0,0,W,W);
+
+  const angle=i=>i*(2*Math.PI/n)-Math.PI/2;
+  const pt=(r,i)=>({x:cx+r*Math.cos(angle(i)),y:cy+r*Math.sin(angle(i))});
+
+  // grid
+  [.25,.5,.75,1].forEach(r=>{
+    ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=1;
+    for(let i=0;i<n;i++){const p=pt(R*r,i);i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);}
+    ctx.closePath();ctx.stroke();
+  });
+  // spokes
+  for(let i=0;i<n;i++){
+    const p=pt(R,i);ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.08)';ctx.moveTo(cx,cy);ctx.lineTo(p.x,p.y);ctx.stroke();
+  }
+  // labels
+  const lblPts=labelsArr.map((_,i)=>pt(R+18,i));
+  ctx.font='bold 9px Outfit';ctx.fillStyle='rgba(200,200,220,.7)';ctx.textAlign='center';ctx.textBaseline='middle';
+  lblPts.forEach((p,i)=>ctx.fillText(labelsArr[i],p.x,p.y));
+
+  const drawPoly=(data,color)=>{
+    const pts=Object.values(data).map((v,i)=>pt(clamp(v,0,1)*R,i));
+    ctx.beginPath();pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+    ctx.closePath();
+    ctx.fillStyle=color.replace(')',', .2)').replace('rgb','rgba');
+    ctx.fill();ctx.strokeStyle=color;ctx.lineWidth=2;ctx.stroke();
+    pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,3,0,2*Math.PI);ctx.fillStyle=color;ctx.fill();});
+  };
+  drawPoly(dH,'rgb(232,0,29)');
+  drawPoly(dA,'rgb(79,195,247)');
+}
+
+// ═══════════════════════════════════════════════════════════════
 //  HAFTA TAB
-// ═══════════════════════════════════════════════════
-const savedResults = {};
-
+// ═══════════════════════════════════════════════════════════════
+const saved={};
 function renderWeek(){
-  const container = document.getElementById('weekMatches');
-  container.innerHTML = '';
-  const mTag = {poisson:'poisson',dc:'dc',mc:'mc',ensemble:'ensemble'}[currentModel];
-  const mLbl = {poisson:'Poisson',dc:'Dixon-Coles',mc:'Monte Carlo',ensemble:'Ensemble'}[currentModel];
-
+  const c=document.getElementById('weekMatches');c.innerHTML='';
   WEEK26.forEach((m,i)=>{
-    const r = calcMatch(m.home, m.away, currentModel);
-    const mx = Math.max(r.pH, r.pD, r.pA);
-    const auLbl = r.over25>.52?'ÜST':r.over25<.48?'ALT':'KENAR';
+    const r=fusion(m.home,m.away,m.ref);
+    const H=TEAMS[m.home],A=TEAMS[m.away];
+    const mx=Math.max(r.pH,r.pD,r.pA);
+    const auLbl=r.over25>.52?'ÜST':r.over25<.48?'ALT':'KENAR';
+    const fusOut=r.pH===mx?'H':r.pD===mx?'D':'A';
+    const agreeAll=[r.out(r.topP),r.out(r.topDC),r.out(r.topMC)].every(x=>x===fusOut);
 
-    const saved = savedResults[i];
-    let resultHTML = '';
-    if(saved){
-      const predOutcome = r.pH===mx?'H':r.pD===mx?'D':'A';
-      const actualOutcome = saved.h>saved.a?'H':saved.h===saved.a?'D':'A';
-      const exactHit = saved.h===r.best.h && saved.a===r.best.a;
-      const resultHit = predOutcome===actualOutcome;
-      const badge = exactHit
-        ?'<span class="hit-badge exact">✓ Skor Tuttu!</span>'
-        :resultHit?'<span class="hit-badge result">~ Sonuç Tuttu</span>'
-        :'<span class="hit-badge miss">✗ Tutmadı</span>';
-      resultHTML = `<div class="result-row">
-        <span style="font-size:11px;color:var(--muted)">Gerçek:</span>
-        <span class="result-actual">${saved.h}:${saved.a}</span>
-        ${badge}
-      </div>`;
-    } else {
-      resultHTML = `<div class="result-input-row">
-        <span>Sonuç:</span>
-        <input class="score-input" type="number" min="0" max="20" id="rH${i}" placeholder="0">
-        <span>:</span>
-        <input class="score-input" type="number" min="0" max="20" id="rA${i}" placeholder="0">
-        <button class="result-btn" onclick="saveResult(${i})">Kaydet</button>
-      </div>`;
+    // injury/suspension warning badges
+    const hBadges=`
+      <span class="tbadge elo">ELO ${H.elo}</span>
+      <span class="tbadge squad">€${H.squadVal}M</span>
+      ${H.injured+H.suspended>0?`<span class="tbadge injury">🏥 ${H.injured+H.suspended}</span>`:''}
+      ${H.restDays>=7?`<span class="tbadge rest">😴 ${H.restDays}g</span>`:''}
+    `;
+    const aBadges=`
+      <span class="tbadge elo">ELO ${A.elo}</span>
+      <span class="tbadge squad">€${A.squadVal}M</span>
+      ${A.injured+A.suspended>0?`<span class="tbadge injury">🏥 ${A.injured+A.suspended}</span>`:''}
+      ${A.restDays>=7?`<span class="tbadge rest">😴 ${A.restDays}g</span>`:''}
+    `;
+
+    const ref=REFEREES[m.ref]||REFEREES['DEFAULT'];
+    const refCls=ref.strictness==='strict'?'strict':ref.strictness==='lax'?'lax':'';
+
+    let res='';
+    if(saved[i]){
+      const s=saved[i];const actual=s.h>s.a?'H':s.h===s.a?'D':'A';
+      const badge=s.h===r.best.h&&s.a===r.best.a?'<span class="hit-badge exact">✓ Skor Tuttu!</span>':fusOut===actual?'<span class="hit-badge result">~ Sonuç Tuttu</span>':'<span class="hit-badge miss">✗ Tutmadı</span>';
+      res=`<div class="result-row"><span style="font-size:10px;color:var(--muted)">Gerçek:</span><span class="result-actual">${s.h}:${s.a}</span>${badge}</div>`;
+    }else{
+      res=`<div class="result-input-row"><span>Sonuç:</span><input class="score-input" type="number" min="0" max="20" id="rH${i}" placeholder="0"><span>:</span><input class="score-input" type="number" min="0" max="20" id="rA${i}" placeholder="0"><button class="result-btn" onclick="saveResult(${i})">Kaydet</button></div>`;
     }
 
-    const card = document.createElement('div');
-    card.className = 'match-card';
-    card.innerHTML = `
-      <div class="match-date">${m.date}</div>
+    const confW=r.conf;
+    const el=document.createElement('div');el.className='match-card';
+    el.innerHTML=`
+      <div class="match-date">${m.date} · 🟨 ${m.ref} <span style="font-size:9px;color:${ref.strictness==='strict'?'#ff7070':ref.strictness==='lax'?'var(--green)':'var(--gold)'}">${ref.strictness==='strict'?'Sıkı':ref.strictness==='lax'?'Serbest':'Orta'}</span></div>
       <div class="match-body">
         <div class="team-side home">
           <div class="team-name">${m.home}</div>
-          <div class="team-stat">${(TEAMS[m.home].hgs/TEAMS[m.home].hp).toFixed(1)} gol/maç (ev)</div>
+          <div class="team-meta">xG ${r.hXg.toFixed(2)} (base ${r.baseH.toFixed(2)})</div>
+          <div class="team-badges">${hBadges}</div>
         </div>
         <div class="scores-col">
           <div class="pred-score">${r.best.h} : ${r.best.a}</div>
-          <div class="pred-label">Tahmin</div>
-          <div style="font-size:10px;color:var(--muted)">HT ${r.bestHT.h}:${r.bestHT.a}</div>
-          <span class="model-tag ${mTag}">${mLbl}</span>
+          <div class="pred-label">Elite Fusion</div>
+          <div style="font-size:9px;color:var(--muted)">HT ${r.bestHT.h}:${r.bestHT.a}</div>
+          <span class="fusion-tag">⚡ FUSION</span>
+          <div class="confidence-bar-wrap"><div class="confidence-bar" style="width:${confW}%"></div></div>
+          <div style="font-size:9px;color:var(--muted)">Güven ${confW}%</div>
         </div>
         <div class="team-side away">
           <div class="team-name">${m.away}</div>
-          <div class="team-stat">${(TEAMS[m.away].ags/TEAMS[m.away].ap).toFixed(1)} gol/maç (dep)</div>
+          <div class="team-meta">xG ${r.aXg.toFixed(2)} (base ${r.baseA.toFixed(2)})</div>
+          <div class="team-badges">${aBadges}</div>
         </div>
       </div>
       <div class="match-footer">
@@ -626,206 +907,202 @@ function renderWeek(){
         </div>
         <span class="au-badge ${auLbl==='ÜST'?'ust':auLbl==='ALT'?'alt':'kenar'}">${auLbl} 2.5 (${pct(auLbl==='ÜST'?r.over25:1-r.over25)})</span>
       </div>
-      ${resultHTML}
-    `;
-    container.appendChild(card);
-  });
-  updateAccuracy();
-}
-
-function saveResult(i){
-  const h = parseInt(document.getElementById('rH'+i).value);
-  const a = parseInt(document.getElementById('rA'+i).value);
-  if(isNaN(h)||isNaN(a)||h<0||a<0){alert('Geçerli bir skor girin!');return;}
-  savedResults[i] = {h,a};
-  renderWeek();
-}
-
-function updateAccuracy(){
-  const entries = Object.keys(savedResults).length;
-  if(!entries){document.getElementById('accuracyPill').textContent='Sonuç girin →';return;}
-  let exact=0, correct=0;
-  Object.entries(savedResults).forEach(([i,saved])=>{
-    const r = calcMatch(WEEK26[i].home, WEEK26[i].away, currentModel);
-    const mx = Math.max(r.pH,r.pD,r.pA);
-    const predOutcome = r.pH===mx?'H':r.pD===mx?'D':'A';
-    const actualOutcome = saved.h>saved.a?'H':saved.h===saved.a?'D':'A';
-    if(saved.h===r.best.h&&saved.a===r.best.a) exact++;
-    if(predOutcome===actualOutcome) correct++;
-  });
-  document.getElementById('accuracyPill').textContent =
-    `${entries} maç → Skor: ${exact}/${entries} · Sonuç: ${correct}/${entries}`;
-}
-
-// ═══════════════════════════════════════════════════
-//  TEKİL TAB
-// ═══════════════════════════════════════════════════
-function predictSingle(){
-  const homeName = document.getElementById('homeTeam').value;
-  const awayName = document.getElementById('awayTeam').value;
-  const err = document.getElementById('singleErr');
-  err.style.display = 'none';
-  if(!homeName||!awayName){err.textContent='Lütfen iki takım seçin!';err.style.display='block';return;}
-  if(homeName===awayName){err.textContent='Farklı iki takım seçin!';err.style.display='block';return;}
-
-  const btn = document.getElementById('predictBtn');
-  if(currentModel==='mc'||currentModel==='ensemble'){
-    btn.innerHTML='<span class="mc-spinning"></span> Simüle ediliyor…';
-    btn.disabled = true;
-    setTimeout(()=>{doPredict(homeName,awayName); btn.innerHTML='⚡ Tahmin Yap'; btn.disabled=false;}, 30);
-  } else {
-    doPredict(homeName, awayName);
-  }
-}
-
-function doPredict(homeName, awayName){
-  const r = calcMatch(homeName, awayName, currentModel);
-  const H = TEAMS[homeName], A = TEAMS[awayName];
-  const auLbl = r.over25>.52?'ÜST':r.over25<.48?'ALT':'KENAR';
-  const kgLbl = r.btts>.52?'VAR':r.btts<.48?'YOK':'MUĞLAK';
-  const mLbl = {poisson:'Poisson Modeli',dc:'Dixon-Coles Modeli',mc:'Monte Carlo (50K sim)',ensemble:'Ensemble Modeli'}[currentModel];
-
-  document.getElementById('sModelLbl').textContent = mLbl;
-  document.getElementById('sHN').textContent = homeName;
-  document.getElementById('sAN').textContent = awayName;
-  document.getElementById('sHG').textContent = r.best.h;
-  document.getElementById('sAG').textContent = r.best.a;
-  document.getElementById('sXG').textContent = `xG: ${homeName.split(' ')[0]} ${r.hXg.toFixed(2)} · ${awayName.split(' ')[0]} ${r.aXg.toFixed(2)}`;
-  document.getElementById('sHT1').textContent = `${r.bestHT.h}:${r.bestHT.a}`;
-  document.getElementById('sHT1sub').textContent = `%${(r.bestHT.p*100).toFixed(1)} olasılık`;
-  document.getElementById('sHT2').textContent = `${r.h2}:${r.a2}`;
-
-  document.getElementById('sPHL').textContent = homeName.split(' ')[0];
-  document.getElementById('sPAL').textContent = awayName.split(' ')[0];
-  document.getElementById('sPVH').textContent = pct(r.pH);
-  document.getElementById('sPVD').textContent = pct(r.pD);
-  document.getElementById('sPVA').textContent = pct(r.pA);
-  setTimeout(()=>{
-    document.getElementById('sBH').style.width = pct(r.pH);
-    document.getElementById('sBD').style.width = pct(r.pD);
-    document.getElementById('sBA').style.width = pct(r.pA);
-  },120);
-  const mx = Math.max(r.pH,r.pD,r.pA);
-  document.getElementById('sPCH').classList.toggle('best',r.pH===mx);
-  document.getElementById('sPCD').classList.toggle('best',r.pD===mx);
-  document.getElementById('sPCA').classList.toggle('best',r.pA===mx);
-
-  const auC = document.getElementById('sAUCard');
-  auC.className = 'auc '+(auLbl==='ÜST'?'yes':auLbl==='ALT'?'no':'mid');
-  document.getElementById('sAUVal').textContent = auLbl;
-  document.getElementById('sAUSub').textContent = `Üst ${pct(r.over25)} · Alt ${pct(1-r.over25)}`;
-  const kgC = document.getElementById('sKGCard');
-  kgC.className = 'auc '+(kgLbl==='VAR'?'yes':kgLbl==='YOK'?'no':'mid');
-  document.getElementById('sKGVal').textContent = kgLbl;
-  document.getElementById('sKGSub').textContent = `KG Var ${pct(r.btts)} · KG Yok ${pct(1-r.btts)}`;
-
-  // ── Dixon-Coles karşılaştırma paneli
-  const dcCard = document.getElementById('sDCCard');
-  if(currentModel==='dc'||currentModel==='ensemble'){
-    dcCard.style.display = '';
-    const poissonR = calcMatch(homeName,awayName,'poisson');
-    const dcR      = calcMatch(homeName,awayName,'dc');
-    const cells = [
-      {lbl:'0-0 (Poisson)',p:poissonR.probs.find(x=>x.h===0&&x.a===0)?.p||0},
-      {lbl:'0-0 (DC)',p:dcR.probs.find(x=>x.h===0&&x.a===0)?.p||0},
-      {lbl:'1-0 (Poisson)',p:poissonR.probs.find(x=>x.h===1&&x.a===0)?.p||0},
-      {lbl:'1-0 (DC)',p:dcR.probs.find(x=>x.h===1&&x.a===0)?.p||0},
-      {lbl:'1-1 (Poisson)',p:poissonR.probs.find(x=>x.h===1&&x.a===1)?.p||0},
-      {lbl:'1-1 (DC)',p:dcR.probs.find(x=>x.h===1&&x.a===1)?.p||0},
-      {lbl:'0-1 (Poisson)',p:poissonR.probs.find(x=>x.h===0&&x.a===1)?.p||0},
-      {lbl:'0-1 (DC)',p:dcR.probs.find(x=>x.h===0&&x.a===1)?.p||0},
-    ];
-    let html='';
-    for(let i=0;i<cells.length;i+=2){
-      const base=cells[i].p, adj=cells[i+1].p;
-      const diff = ((adj-base)/base*100).toFixed(1);
-      const diffCls = diff>0?'up':diff<0?'down':'same';
-      const diffTxt = diff>0?`↑ +${diff}%`:diff<0?`↓ ${diff}%`:'→ aynı';
-      html+=`<div class="dc-cell"><div class="dc-lbl">${cells[i+1].lbl}</div>
-        <div class="dc-val">${(adj*100).toFixed(1)}%</div>
-        <div class="dc-diff ${diffCls}">${diffTxt} Poisson'dan</div></div>`;
-    }
-    document.getElementById('sDCCompare').innerHTML = html;
-    document.getElementById('sDCRho').textContent = ` · ρ = ${DC_RHO}`;
-  } else {
-    dcCard.style.display = 'none';
-  }
-
-  // ── Monte Carlo paneli
-  const mcCard = document.getElementById('sMCCard');
-  if(currentModel==='mc'||currentModel==='ensemble'){
-    mcCard.style.display = '';
-    document.getElementById('sMCSims').textContent = `${MC_SIMS.toLocaleString()} simülasyon tamamlandı`;
-
-    // outcome bars
-    const outcomes = [
-      {lbl: homeName.split(' ')[0]+' Gal.', val: r.pH, color:'var(--red)'},
-      {lbl: 'Beraberlik',                   val: r.pD, color:'var(--muted)'},
-      {lbl: awayName.split(' ')[0]+' Gal.', val: r.pA, color:'var(--blue)'},
-    ];
-    document.getElementById('sMCBars').innerHTML = outcomes.map(o=>`
-      <div class="mc-bar-row">
-        <div class="mc-bar-lbl">${o.lbl}</div>
-        <div class="mc-bar-track">
-          <div class="mc-bar-fill" style="width:${(o.val*100).toFixed(1)}%;background:${o.color}">
-            <span class="mc-bar-val">${(o.val*100).toFixed(1)}%</span>
-          </div>
-        </div>
+      <div class="consensus-band">
+        <span class="cb-item ${agreeAll?'agree':'split'}">${agreeAll?'✓ 3/3 uzlaştı':'⚡ Görüş ayrılığı'}</span>
+        <span style="font-size:9px;color:var(--muted)">P:${r.topP.h}-${r.topP.a} · DC:${r.topDC.h}-${r.topDC.a} · MC:${r.topMC.h}-${r.topMC.a}</span>
       </div>
-    `).join('');
+      <div class="ctx-row">
+        <span class="ctx-pill ref">🟨 ${ref.yellowPer90} sarı/90dk</span>
+        <span class="ctx-pill style">🔄 ${H.style} vs ${A.style}</span>
+        ${r.injH<1?`<span class="ctx-pill fatigue">🏥 Ev -${((1-r.injH)*100).toFixed(0)}%</span>`:''}
+        ${r.injA<1?`<span class="ctx-pill fatigue">🏥 Dep -${((1-r.injA)*100).toFixed(0)}%</span>`:''}
+        ${r.restH>1?`<span class="ctx-pill boost">😴 Ev +${((r.restH-1)*100).toFixed(0)}%</span>`:''}
+        ${r.restA>1?`<span class="ctx-pill boost">😴 Dep +${((r.restA-1)*100).toFixed(0)}%</span>`:''}
+      </div>
+      ${res}`;
+    c.appendChild(el);
+  });
+  updateAcc();
+}
+function saveResult(i){const h=parseInt(document.getElementById('rH'+i).value),a=parseInt(document.getElementById('rA'+i).value);if(isNaN(h)||isNaN(a)||h<0||a<0){alert('Geçerli skor!');return;}saved[i]={h,a};renderWeek();}
+function updateAcc(){const keys=Object.keys(saved);if(!keys.length){document.getElementById('accuracyPill').textContent='Sonuç girin →';return;}let ex=0,co=0;keys.forEach(i=>{const s=saved[i];const r=fusion(WEEK26[i].home,WEEK26[i].away,WEEK26[i].ref);const mx=Math.max(r.pH,r.pD,r.pA);const pred=r.pH===mx?'H':r.pD===mx?'D':'A';const actual=s.h>s.a?'H':s.h===s.a?'D':'A';if(s.h===r.best.h&&s.a===r.best.a)ex++;if(pred===actual)co++;});document.getElementById('accuracyPill').textContent=`${keys.length} maç → Skor: ${ex}/${keys.length} · Sonuç: ${co}/${keys.length}`;}
 
-    // goal distribution chart
-    if(r.goalDist){
-      const maxY = Math.max(...r.goalDist);
-      const colors=['#4fc3f7','#4fc3f7','#f5c842','#f5c842','#f5c842','#e8001d','#e8001d','#e8001d','#9b0014','#9b0014','#9b0014','#9b0014','#9b0014'];
-      document.getElementById('sMCDist').innerHTML = r.goalDist.map((v,i)=>`
-        <div class="dist-bar" style="height:${Math.max(4,(v/maxY*100)).toFixed(1)}%;background:${colors[i]||'#333'};opacity:${.5+v/maxY*.5}">
-          <div class="dist-tooltip">${i} gol: ${(v*100).toFixed(1)}%</div>
-        </div>
-      `).join('');
-    }
-  } else {
-    mcCard.style.display = 'none';
-  }
+// ═══════════════════════════════════════════════════════════════
+//  TEKİL TAB
+// ═══════════════════════════════════════════════════════════════
+function predictSingle(){
+  const hn=document.getElementById('homeTeam').value,an=document.getElementById('awayTeam').value;
+  const err=document.getElementById('singleErr');err.style.display='none';
+  if(!hn||!an){err.textContent='Lütfen iki takım seçin!';err.style.display='block';return;}
+  if(hn===an){err.textContent='Farklı iki takım seçin!';err.style.display='block';return;}
+  const btn=document.getElementById('predictBtn');
+  btn.innerHTML='<span class="mc-spinning"></span> Elite analiz çalışıyor…';btn.disabled=true;
+  resetEng();
+  setTimeout(()=>{doPredict(hn,an,null);btn.innerHTML='⚡ Elite Analizi Başlat';btn.disabled=false;},60);
+}
 
-  // ── sezon istatistik
-  function srow(hv,lbl,av){return`<div class="srow"><span class="sv h">${hv}</span><span class="sln">${lbl}</span><span class="sv a">${av}</span></div>`;}
-  document.getElementById('sSeasonStats').innerHTML =
-    srow(H.p,'Oynanan',A.p)+
-    srow(`${H.w}G/${H.d}B/${H.l}M`,'G/B/M',`${A.w}G/${A.d}B/${A.l}M`)+
-    srow((H.gs/H.p).toFixed(2),'Gol ort. (att.)',(A.gs/A.p).toFixed(2))+
-    srow((H.gc/H.p).toFixed(2),'Gol ort. (yed.)',(A.gc/A.p).toFixed(2))+
-    srow(r.hXg.toFixed(2),'xG (beklenen)',r.aXg.toFixed(2));
-  const badge = f=>`<div class="fb ${f}">${f}</div>`;
-  document.getElementById('sSeasonStats').innerHTML +=
-    `<div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:5px;">${homeName}</div>
-      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">${H.form.map(badge).join('')}</div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:5px;">${awayName}</div>
-      <div style="display:flex;gap:5px;flex-wrap:wrap;">${A.form.map(badge).join('')}</div>
+function miniBar(vals){return vals.map(([cls,col,v])=>`<div class="mbm-row"><div class="mbm-dot ${cls}" style="background:${col}"></div><div class="mbm-track"><div class="mbm-fill" style="width:${(clamp(v,0,1)*100).toFixed(1)}%;background:${col}"></div></div></div>`).join('');}
+
+function doPredict(hn,an,refName){
+  // find ref from WEEK26 if available
+  const matchDef=WEEK26.find(m=>m.home===hn&&m.away===an);
+  const ref=refName||(matchDef?matchDef.ref:'DEFAULT');
+  const r=fusion(hn,an,ref);
+  const H=TEAMS[hn],A=TEAMS[an];
+  animEng(r.wP,r.wDC,r.wM);
+
+  document.getElementById('sHN').textContent=hn;document.getElementById('sAN').textContent=an;
+  document.getElementById('sHG').textContent=r.best.h;document.getElementById('sAG').textContent=r.best.a;
+  document.getElementById('sXG').textContent=`Elite xG: ${hn.split(' ')[0]} ${r.hXg.toFixed(2)} (base ${r.baseH.toFixed(2)}) · ${an.split(' ')[0]} ${r.aXg.toFixed(2)} (base ${r.baseA.toFixed(2)}) · Hakem: ${ref}`;
+
+  // model breakdown
+  document.getElementById('sModelBreakdown').innerHTML=`
+    <div class="mb-cell"><div class="mb-name c-p">📐 Poisson</div><div class="mb-score">${r.topP.h}:${r.topP.a}</div><div class="mb-conf">${(r.topP.p*100).toFixed(1)}%</div><div class="mb-w w-p">${Math.round(r.wP*100)}%</div></div>
+    <div class="mb-cell"><div class="mb-name c-d">🔧 Dixon-Coles</div><div class="mb-score">${r.topDC.h}:${r.topDC.a}</div><div class="mb-conf">${(r.topDC.p*100).toFixed(1)}%</div><div class="mb-w w-d">${Math.round(r.wDC*100)}%</div></div>
+    <div class="mb-cell"><div class="mb-name c-m">🎲 Monte Carlo</div><div class="mb-score">${r.topMC.h}:${r.topMC.a}</div><div class="mb-conf">${(r.topMC.p*100).toFixed(1)}%</div><div class="mb-w w-m">${Math.round(r.wM*100)}%</div></div>`;
+
+  // confidence
+  const confCls=r.conf>=70?'high':r.conf>=50?'mid':'low';
+  document.getElementById('confTitle').textContent=r.conf>=70?'Yüksek Güven ✓':r.conf>=50?'Orta Güven':'Düşük Güven ⚠';
+  document.getElementById('confSub').textContent=`Model uzlaşısı ${r.agrN}/3 · En olası skor ${(r.all[0].pF*100).toFixed(1)}%`;
+  setTimeout(()=>{document.getElementById('confFill').style.width=r.conf+'%';document.getElementById('confFill').style.background=r.conf>=70?'var(--green)':r.conf>=50?'var(--gold)':'#ff7070';},80);
+  document.getElementById('confPct').textContent=r.conf+'%';document.getElementById('confPct').className=`conf-pct ${confCls}`;
+
+  // CONTEXT FACTORS GRID
+  const H2=TEAMS[hn],A2=TEAMS[an];
+  const rf=r.rf.ref;
+  document.getElementById('sCtxGrid').innerHTML=`
+    <div class="ctx-card">
+      <div class="ctx-card-title">⚡ ELO & Kadro</div>
+      <div class="ctx-row-item"><span class="cri-lbl">ELO (Ev)</span><span class="cri-val neu">${H2.elo}</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">ELO (Dep)</span><span class="cri-val neu">${A2.elo}</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">ELO farkı</span><span class="cri-val ${H2.elo>A2.elo?'pos':'neg'}">${H2.elo>A2.elo?'+':''}${H2.elo-A2.elo}</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Kadro €M (Ev)</span><span class="cri-val neu">€${H2.squadVal}M</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Kadro €M (Dep)</span><span class="cri-val neu">€${A2.squadVal}M</span></div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-card-title">🏥 Sakat / Cezalı</div>
+      <div class="ctx-row-item"><span class="cri-lbl">Ev Sakat</span><span class="cri-val ${H2.injured>0?'neg':'pos'}">${H2.injured} oyuncu</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Ev Cezalı</span><span class="cri-val ${H2.suspended>0?'neg':'pos'}">${H2.suspended} oyuncu</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Dep Sakat</span><span class="cri-val ${A2.injured>0?'neg':'pos'}">${A2.injured} oyuncu</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Dep Cezalı</span><span class="cri-val ${A2.suspended>0?'neg':'pos'}">${A2.suspended} oyuncu</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Ev xG etkisi</span><span class="cri-val ${r.injH<1?'neg':'pos'}">${((r.injH-1)*100).toFixed(1)}%</span></div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-card-title">😴 Dinlenme</div>
+      <div class="ctx-row-item"><span class="cri-lbl">Ev (son maç)</span><span class="cri-val ${H2.restDays>=7?'pos':H2.restDays<=2?'neg':'neu'}">${H2.restDays} gün önce</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Dep (son maç)</span><span class="cri-val ${A2.restDays>=7?'pos':A2.restDays<=2?'neg':'neu'}">${A2.restDays} gün önce</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Ev bonus</span><span class="cri-val ${r.restH>1?'pos':r.restH<1?'neg':'neu'}">${((r.restH-1)*100).toFixed(1)}%</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Dep bonus</span><span class="cri-val ${r.restA>1?'pos':r.restA<1?'neg':'neu'}">${((r.restA-1)*100).toFixed(1)}%</span></div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-card-title">🔄 Stil & Oyun</div>
+      <div class="ctx-row-item"><span class="cri-lbl">Ev stili</span><span class="cri-val neu">${H2.style==='possession'?'Topa Sahip':H2.style==='counter'?'Kontra Atak':'Dengeli'}</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Dep stili</span><span class="cri-val neu">${A2.style==='possession'?'Topa Sahip':A2.style==='counter'?'Kontra Atak':'Dengeli'}</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Ev top% </span><span class="cri-val neu">${H2.possession}%</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Dep top%</span><span class="cri-val neu">${A2.possession}%</span></div>
+      <div class="ctx-row-item"><span class="cri-lbl">Stil çarpanı</span><span class="cri-val ${r.sf.hAtt>1?'pos':r.sf.hAtt<1?'neg':'neu'}">${((r.sf.hAtt-1)*100).toFixed(1)}%</span></div>
     </div>`;
 
-  // ── top scores
-  document.getElementById('sTopScores').innerHTML =
-    r.probs.slice(0,9).map((s,i)=>
-      `<div class="si ${i===0?'top':''}">
-        <span class="si-lbl">${homeName.split(' ')[0]} ${s.h}–${s.a} ${awayName.split(' ')[0]}</span>
-        <span class="si-pct">${(s.p*100).toFixed(1)}%</span>
-      </div>`).join('');
+  // FACTOR IMPACT BARS
+  document.getElementById('sFactorImpact').innerHTML=`
+    <div style="margin-top:10px;border-top:1px solid var(--border);padding-top:10px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">Ev Sahibi xG Faktör Katkıları</div>
+      ${r.factors.map(f=>{const d=f.hDelta;const cls=d>0.4?'pos':d<-0.4?'neg':'';const w=Math.min(Math.abs(d)*6,50);
+        return `<div class="fi-row"><div class="fi-lbl">${f.lbl}</div><div class="fi-track"><div class="fi-fill ${d>=0?'pos':'neg'}" style="width:${w}%"></div></div><div class="fi-val ${cls||'neu'}">${d>=0?'+':''}${d.toFixed(1)}%</div></div>`;
+      }).join('')}
+    </div>`;
 
-  const el = document.getElementById('singleResult');
-  el.classList.add('show');
-  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}), 80);
+  // HT
+  document.getElementById('sHT1').textContent=`${r.bestHT.h}:${r.bestHT.a}`;
+  document.getElementById('sHT1sub').textContent=`%${(r.bestHT.p*100).toFixed(1)} olasılık`;
+  document.getElementById('sHT2').textContent=`${r.h2}:${r.a2}`;
+
+  // 1X2
+  document.getElementById('sPHL').textContent=hn.split(' ')[0];document.getElementById('sPAL').textContent=an.split(' ')[0];
+  document.getElementById('sPVH').textContent=pct(r.pH);document.getElementById('sPVD').textContent=pct(r.pD);document.getElementById('sPVA').textContent=pct(r.pA);
+  setTimeout(()=>{document.getElementById('sBH').style.width=pct(r.pH);document.getElementById('sBD').style.width=pct(r.pD);document.getElementById('sBA').style.width=pct(r.pA);},120);
+  const mx=Math.max(r.pH,r.pD,r.pA);
+  document.getElementById('sPCH').classList.toggle('best',r.pH===mx);document.getElementById('sPCD').classList.toggle('best',r.pD===mx);document.getElementById('sPCA').classList.toggle('best',r.pA===mx);
+
+  const norm=m=>({hW:m.hW/(m.hW+m.dr+m.aW),dr:m.dr/(m.hW+m.dr+m.aW),aW:m.aW/(m.hW+m.dr+m.aW)});
+  const pn=norm(r.P),dn=norm(r.DC),mn=norm(r.MC);
+  document.getElementById('sMBH').innerHTML=miniBar([['p','var(--blue)',pn.hW],['d','var(--gold)',dn.hW],['m','var(--green)',mn.hW]]);
+  document.getElementById('sMBD').innerHTML=miniBar([['p','var(--blue)',pn.dr],['d','var(--gold)',dn.dr],['m','var(--green)',mn.dr]]);
+  document.getElementById('sMBA').innerHTML=miniBar([['p','var(--blue)',pn.aW],['d','var(--gold)',dn.aW],['m','var(--green)',mn.aW]]);
+
+  // AU / KG
+  const auLbl=r.over25>.52?'ÜST':r.over25<.48?'ALT':'KENAR';
+  const kgLbl=r.btts>.52?'VAR':r.btts<.48?'YOK':'MUĞLAK';
+  document.getElementById('sAUCard').className='auc '+(auLbl==='ÜST'?'yes':auLbl==='ALT'?'no':'mid');
+  document.getElementById('sAUVal').textContent=auLbl;document.getElementById('sAUSub').textContent=`Üst ${pct(r.over25)} · Alt ${pct(1-r.over25)}`;
+  document.getElementById('sKGCard').className='auc '+(kgLbl==='VAR'?'yes':kgLbl==='YOK'?'no':'mid');
+  document.getElementById('sKGVal').textContent=kgLbl;document.getElementById('sKGSub').textContent=`KG Var ${pct(r.btts)} · KG Yok ${pct(1-r.btts)}`;
+
+  // RADAR
+  setTimeout(()=>{
+    const cv=document.getElementById('radarCanvas');
+    document.getElementById('radarHomeLbl').textContent=hn;
+    document.getElementById('radarAwayLbl').textContent=an;
+    drawRadar(cv,r.radarH,r.radarA,['Atak','Savunma','Top%','Pressing','Kontra','Form']);
+  },200);
+
+  // REFEREE
+  const refObj=REFEREES[ref]||REFEREES['DEFAULT'];
+  const stCls=refObj.strictness==='strict'?'strict':refObj.strictness==='lax'?'lax':'med';
+  document.getElementById('sRefPanel').innerHTML=`
+    <div class="ref-cell"><div class="ref-lbl">Sarı/90dk</div><div class="ref-val ${stCls}">${refObj.yellowPer90}</div><div class="ref-sub">${refObj.strictness==='strict'?'Yüksek':refObj.strictness==='lax'?'Düşük':'Orta'}</div></div>
+    <div class="ref-cell"><div class="ref-lbl">Kırmızı/90</div><div class="ref-val ${stCls}">${refObj.redPer90}</div><div class="ref-sub">Kırmızı eğ.</div></div>
+    <div class="ref-cell"><div class="ref-lbl">Penaltı/90</div><div class="ref-val ${stCls}">${refObj.penPer90}</div><div class="ref-sub">Penaltı sıkl.</div></div>`;
+  document.getElementById('sRefDesc').innerHTML=`<strong>${ref}:</strong> ${refObj.desc} Ev avantajı katsayısı: <strong>${refObj.homeAdv}</strong>. xG hakem etkisi: <strong style="color:${refObj.strictness==='strict'?'#ff7070':'var(--green)'};">${refObj.strictness==='strict'?'-2%':refObj.strictness==='lax'?'+2%':'±0%'}</strong>`;
+
+  // DC TABLE
+  document.getElementById('sDCGrid').innerHTML=[[0,0],[1,0],[0,1],[1,1]].map(([h,a])=>{
+    const pP=r.P.probs.find(x=>x.h===h&&x.a===a)?.p||0;
+    const pDC=r.DC.probs.find(x=>x.h===h&&x.a===a)?.p||0;
+    const diff=pP>0?(pDC-pP)/pP*100:0;
+    return `<div class="dc-cell"><div class="dc-lbl">${h}-${a}</div><div class="dc-v p">${(pP*100).toFixed(1)}%</div><div class="dc-v d">${(pDC*100).toFixed(1)}%</div><div class="dc-v ${diff>=0?'up':'dn'}">${diff>=0?'↑':''} ${Math.abs(diff).toFixed(1)}%</div></div>`;
+  }).join('');
+
+  // MC DIST
+  const maxY=Math.max(...r.gd);
+  const cols=['#4fc3f7','#4fc3f7','#f5c842','#f5c842','#f5c842','#e8001d','#e8001d','#e8001d','#9b0014','#9b0014','#9b0014','#9b0014','#9b0014'];
+  document.getElementById('sMCDist').innerHTML=r.gd.map((v,i)=>`<div class="dist-bar" style="height:${Math.max(3,(v/maxY*100)).toFixed(1)}%;background:${cols[i]};opacity:${(.4+v/maxY*.6).toFixed(2)}"><div class="dist-tooltip">${i}${i===12?'+':''} gol: ${(v*100).toFixed(1)}%</div></div>`).join('');
+
+  // SEASON STATS
+  const sr=(hv,l,av)=>`<div class="srow"><span class="sv h">${hv}</span><span class="sln">${l}</span><span class="sv a">${av}</span></div>`;
+  document.getElementById('sSeasonStats').innerHTML=
+    sr(H.p,'Oynanan',A.p)+sr(`${H.w}G/${H.d}B/${H.l}M`,'G/B/M',`${A.w}G/${A.d}B/${A.l}M`)+
+    sr((H.gs/H.p).toFixed(2),'Gol ort. att.',(A.gs/A.p).toFixed(2))+sr((H.gc/H.p).toFixed(2),'Gol ort. yed.',(A.gc/A.p).toFixed(2))+
+    sr(r.hXg.toFixed(2),'Elite xG',r.aXg.toFixed(2))+sr(H.elo,'ELO',A.elo)+
+    sr(`€${H.squadVal}M`,'Kadro Değeri',`€${A.squadVal}M`)+
+    sr(`${H.possession}%`,'Top Hakimiyeti',`${A.possession}%`);
+  const fb=f=>`<div class="fb ${f}">${f}</div>`;
+  document.getElementById('sSeasonStats').innerHTML+=`<div style="margin-top:10px;border-top:1px solid var(--border);padding-top:10px;"><div style="font-size:10px;color:var(--muted);margin-bottom:4px;">${hn} (form)</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">${H.form.map(fb).join('')}</div><div style="font-size:10px;color:var(--muted);margin-bottom:4px;">${an} (form)</div><div style="display:flex;gap:4px;flex-wrap:wrap;">${A.form.map(fb).join('')}</div></div>`;
+
+  // TOP SCORES
+  const tPs=new Set(r.P.probs.slice().sort((a,b)=>b.p-a.p).slice(0,12).map(x=>`${x.h}:${x.a}`));
+  const tDs=new Set(r.DC.probs.slice().sort((a,b)=>b.p-a.p).slice(0,12).map(x=>`${x.h}:${x.a}`));
+  const tMs=new Set(r.MC.probs.slice(0,12).map(x=>`${x.h}:${x.a}`));
+  document.getElementById('sTopScores').innerHTML=r.all.slice(0,10).map((s,i)=>{
+    const k=`${s.h}:${s.a}`;
+    return `<div class="si ${i===0?'top':''}">
+      <span class="si-lbl">${hn.split(' ')[0]} ${s.h}–${s.a} ${an.split(' ')[0]}</span>
+      <div style="display:flex;align-items:center;gap:7px;">
+        <div class="si-mdots"><div class="si-mdot p ${tPs.has(k)?'on':''}"></div><div class="si-mdot d ${tDs.has(k)?'on':''}"></div><div class="si-mdot m ${tMs.has(k)?'on':''}"></div></div>
+        <span class="si-pct">${(s.pF*100).toFixed(1)}%</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('singleResult').classList.add('show');
+  setTimeout(()=>document.getElementById('singleResult').scrollIntoView({behavior:'smooth',block:'start'}),80);
 }
 
-// ═══════════════════════════════════════════════════
-//  TABS
-// ═══════════════════════════════════════════════════
-function switchTab(tab){
-  document.getElementById('tabWeek').style.display  = tab==='week'  ? 'block':'none';
-  document.getElementById('tabSingle').style.display = tab==='single'? 'block':'none';
-  document.querySelectorAll('.tab').forEach((t,i)=>
-    t.classList.toggle('active',(tab==='week'&&i===0)||(tab==='single'&&i===1)));
+function switchTab(t){
+  document.getElementById('tabWeek').style.display=t==='week'?'block':'none';
+  document.getElementById('tabSingle').style.display=t==='single'?'block':'none';
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',(t==='week'&&i===0)||(t==='single'&&i===1)));
 }
 
 renderWeek();
