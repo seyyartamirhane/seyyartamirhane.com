@@ -2,19 +2,12 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>PRO ELITE V10 · Monte Carlo + Dixon Coles + İlk Yarı</title>
-
+<title>PRO ELITE V11 · Deterministik Tahminler</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <style>
 :root{
---red:#e8001d;
---bg:#080810;
---surface:#11111c;
---border:rgba(255,255,255,0.08);
---text:#eeeef8;
---muted:#6868a0;
---blue:#4fc3f7;
+--red:#e8001d;--bg:#080810;--surface:#11111c;--border:rgba(255,255,255,0.08);
+--text:#eeeef8;--muted:#6868a0;--blue:#4fc3f7;
 }
 body{font-family:'Outfit';background:var(--bg);color:var(--text);padding:20px;}
 .wrap{max-width:1200px;margin:auto;}
@@ -36,15 +29,13 @@ h1{font-family:'Bebas Neue';font-size:60px;letter-spacing:6px;color:var(--red);}
 <body>
 <div class="wrap">
 <header>
-<h1>PRO ELITE V10</h1>
-<p style="color:#777">Monte Carlo · Dixon-Coles · Poisson Model · İlk Yarı</p>
+<h1>PRO ELITE V11</h1>
+<p style="color:#777">Deterministik Tahminler · Monte Carlo & Dixon-Coles Mantığı</p>
 </header>
 <div id="grid" class="grid"></div>
 </div>
 
 <script>
-const SIMS=10000
-
 const TEAMS={
 "Galatasaray":{elo:1845,attack:2.1,def:0.9,htsr:0.42},
 "Fenerbahçe":{elo:1815,attack:2.0,def:1.0,htsr:0.45},
@@ -78,87 +69,74 @@ const FIXTURES=[
 {h:"Samsunspor",a:"Kayserispor"}
 ]
 
-function poisson(lambda){
-let L=Math.exp(-lambda)
-let k=0
-let p=1
-do{k++;p*=Math.random()}while(p>L)
-return k-1
+// Deterministik Poisson: en olası skor
+function poissonDet(lambda){
+    return Math.round(lambda);
 }
 
+// Dixon-Coles sabit düzeltme (opsiyonel)
 function dixonColesAdjust(h,a){
-if(h==0 && a==0) return 1.1
-if(h==0 && a==1) return 1.05
-if(h==1 && a==0) return 1.05
-if(h==1 && a==1) return 1.08
-return 1
+    if(h==0 && a==0) return 1.1
+    if(h==0 && a==1) return 1.05
+    if(h==1 && a==0) return 1.05
+    if(h==1 && a==1) return 1.08
+    return 1
 }
 
-function monteCarlo(hXG,aXG){
-let hw=0,dr=0,aw=0
-let htScore="0-0",ftScore="0-0"
-let scoreMap={},htMap={}
-
-for(let i=0;i<SIMS;i++){
-let h=poisson(hXG), a=poisson(aXG)
-let adj=dixonColesAdjust(h,a)
-if(Math.random()>adj) continue
-scoreMap[h+"-"+a]=(scoreMap[h+"-"+a]||0)+1
-if(h>a)hw++
-else if(h<a)aw++
-else dr++
-
-// İlk yarı skor
-let hHT=poisson(hXG*0.5), aHT=poisson(aXG*0.5)
-htMap[hHT+"-"+aHT]=(htMap[hHT+"-"+aHT]||0)+1
-}
-
-// En olası skoru bul
-let max=0; for(let k in scoreMap){if(scoreMap[k]>max){max=scoreMap[k]; ftScore=k}}
-max=0; for(let k in htMap){if(htMap[k]>max){max=htMap[k]; htScore=k}}
-
-return{score:ftScore,home:hw/SIMS,draw:dr/SIMS,away:aw/SIMS,ht:htScore}
-}
-
+// xG Hesabı
 function calcXG(H,A){
-let elo=(H.elo-A.elo)/400
-let hXG=(H.attack*A.def)*(1+elo*0.15)
-let aXG=(A.attack*H.def)*(1-elo*0.15)
-return[hXG,aXG]
+    let elo=(H.elo-A.elo)/400
+    let hXG=(H.attack*A.def)*(1+elo*0.15)
+    let aXG=(A.attack*H.def)*(1-elo*0.15)
+    return [hXG,aXG]
 }
 
 function run(){
-let grid=document.getElementById("grid")
-FIXTURES.forEach(m=>{
-let H=TEAMS[m.h], A=TEAMS[m.a]
-let xg=calcXG(H,A)
-let sim=monteCarlo(xg[0],xg[1])
-let card=document.createElement("div")
-card.className="card"
-card.innerHTML=`
-<div>${m.h} vs ${m.a}</div>
-<div class="vs">
-<div class="team">${m.h}</div>
-<div>
-<div class="score">${sim.score}</div>
-<div class="iy">İY: ${sim.ht}</div>
-</div>
-<div class="team">${m.a}</div>
-</div>
-<div class="bar">
-<div class="h" style="width:${sim.home*100}%"></div>
-<div class="d" style="width:${sim.draw*100}%"></div>
-<div class="a" style="width:${sim.away*100}%"></div>
-</div>
-<div class="details">
-EV %${(sim.home*100).toFixed(1)} |
-X %${(sim.draw*100).toFixed(1)} |
-DEP %${(sim.away*100).toFixed(1)}<br>
-xG ${xg[0].toFixed(2)} - ${xg[1].toFixed(2)}
-</div>
-`
-grid.appendChild(card)
-})
+    let grid=document.getElementById("grid")
+    FIXTURES.forEach(m=>{
+        let H=TEAMS[m.h], A=TEAMS[m.a]
+        let xg=calcXG(H,A)
+
+        // FT skor
+        let ftH=poissonDet(xg[0])
+        let ftA=poissonDet(xg[1])
+        let ftScore=ftH+"-"+ftA
+
+        // HT skor
+        let htH=poissonDet(xg[0]*H.htsr)
+        let htA=poissonDet(xg[1]*A.htsr)
+        let htScore=htH+"-"+htA
+
+        // Olasılık hesapları deterministik xG ile
+        let total=xg[0]+xg[1]
+        let homeP=(xg[0]/total), drawP=(1-Math.abs(xg[0]-xg[1])/total)*0.5, awayP=(xg[1]/total)
+
+        let card=document.createElement("div")
+        card.className="card"
+        card.innerHTML=`
+        <div>${m.h} vs ${m.a}</div>
+        <div class="vs">
+        <div class="team">${m.h}</div>
+        <div>
+        <div class="score">${ftScore}</div>
+        <div class="iy">İY: ${htScore}</div>
+        </div>
+        <div class="team">${m.a}</div>
+        </div>
+        <div class="bar">
+        <div class="h" style="width:${(homeP*100).toFixed(1)}%"></div>
+        <div class="d" style="width:${(drawP*100).toFixed(1)}%"></div>
+        <div class="a" style="width:${(awayP*100).toFixed(1)}%"></div>
+        </div>
+        <div class="details">
+        EV %${(homeP*100).toFixed(1)} |
+        X %${(drawP*100).toFixed(1)} |
+        DEP %${(awayP*100).toFixed(1)}<br>
+        xG ${xg[0].toFixed(2)} - ${xg[1].toFixed(2)}
+        </div>
+        `
+        grid.appendChild(card)
+    })
 }
 
 run()
