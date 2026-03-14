@@ -3,56 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA ANALYST V16 | Pro Football Prediction</title>
+    <title>ULTRA ANALYST V16 - 26. HAFTA GERÇEK FİKSTÜR</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --red: #ff3e3e; --bg: #05050a; --surface: #0f0f1a;
-            --border: rgba(255,255,255,0.05); --text: #f0f0f5;
+            --border: rgba(255,255,255,0.08); --text: #f0f0f5;
             --muted: #8888b0; --blue: #00d2ff; --green: #00ff88;
         }
-
         body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
         .container { max-width: 1300px; margin: auto; }
-        
-        header { 
-            text-align: center; padding: 50px 0; border-bottom: 2px solid var(--red); 
-            background: linear-gradient(to bottom, #111122, var(--bg)); margin-bottom: 40px;
-        }
-        h1 { font-family: 'Bebas Neue'; font-size: 72px; margin: 0; letter-spacing: 8px; color: var(--text); }
-        .subtitle { color: var(--red); font-weight: 600; letter-spacing: 2px; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; }
-        
-        .card { 
-            background: var(--surface); border: 1px solid var(--border); border-radius: 24px; 
-            padding: 25px; position: relative; overflow: hidden; transition: transform 0.3s;
-        }
-        .card:hover { transform: translateY(-5px); border-color: var(--red); }
-        
-        .match-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .market-value { font-size: 10px; color: var(--muted); text-transform: uppercase; }
-
-        .vs-area { display: flex; justify-content: space-around; align-items: center; margin: 20px 0; }
-        .team-box { flex: 1; text-align: center; }
-        .team-name { font-weight: 700; font-size: 18px; margin-bottom: 5px; }
-        .score-box { text-align: center; min-width: 100px; }
-        .main-score { font-family: 'Bebas Neue'; font-size: 56px; line-height: 1; color: var(--red); }
-        .iy-score { font-size: 14px; color: var(--muted); }
-
-        .analysis-bars { margin: 20px 0; }
-        .bar-label { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; color: var(--muted); }
-        .progress-container { height: 8px; background: #000; border-radius: 4px; display: flex; overflow: hidden; }
-        .p-win { background: var(--red); } .p-draw { background: #444; } .p-away { background: var(--blue); }
-
-        .factor-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
-        .tag { font-size: 10px; padding: 4px 8px; border-radius: 4px; background: rgba(255,255,255,0.03); color: var(--muted); border: 1px solid var(--border); }
-        .tag.alert { color: var(--red); border-color: var(--red); }
-        .tag.info { color: var(--blue); border-color: var(--blue); }
-
-        .stats-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; font-size: 13px; font-weight: 600; }
-        .stat-item { background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px; text-align: center; }
-        .val { display: block; color: var(--green); font-size: 16px; font-family: 'Bebas Neue'; }
+        header { text-align: center; padding: 40px 0; border-bottom: 2px solid var(--red); background: linear-gradient(to bottom, #111122, var(--bg)); margin-bottom: 40px; }
+        h1 { font-family: 'Bebas Neue'; font-size: 64px; margin: 0; letter-spacing: 6px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 25px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px; border-top: 5px solid var(--red); position: relative; }
+        .match-info { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 15px; text-transform: uppercase; }
+        .vs-area { display: flex; align-items: center; justify-content: space-between; margin: 15px 0; }
+        .team { flex: 1; text-align: center; font-weight: 700; font-size: 1.1rem; color: #fff; }
+        .score-box { text-align: center; flex: 1; }
+        .main-score { font-family: 'Bebas Neue'; font-size: 56px; color: var(--text); line-height: 1; text-shadow: 0 0 15px rgba(255,62,62,0.3); }
+        .iy-score { font-size: 13px; color: var(--red); font-weight: 600; margin-top: 5px; }
+        .bar-container { height: 10px; background: #000; border-radius: 5px; display: flex; overflow: hidden; margin: 15px 0; }
+        .h-bar { background: var(--red); } .d-bar { background: #444; } .a-bar { background: var(--blue); }
+        .footer-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
+        .stat { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 12px; text-align: center; font-size: 12px; border: 1px solid var(--border); }
+        .stat b { display: block; color: var(--green); font-size: 18px; font-family: 'Bebas Neue'; margin-top: 4px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
+        .tag { font-size: 10px; padding: 4px 8px; border-radius: 5px; background: #161625; color: #888; border: 1px solid #222; }
+        .tag.alert { color: var(--red); border-color: rgba(255,62,62,0.3); }
     </style>
 </head>
 <body>
@@ -60,166 +38,110 @@
 <div class="container">
     <header>
         <h1>ULTRA ANALYST V16</h1>
-        <p class="subtitle">MULTI-FACTOR POISSON ENGINE • MAÇKOLİK DEPTH</p>
+        <p style="color:var(--red); font-weight:700; letter-spacing: 2px;">2025-2026 SEZONU | 26. HAFTA GERÇEK FİKSTÜR</p>
     </header>
-
-    <div id="app" class="grid"></div>
+    <div id="grid" class="grid"></div>
 </div>
 
 <script>
-/**
- * 50 YILLIK ANALİST PARAMETRELERİ
- * marketValue: Milyon Euro
- * attack/def: Takım baz gücü
- * absentImpact: Kritik eksiklerin xG düşüş etkisi
- */
+// 2025-2026 SEZONU SÜPER LİG TAKIMLARI VE GÜNCEL GÜÇLERİ
 const TEAMS = {
-    "Galatasaray": { elo: 1845, mv: 288, att: 2.4, def: 0.8, absentImpact: 0.2 },
-    "Fenerbahçe": { elo: 1820, mv: 250, att: 2.3, def: 0.9, absentImpact: 0.1 },
-    "Beşiktaş": { elo: 1740, mv: 140, att: 1.8, def: 1.1, absentImpact: 0.15 },
-    "Trabzonspor": { elo: 1710, mv: 110, att: 1.6, def: 1.2, absentImpact: 0.1 },
-    "Başakşehir FK": { elo: 1680, mv: 55, att: 1.5, def: 1.1, absentImpact: 0.05 },
-    "Göztepe": { elo: 1620, mv: 40, att: 1.3, def: 1.0, absentImpact: 0.05 },
-    "Eyüpspor": { elo: 1590, mv: 35, att: 1.2, def: 1.3, absentImpact: 0.05 },
-    "Samsunspor": { elo: 1605, mv: 30, att: 1.4, def: 1.2, absentImpact: 0.05 },
-    "Kasımpaşa": { elo: 1550, mv: 28, att: 1.5, def: 1.6, absentImpact: 0.05 },
-    "Antalyaspor": { elo: 1530, mv: 25, att: 1.2, def: 1.4, absentImpact: 0.05 },
-    "Konyaspor": { elo: 1520, mv: 22, att: 1.1, def: 1.5, absentImpact: 0.05 }
+    "Galatasaray": { elo: 1860, mv: 295, att: 2.6, def: 0.75, absentImpact: 0.22 },
+    "Fenerbahçe": { elo: 1840, mv: 265, att: 2.4, def: 0.85, absentImpact: 0.18 },
+    "Trabzonspor": { elo: 1750, mv: 115, att: 1.8, def: 1.1, absentImpact: 0.12 },
+    "Beşiktaş": { elo: 1730, mv: 145, att: 1.9, def: 1.15, absentImpact: 0.15 },
+    "Göztepe": { elo: 1680, mv: 42, att: 1.5, def: 1.05, absentImpact: 0.08 },
+    "Başakşehir FK": { elo: 1695, mv: 60, att: 1.6, def: 1.2, absentImpact: 0.10 },
+    "Samsunspor": { elo: 1610, mv: 32, att: 1.35, def: 1.25, absentImpact: 0.07 },
+    "Gençlerbirliği": { elo: 1540, mv: 28, att: 1.2, def: 1.4, absentImpact: 0.06 },
+    "Kocaelispor": { elo: 1570, mv: 30, att: 1.3, def: 1.3, absentImpact: 0.07 },
+    "Eyüpspor": { elo: 1510, mv: 35, att: 1.25, def: 1.45, absentImpact: 0.08 },
+    "Konyaspor": { elo: 1520, mv: 24, att: 1.15, def: 1.5, absentImpact: 0.05 },
+    "Alanyaspor": { elo: 1535, mv: 27, att: 1.2, def: 1.55, absentImpact: 0.06 },
+    "Antalyaspor": { elo: 1525, mv: 26, att: 1.2, def: 1.6, absentImpact: 0.06 },
+    "Kasımpaşa": { elo: 1505, mv: 31, att: 1.4, def: 1.7, absentImpact: 0.05 },
+    "Çaykur Rizespor": { elo: 1555, mv: 25, att: 1.3, def: 1.65, absentImpact: 0.05 },
+    "Gaziantep FK": { elo: 1565, mv: 22, att: 1.25, def: 1.75, absentImpact: 0.04 },
+    "Kayserispor": { elo: 1495, mv: 19, att: 1.0, def: 1.8, absentImpact: 0.04 },
+    "Fatih Karagümrük": { elo: 1485, mv: 20, att: 1.1, def: 1.8, absentImpact: 0.04 }
 };
 
-/**
- * HAFTALIK MAÇKOLİK VERİLERİ (GÜNCELLENEBİLİR)
- * weather: 1.0 (Normal), 0.85 (Fırtına/Yoğun Kar)
- * pitch: 1.0 (Mükemmel), 0.8 (Bozuk/Çamur)
- * referee: 0.9 (Sert/Düdük çok), 1.1 (Akıcı oyun)
- */
+// 26. HAFTA GERÇEK FİKSTÜRÜ (14-15 MART 2026)
 const FIXTURES = [
-    { 
-        h: "Galatasaray", a: "Beşiktaş", 
-        weather: 0.95, pitch: 1.0, referee: 1.05,
-        hAbsents: 1, aAbsents: 2, isDerby: true
-    },
-    { 
-        h: "Fenerbahçe", a: "Samsunspor", 
-        weather: 0.85, pitch: 0.9, referee: 0.95,
-        hAbsents: 0, aAbsents: 1, isDerby: false
-    },
-    { 
-        h: "Göztepe", a: "Trabzonspor", 
-        weather: 1.0, pitch: 1.0, referee: 1.1,
-        hAbsents: 2, aAbsents: 1, isDerby: false
-    }
+    { h: "Galatasaray", a: "Başakşehir FK", weather: 1.0, pitch: 1.0, ref: 1.05, hAbs: 1, aAbs: 0 },
+    { h: "Trabzonspor", a: "Çaykur Rizespor", weather: 0.9, pitch: 0.9, ref: 1.0, hAbs: 2, aAbs: 1 },
+    { h: "Göztepe", a: "Alanyaspor", weather: 1.0, pitch: 1.0, ref: 1.1, hAbs: 0, aAbs: 0 },
+    { h: "Gençlerbirliği", a: "Beşiktaş", weather: 1.0, pitch: 1.0, ref: 0.95, hAbs: 1, aAbs: 2 },
+    { h: "Samsunspor", a: "Kayserispor", weather: 0.95, pitch: 0.85, ref: 1.0, hAbs: 0, aAbs: 1 },
+    { h: "Kasımpaşa", a: "Eyüpspor", weather: 1.0, pitch: 1.0, ref: 1.05, hAbs: 1, aAbs: 1 },
+    { h: "Antalyaspor", a: "Gaziantep FK", weather: 1.0, pitch: 1.0, ref: 1.0, hAbs: 2, aAbs: 0 },
+    { h: "Kocaelispor", a: "Konyaspor", weather: 1.0, pitch: 0.9, ref: 0.9, hAbs: 1, aAbs: 0 },
+    { h: "Fatih Karagümrük", a: "Fenerbahçe", weather: 1.0, pitch: 1.0, ref: 1.1, hAbs: 0, aAbs: 2 }
 ];
 
-function factorial(n) {
-    let res = 1;
-    for (let i = 2; i <= n; i++) res *= i;
-    return res;
-}
+function fact(n) { return n <= 1 ? 1 : n * fact(n-1); }
+function pois(k, l) { return (Math.pow(l, k) * Math.exp(-l)) / fact(k); }
 
-function poisson(k, lambda) {
-    return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k);
-}
-
-function calculateUltraXG(match) {
-    const H = TEAMS[match.h];
-    const A = TEAMS[match.a];
-    
-    // 1. ELO ve Güç Farkı
-    let eloAdv = (H.elo - A.elo) / 400;
-    let marketAdv = (H.mv / A.mv) * 0.1;
-    
-    // 2. Baz xG
-    let hXG = (H.att * A.def) * (1 + eloAdv + marketAdv);
-    let aXG = (A.att * H.def) * (1 - eloAdv);
-
-    // 3. Saha Avantajı ve Derbi Modu
-    let homeField = match.isDerby ? 0.15 : 0.30;
-    hXG += homeField;
-
-    // 4. Maçkolik Dışsal Faktörler
-    let totalMultiplier = match.weather * match.pitch * match.referee;
-    hXG *= totalMultiplier;
-    aXG *= totalMultiplier;
-
-    // 5. Sakatlık Etkisi
-    hXG -= (match.hAbsents * H.absentImpact);
-    aXG -= (match.aAbsents * A.absentImpact);
-
-    return [Math.max(0.1, hXG), Math.max(0.1, aXG)];
-}
-
-function runAnalyst() {
-    const app = document.getElementById("app");
-    
-    FIXTURES.forEach(match => {
-        const [hXG, aXG] = calculateUltraXG(match);
+function run() {
+    const grid = document.getElementById("grid");
+    FIXTURES.forEach(m => {
+        const H = TEAMS[m.h]; const A = TEAMS[m.a];
         
-        // Olasılık Matrisi (6x6)
-        let matrix = [];
-        let pW = 0, pD = 0, pL = 0, btts = 0, o25 = 0;
-        let maxP = 0, bestScore = "0-0";
+        let hXG = (H.att * A.def) * (1 + (H.elo - A.elo)/450) + 0.28;
+        let aXG = (A.att * H.def) * (1 - (H.elo - A.elo)/450);
+        
+        const mult = m.weather * m.pitch * m.ref;
+        hXG = (hXG * mult) - (m.hAbs * H.absentImpact);
+        aXG = (aXG * mult) - (m.aAbs * A.absentImpact);
+        hXG = Math.max(0.1, hXG); aXG = Math.max(0.1, aXG);
 
-        for (let h = 0; h < 7; h++) {
-            for (let a = 0; a < 7; a++) {
-                let prob = poisson(h, hXG) * poisson(a, aXG);
-                if (h > a) pW += prob; else if (h === a) pD += prob; else pL += prob;
-                if (h > 0 && a > 0) btts += prob;
-                if (h + a > 2.5) o25 += prob;
-                if (prob > maxP) { maxP = prob; bestScore = `${h}-${a}`; }
+        let pW = 0, pD = 0, pL = 0, o25 = 0, btts = 0, maxP = 0, score = "0-0";
+        for(let i=0; i<7; i++) {
+            for(let j=0; j<7; j++) {
+                let prob = pois(i, hXG) * pois(j, aXG);
+                if(i>j) pW += prob; else if(i==j) pD += prob; else pL += prob;
+                if(i+j > 2.5) o25 += prob;
+                if(i>0 && j>0) btts += prob;
+                if(prob > maxP) { maxP = prob; score = i+"-"+j; }
             }
         }
 
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-            <div class="match-header">
-                <span class="market-value">MV Index: €${TEAMS[match.h].mv}M / €${TEAMS[match.a].mv}M</span>
-                <span class="tag ${match.isDerby ? 'alert' : ''}">${match.isDerby ? 'DERBİ' : 'LİG MAÇI'}</span>
-            </div>
-
-            <div class="vs-area">
-                <div class="team-box"><div class="team-name">${match.h}</div></div>
-                <div class="score-box">
-                    <div class="main-score">${bestScore}</div>
-                    <div class="iy-score">İY: ${Math.floor(hXG*0.4)}-${Math.floor(aXG*0.4)}</div>
+        grid.innerHTML += `
+            <div class="card">
+                <div class="match-info">
+                    <span>Süper Lig 26. Hafta</span>
+                    <span>Hakem: ${m.ref > 1 ? 'Tempo Yanlısı' : 'Düdüğü Bol'}</span>
                 </div>
-                <div class="team-box"><div class="team-name">${match.a}</div></div>
-            </div>
-
-            <div class="analysis-bars">
-                <div class="bar-label">
-                    <span>EV %${(pW*100).toFixed(0)}</span>
-                    <span>BERABERE %${(pD*100).toFixed(0)}</span>
-                    <span>DEP %${(pL*100).toFixed(0)}</span>
+                <div class="vs-area">
+                    <div class="team">${m.h}</div>
+                    <div class="score-box">
+                        <div class="main-score">${score}</div>
+                        <div class="iy-score">İY: ${Math.floor(hXG*0.42)}-${Math.floor(aXG*0.42)}</div>
+                    </div>
+                    <div class="team">${m.a}</div>
                 </div>
-                <div class="progress-container">
-                    <div class="p-win" style="width:${pW*100}%"></div>
-                    <div class="p-draw" style="width:${pD*100}%"></div>
-                    <div class="p-away" style="width:${pL*100}%"></div>
+                <div class="bar-container">
+                    <div class="h-bar" style="width:${pW*100}%"></div>
+                    <div class="d-bar" style="width:${pD*100}%"></div>
+                    <div class="a-bar" style="width:${pL*100}%"></div>
                 </div>
-            </div>
-
-            <div class="stats-footer">
-                <div class="stat-item">KG VAR <span class="val">%${(btts*100).toFixed(1)}</span></div>
-                <div class="stat-item">2.5 ÜST <span class="val">%${(o25*100).toFixed(1)}</span></div>
-                <div class="stat-item">EKLENEN xG <span class="val">${hXG.toFixed(2)} - ${aXG.toFixed(2)}</span></div>
-                <div class="stat-item">GÜVEN <span class="val">%${(maxP*200).toFixed(0)}</span></div>
-            </div>
-
-            <div class="factor-tags">
-                <span class="tag">HAVA: ${match.weather < 1 ? 'ELVERİŞSİZ' : 'AÇIK'}</span>
-                <span class="tag">ZEMİN: ${match.pitch < 1 ? 'BOZUK' : 'UYGUN'}</span>
-                <span class="tag ${match.hAbsents > 1 ? 'alert' : ''}">${match.h} ${match.hAbsents} EKSİK</span>
-                <span class="tag ${match.aAbsents > 1 ? 'alert' : ''}">${match.a} ${match.aAbsents} EKSİK</span>
-                <span class="tag info">HAKEM: ${match.referee > 1 ? 'AKICI' : 'SERT'}</span>
+                <div class="footer-stats">
+                    <div class="stat">KG VAR <b>%${(btts*100).toFixed(0)}</b></div>
+                    <div class="stat">2.5 ÜST <b>%${(o25*100).toFixed(0)}</b></div>
+                    <div class="stat">Taraf Olasılığı <b>%${(Math.max(pW, pL)*100).toFixed(0)}</b></div>
+                    <div class="stat">Tahmini xG <b>${hXG.toFixed(1)}-${aXG.toFixed(1)}</b></div>
+                </div>
+                <div class="tags">
+                    <span class="tag">HAVA: ${m.weather < 1 ? 'YAĞMURLU' : 'GÜNEŞLİ'}</span>
+                    <span class="tag">ZEMİN: ${m.pitch < 1 ? 'AĞIR' : 'İDEAL'}</span>
+                    <span class="tag ${m.hAbs > 0 ? 'alert' : ''}">${m.hAbs} KRİTİK EKSİK</span>
+                    <span class="tag ${m.aAbs > 0 ? 'alert' : ''}">${m.aAbs} KRİTİK EKSİK</span>
+                </div>
             </div>
         `;
-        app.appendChild(card);
     });
 }
-
-runAnalyst();
+run();
 </script>
 </body>
 </html>
