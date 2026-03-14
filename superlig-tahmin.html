@@ -2,25 +2,24 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>ULTRA ANALYST V16 | Dixon-Coles & Form Engine</title>
+    <title>ULTRA ANALYST V16 | 26. Hafta (9 Maç Tam Liste)</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #e8001d; --bg: #080810; --surface: #11111c; --border: rgba(255,255,255,0.08); --text: #eeeef8; --muted: #6868a0; --green: #00ff88; }
-        body { font-family: 'Outfit'; background: var(--bg); color: var(--text); padding: 20px; }
-        .wrap { max-width: 1200px; margin: auto; }
+        :root { --red: #ff3e3e; --bg: #05050a; --surface: #0f0f1a; --border: rgba(255,255,255,0.08); --text: #f0f0f5; --muted: #6868a0; --green: #00ff88; }
+        body { font-family: 'Outfit'; background: var(--bg); color: var(--text); padding: 20px; margin: 0; }
+        .wrap { max-width: 1300px; margin: auto; }
         header { text-align: center; padding: 30px; border-bottom: 2px solid var(--red); margin-bottom: 30px; }
-        h1 { font-family: 'Bebas Neue'; font-size: 55px; letter-spacing: 5px; margin: 0; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; }
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px; border-top: 4px solid var(--red); }
+        h1 { font-family: 'Bebas Neue'; font-size: 50px; letter-spacing: 5px; margin: 0; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 20px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 15px; border-top: 4px solid var(--red); }
         .vs { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; }
-        .team { flex: 1; text-align: center; font-weight: 700; font-size: 16px; }
-        .main-score { font-family: 'Bebas Neue'; font-size: 50px; color: var(--text); line-height: 1; }
-        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
-        .stat-box { background: rgba(0,0,0,0.2); padding: 8px; border-radius: 10px; text-align: center; }
-        .stat-box small { display: block; font-size: 10px; color: var(--muted); margin-bottom: 3px; }
-        .stat-box b { color: var(--green); font-size: 16px; }
-        .form-indicator { font-size: 10px; color: #aaa; margin-top: 5px; }
-        .tag { font-size: 9px; padding: 3px 6px; background: #222; border-radius: 4px; color: #00d2ff; }
+        .team { flex: 1; text-align: center; font-weight: 700; font-size: 15px; }
+        .main-score { font-family: 'Bebas Neue'; font-size: 48px; color: #fff; line-height: 1; }
+        .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
+        .stat-box { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 12px; text-align: center; }
+        .stat-box small { display: block; font-size: 10px; color: var(--muted); }
+        .stat-box b { color: var(--green); font-size: 16px; font-family: 'Bebas Neue'; }
+        .tag { font-size: 9px; padding: 3px 6px; background: #1a1a2e; border-radius: 4px; color: #00d2ff; }
     </style>
 </head>
 <body>
@@ -28,53 +27,52 @@
 <div class="wrap">
     <header>
         <h1>ULTRA ANALYST V16</h1>
-        <p style="color:var(--muted)">Poisson + Dixon-Coles Correction • xG/xGA Form Decay Model</p>
+        <p style="color:var(--red); font-weight:700;">26. HAFTA | 9 MAÇLIK EKSİKSİZ ANALİZ PANELİ</p>
     </header>
     <div id="grid" class="grid"></div>
 </div>
 
 <script>
-/** * FORM KATSAYISI: 1.0 = Standart, 1.15 = Çok Formda, 0.85 = Formsuz
- * att: xG Üretme Kapasitesi | def: xGA (Yeme) Direnci
- */
 const TEAMS = {
-    "Galatasaray": { elo: 1860, att: 2.50, def: 0.80, form: 1.15, mv: 295 },
-    "Fenerbahçe": { elo: 1845, att: 2.35, def: 0.85, form: 1.10, mv: 265 },
-    "Beşiktaş": { elo: 1735, att: 1.85, def: 1.15, form: 1.05, mv: 145 },
-    "Trabzonspor": { elo: 1755, att: 1.75, def: 1.10, form: 0.95, mv: 115 },
-    "Başakşehir FK": { elo: 1690, att: 1.65, def: 1.25, form: 1.00, mv: 60 },
-    "Göztepe": { elo: 1685, att: 1.55, def: 1.05, form: 1.08, mv: 42 },
-    "Samsunspor": { elo: 1615, att: 1.40, def: 1.20, form: 1.02, mv: 32 },
-    "Kocaelispor": { elo: 1575, att: 1.35, def: 1.35, form: 0.98, mv: 30 },
-    "Eyüpspor": { elo: 1520, att: 1.25, def: 1.40, form: 0.90, mv: 35 },
-    "Konyaspor": { elo: 1515, att: 1.15, def: 1.55, form: 0.95, mv: 24 },
-    "Antalyaspor": { elo: 1530, att: 1.20, def: 1.60, form: 0.88, mv: 26 },
-    "Çaykur Rizespor": { elo: 1550, att: 1.35, def: 1.70, form: 0.92, mv: 25 },
-    "Kasımpaşa": { elo: 1510, att: 1.45, def: 1.75, form: 1.00, mv: 31 },
-    "Alanyaspor": { elo: 1540, att: 1.25, def: 1.50, form: 0.93, mv: 27 },
-    "Gaziantep FK": { elo: 1560, att: 1.30, def: 1.80, form: 1.01, mv: 22 },
-    "Kayserispor": { elo: 1490, att: 1.10, def: 1.85, form: 0.85, mv: 19 },
-    "Gençlerbirliği": { elo: 1545, att: 1.20, def: 1.45, form: 1.04, mv: 28 },
-    "Fatih Karagümrük": { elo: 1480, att: 1.15, def: 1.90, form: 0.90, mv: 20 }
+    "Galatasaray": { elo: 1865, att: 2.65, def: 0.75, form: 1.15, mv: 295 },
+    "Fenerbahçe": { elo: 1850, att: 2.45, def: 0.85, form: 1.12, mv: 265 },
+    "Beşiktaş": { elo: 1745, att: 1.95, def: 1.10, form: 1.05, mv: 145 },
+    "Trabzonspor": { elo: 1755, att: 1.80, def: 1.15, form: 0.95, mv: 115 },
+    "Başakşehir FK": { elo: 1700, att: 1.65, def: 1.20, form: 1.02, mv: 60 },
+    "Göztepe": { elo: 1690, att: 1.60, def: 1.05, form: 1.10, mv: 42 },
+    "Samsunspor": { elo: 1620, att: 1.45, def: 1.25, form: 1.05, mv: 32 },
+    "Kocaelispor": { elo: 1585, att: 1.40, def: 1.30, form: 1.00, mv: 30 },
+    "Eyüpspor": { elo: 1530, att: 1.30, def: 1.40, form: 0.92, mv: 35 },
+    "Gençlerbirliği": { elo: 1555, att: 1.25, def: 1.45, form: 1.04, mv: 28 },
+    "Alanyaspor": { elo: 1545, att: 1.25, def: 1.55, form: 0.93, mv: 27 },
+    "Antalyaspor": { elo: 1535, att: 1.20, def: 1.65, form: 0.88, mv: 26 },
+    "Kasımpaşa": { elo: 1515, att: 1.50, def: 1.75, form: 1.02, mv: 31 },
+    "Çaykur Rizespor": { elo: 1560, att: 1.35, def: 1.65, form: 0.90, mv: 25 },
+    "Gaziantep FK": { elo: 1570, att: 1.30, def: 1.80, form: 1.00, mv: 22 },
+    "Kayserispor": { elo: 1500, att: 1.05, def: 1.90, form: 0.82, mv: 19 },
+    "Konyaspor": { elo: 1525, att: 1.20, def: 1.50, form: 0.96, mv: 24 },
+    "Fatih Karagümrük": { elo: 1490, att: 1.15, def: 1.85, form: 0.92, mv: 20 }
 };
 
+// 26. HAFTA GERÇEK VE TAM LİSTE (9 MAÇ)
 const FIXTURES = [
     { h: "Galatasaray", a: "Başakşehir FK", weather: 1.0, pitch: 1.0, ref: 1.05, hAbs: 1, aAbs: 0 },
-    { h: "Fatih Karagümrük", a: "Fenerbahçe", weather: 1.0, pitch: 1.0, ref: 1.10, hAbs: 0, aAbs: 1 },
+    { h: "Fatih Karagümrük", a: "Fenerbahçe", weather: 1.0, pitch: 1.0, ref: 1.1, hAbs: 0, aAbs: 2 },
     { h: "Trabzonspor", a: "Çaykur Rizespor", weather: 0.9, pitch: 0.85, ref: 1.0, hAbs: 2, aAbs: 1 },
-    { h: "Göztepe", a: "Alanyaspor", weather: 1.0, pitch: 1.0, ref: 1.05, hAbs: 0, aAbs: 0 },
     { h: "Gençlerbirliği", a: "Beşiktaş", weather: 1.0, pitch: 1.0, ref: 1.0, hAbs: 1, aAbs: 2 },
-    { h: "Samsunspor", a: "Kayserispor", weather: 1.0, pitch: 0.9, ref: 1.0, hAbs: 0, aAbs: 1 }
+    { h: "Göztepe", a: "Alanyaspor", weather: 1.0, pitch: 1.0, ref: 1.05, hAbs: 0, aAbs: 0 },
+    { h: "Samsunspor", a: "Kayserispor", weather: 1.0, pitch: 0.9, ref: 1.0, hAbs: 0, aAbs: 1 },
+    { h: "Kocaelispor", a: "Konyaspor", weather: 1.0, pitch: 1.0, ref: 0.9, hAbs: 1, aAbs: 0 },
+    { h: "Antalyaspor", a: "Gaziantep FK", weather: 1.0, pitch: 1.0, ref: 1.0, hAbs: 2, aAbs: 1 },
+    { h: "Kasımpaşa", a: "Eyüpspor", weather: 1.0, pitch: 1.0, ref: 1.1, hAbs: 1, aAbs: 1 }
 ];
 
-function factorial(n) { return n <= 1 ? 1 : n * factorial(n - 1); }
-function poisson(k, lambda) { return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k); }
-
-// DIXON-COLES DÜZELTME PARAMETRESİ (RHO)
-function getDixonColesCorr(h, a, hLambda, aLambda, rho = -0.15) {
-    if (h === 0 && a === 0) return 1 - (hLambda * aLambda * rho);
-    if (h === 0 && a === 1) return 1 + (hLambda * rho);
-    if (h === 1 && a === 0) return 1 + (aLambda * rho);
+function fact(n) { return n <= 1 ? 1 : n * fact(n - 1); }
+function pois(k, l) { return (Math.pow(l, k) * Math.exp(-l)) / fact(k); }
+function getDixonColesCorr(h, a, hL, aL, rho = -0.12) {
+    if (h === 0 && a === 0) return 1 - (hL * aL * rho);
+    if (h === 0 && a === 1) return 1 + (hL * rho);
+    if (h === 1 && a === 0) return 1 + (aL * rho);
     if (h === 1 && a === 1) return 1 - rho;
     return 1;
 }
@@ -83,20 +81,15 @@ function run() {
     const grid = document.getElementById("grid");
     FIXTURES.forEach(m => {
         const H = TEAMS[m.h]; const A = TEAMS[m.a];
-        
-        // FORM VE DIŞ FAKTÖR ETKİSİYLE xG HESAPLAMA
-        // xG = (Saldırı Gücü * Rakip Savunma * Form Çarpanı * Hava/Zemin)
-        let hXG = (H.att * A.def * H.form * m.weather * m.pitch) * (1 + (H.elo - A.elo)/500) + 0.25;
+        let hXG = (H.att * A.def * H.form * m.weather * m.pitch) * (1 + (H.elo - A.elo)/500) + 0.28;
         let aXG = (A.att * H.def * A.form * m.weather * m.pitch) * (1 - (H.elo - A.elo)/500);
-
         hXG = Math.max(0.1, hXG - (m.hAbs * 0.15));
         aXG = Math.max(0.1, aXG - (m.aAbs * 0.15));
 
-        let matrix = [], pW = 0, pD = 0, pL = 0, o25 = 0, btts = 0, maxP = 0, bestS = "0-0";
-
-        for (let i = 0; i < 6; i++) {
-            for (let j = 0; j < 6; j++) {
-                let prob = poisson(i, hXG) * poisson(j, aXG) * getDixonColesCorr(i, j, hXG, aXG);
+        let pW = 0, pD = 0, pL = 0, o25 = 0, btts = 0, maxP = 0, bestS = "0-0";
+        for (let i = 0; i < 7; i++) {
+            for (let j = 0; j < 7; j++) {
+                let prob = pois(i, hXG) * pois(j, aXG) * getDixonColesCorr(i, j, hXG, aXG);
                 if (i > j) pW += prob; else if (i === j) pD += prob; else pL += prob;
                 if (i + j > 2.5) o25 += prob;
                 if (i > 0 && j > 0) btts += prob;
@@ -107,8 +100,8 @@ function run() {
         grid.innerHTML += `
             <div class="card">
                 <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <span class="tag">FORM: ${(H.form*100).toFixed(0)}% vs ${(A.form*100).toFixed(0)}%</span>
-                    <span class="tag" style="color:var(--green)">Dixon-Coles Active</span>
+                    <span class="tag">FORM: ${(H.form*100).toFixed(0)} / ${(A.form*100).toFixed(0)}</span>
+                    <span class="tag" style="color:var(--green)">DIXON-COLES AKTİF</span>
                 </div>
                 <div class="vs">
                     <div class="team">${m.h}</div>
@@ -116,13 +109,11 @@ function run() {
                     <div class="team">${m.a}</div>
                 </div>
                 <div class="stats">
-                    <div class="stat-item" style="grid-column: span 2; text-align:center; font-size:12px; margin-bottom:5px;">
-                        Taraf: EV %${(pW*100).toFixed(0)} | BER %${(pD*100).toFixed(0)} | DEP %${(pL*100).toFixed(0)}
-                    </div>
                     <div class="stat-box"><small>KG VAR</small><b>%${(btts*100).toFixed(0)}</b></div>
                     <div class="stat-box"><small>2.5 ÜST</small><b>%${(o25*100).toFixed(0)}</b></div>
-                    <div class="stat-box"><small>GÜNCEL xG</small><b>${hXG.toFixed(1)}-${aXG.toFixed(1)}</b></div>
-                    <div class="stat-box"><small>GÜVEN</small><b>%${(maxP*220).toFixed(0)}</b></div>
+                    <div class="stat-box"><small>EV %</small><b>%${(pW*100).toFixed(0)}</b></div>
+                    <div class="stat-box"><small>DEP %</small><b>%${(pL*100).toFixed(0)}</b></div>
+                    <div class="stat-box" style="grid-column: span 2;"><small>Beklenen Gol (xG)</small><b>${hXG.toFixed(1)} - ${aXG.toFixed(1)}</b></div>
                 </div>
             </div>
         `;
