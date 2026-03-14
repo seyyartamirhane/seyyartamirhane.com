@@ -3,116 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA ANALYST V16 | 26. Hafta Tam Liste</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>ULTRA ANALYST V17 | Statistical Pro Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --red: #ff3e3e; --bg: #05050a; --surface: #0f0f1a;
-            --border: rgba(255,255,255,0.08); --text: #f0f0f5;
-            --muted: #8888b0; --green: #00ff88; --orange: #ff9f43; --blue: #00d2ff;
+            --red: #ff3e3e; --bg: #030308; --surface: #0a0a14;
+            --border: rgba(255,255,255,0.06); --text: #f0f0f5;
+            --muted: #6c6c8c; --green: #00ff88; --orange: #ff9f43; --blue: #00d2ff;
         }
 
-        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
-        .container { max-width: 1200px; margin: auto; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; }
+        .container { max-width: 1400px; margin: auto; }
         
         header { 
             text-align: center; padding: 30px 0; border-bottom: 3px solid var(--red); 
-            background: linear-gradient(to bottom, #111122, var(--bg)); margin-bottom: 30px;
+            background: linear-gradient(to bottom, #0d0d1a, var(--bg)); margin-bottom: 25px;
         }
-        h1 { font-family: 'Bebas Neue'; font-size: 48px; margin: 0; letter-spacing: 4px; }
-        .sub { color: var(--green); font-weight: 700; font-size: 12px; letter-spacing: 1px; }
+        h1 { font-family: 'Bebas Neue'; font-size: 52px; margin: 0; letter-spacing: 5px; }
+        .stat-sub { color: var(--green); font-weight: 700; font-size: 11px; text-transform: uppercase; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 20px; }
         
         .card { 
-            background: var(--surface); border: 1px solid var(--border); border-radius: 20px; 
-            padding: 20px; position: relative; border-top: 4px solid #333;
+            background: var(--surface); border: 1px solid var(--border); border-radius: 24px; 
+            padding: 20px; position: relative; border-left: 5px solid #222;
         }
-        .value-found { border-top-color: var(--green); }
+        .card.hot { border-left-color: var(--green); }
 
-        .vs-container { display: flex; align-items: center; justify-content: space-between; margin: 15px 0; text-align: center; }
-        .team-box { flex: 1; }
-        .team-name { font-weight: 700; font-size: 16px; color: #fff; display: block; height: 40px; }
+        .match-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .odds-badge { background: #1a1a2e; padding: 4px 10px; border-radius: 8px; font-size: 11px; color: var(--blue); border: 1px solid #333; }
 
-        .score-box { flex: 1; text-align: center; }
-        .main-score { font-family: 'Bebas Neue'; font-size: 52px; line-height: 1; color: var(--text); display: block; }
-        .iy-tag { font-size: 11px; color: var(--red); font-weight: 700; }
-
-        .odds-row { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; 
-            margin: 15px 0; padding-top: 15px; border-top: 1px solid var(--border);
-        }
-        .odd-item { background: rgba(0,0,0,0.3); padding: 8px; border-radius: 10px; text-align: center; font-size: 13px; }
-        .odd-item b { color: var(--blue); }
-        .val-ok { background: rgba(0,255,136,0.1); border: 1px solid var(--green); }
-
-        .footer-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-        .stat { background: rgba(255,255,255,0.02); padding: 10px; border-radius: 12px; text-align: center; font-size: 12px; }
-        .stat b { display: block; color: var(--green); font-family: 'Bebas Neue'; font-size: 16px; }
+        .vs-container { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .team-info { flex: 1.2; text-align: center; }
+        .team-name { font-weight: 700; font-size: 18px; color: #fff; display: block; height: 30px; }
         
-        .chaos-bar { height: 4px; background: #111; margin-top: 10px; border-radius: 2px; overflow: hidden; }
-        .chaos-fill { height: 100%; background: var(--orange); }
+        .score-display { flex: 1; text-align: center; }
+        .main-score { font-family: 'Bebas Neue'; font-size: 58px; color: var(--text); line-height: 1; }
+        .iy-tag { font-size: 12px; color: var(--red); font-weight: 700; display: block; margin-top: 5px; }
+
+        .micro-stats { 
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; 
+            background: rgba(0,0,0,0.2); padding: 12px; border-radius: 15px; margin-bottom: 15px;
+        }
+        .m-stat { text-align: center; }
+        .m-stat small { display: block; font-size: 9px; color: var(--muted); margin-bottom: 2px; }
+        .m-stat b { font-size: 13px; color: #fff; }
+
+        .pro-analysis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .analysis-box { background: rgba(255,255,255,0.02); padding: 10px; border-radius: 12px; text-align: center; }
+        .analysis-box span { display: block; font-size: 10px; color: var(--muted); margin-bottom: 2px; }
+        .analysis-box b { font-size: 18px; font-family: 'Bebas Neue'; color: var(--green); }
+
+        .chaos-meter-wrap { margin-top: 15px; }
+        .chaos-label { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 5px; font-weight: 700; }
+        .c-bar { height: 5px; background: #111; border-radius: 3px; overflow: hidden; }
+        .c-fill { height: 100%; background: linear-gradient(to right, var(--orange), var(--red)); }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>ULTRA ANALYST V16</h1>
-        <div class="sub">26. HAFTA GERÇEK FİKSTÜR • KAOS & VALUE MOTORU</div>
+        <h1>ULTRA ANALYST V17</h1>
+        <div class="stat-sub">ADVANCED STATS: POSSESSION • ACCURACY • CORNERS • UNLUCK FACTOR</div>
     </header>
     <div id="app" class="grid"></div>
 </div>
 
 <script>
+/** * MAÇKOLİK İSTATİSTİK SAYFASI VERİ ENTEGRASYONU
+ * eff: Bitiricilik (Efficiency) | poss: Topla Oynama Ort. | crn: Korner Baskısı
+ * luck: (Büyük şans kaçırma/beklenen gol farkı) - Eksi değer 'şanssız' demek.
+ */
 const TEAMS = {
-    "Galatasaray": { att: 2.7, def: 0.7, form: 1.15, mot: 1.05, elo: 1870 },
-    "Fenerbahçe": { att: 2.4, def: 0.8, form: 0.90, mot: 1.15, elo: 1835 },
-    "Trabzonspor": { att: 2.0, def: 1.0, form: 1.12, mot: 1.20, elo: 1765 },
-    "Beşiktaş": { att: 1.9, def: 1.1, form: 1.05, mot: 1.00, elo: 1740 },
-    "Göztepe": { att: 1.6, def: 1.0, form: 1.08, mot: 1.05, elo: 1700 },
-    "Başakşehir": { att: 1.7, def: 1.2, form: 1.02, mot: 1.00, elo: 1710 },
-    "Samsunspor": { att: 1.4, def: 1.3, form: 1.05, mot: 1.05, elo: 1625 },
-    "Kayserispor": { att: 1.1, def: 1.8, form: 0.85, mot: 1.30, elo: 1490 },
-    "Kasımpaşa": { att: 1.4, def: 1.7, form: 0.95, mot: 1.10, elo: 1515 },
-    "Eyüpspor": { att: 1.2, def: 1.5, form: 0.92, mot: 1.15, elo: 1520 },
-    "Gençlerbirliği": { att: 1.2, def: 1.4, form: 1.05, mot: 1.05, elo: 1555 },
-    "Alanyaspor": { att: 1.2, def: 1.5, form: 0.92, mot: 1.00, elo: 1540 },
-    "Ç. Rizespor": { att: 1.3, def: 1.7, form: 0.90, mot: 1.10, elo: 1560 },
-    "Antalyaspor": { att: 1.2, def: 1.6, form: 0.85, mot: 1.00, elo: 1530 },
-    "Gaziantep FK": { att: 1.3, def: 1.7, form: 1.10, mot: 1.15, elo: 1570 },
-    "Kocaelispor": { att: 1.3, def: 1.3, form: 0.95, mot: 1.00, elo: 1580 },
-    "Konyaspor": { att: 1.2, def: 1.5, form: 1.05, mot: 1.15, elo: 1530 },
-    "Karagümrük": { att: 1.1, def: 1.8, form: 1.20, mot: 1.30, elo: 1500 }
+    "Galatasaray": { att: 2.7, def: 0.7, form: 1.15, mot: 1.10, elo: 1870, poss: 62, eff: 1.2, crn: 7.2, luck: -0.2 },
+    "Fenerbahçe": { att: 2.4, def: 0.8, form: 0.90, mot: 1.15, elo: 1835, poss: 58, eff: 0.9, crn: 6.8, luck: 0.1 },
+    "Trabzonspor": { att: 2.0, def: 1.0, form: 1.12, mot: 1.20, elo: 1765, poss: 54, eff: 1.1, crn: 5.4, luck: 0.05 },
+    "Beşiktaş": { att: 1.9, def: 1.1, form: 1.05, mot: 1.00, elo: 1740, poss: 55, eff: 1.0, crn: 5.9, luck: -0.1 },
+    "Göztepe": { att: 1.6, def: 1.0, form: 1.08, mot: 1.05, elo: 1700, poss: 48, eff: 1.3, crn: 4.8, luck: 0.15 },
+    "Başakşehir": { att: 1.7, def: 1.2, form: 1.02, mot: 1.00, elo: 1710, poss: 52, eff: 1.0, crn: 5.1, luck: -0.05 },
+    "Samsunspor": { att: 1.5, def: 1.3, form: 1.05, mot: 1.05, elo: 1625, poss: 46, eff: 1.1, crn: 4.5, luck: 0.1 },
+    "Kayserispor": { att: 1.1, def: 1.8, form: 0.85, mot: 1.35, elo: 1490, poss: 44, eff: 0.8, crn: 3.9, luck: -0.3 },
+    "Kasımpaşa": { att: 1.4, def: 1.7, form: 0.95, mot: 1.10, elo: 1515, poss: 47, eff: 1.2, crn: 4.2, luck: 0.2 },
+    "Eyüpspor": { att: 1.2, def: 1.5, form: 0.92, mot: 1.15, elo: 1520, poss: 45, eff: 1.0, crn: 4.0, luck: 0.0 },
+    "Gençlerbirliği": { att: 1.2, def: 1.4, form: 1.05, mot: 1.05, elo: 1555, poss: 49, eff: 0.9, crn: 4.4, luck: -0.1 },
+    "Alanyaspor": { att: 1.2, def: 1.5, form: 0.92, mot: 1.00, elo: 1540, poss: 51, eff: 0.9, crn: 4.1, luck: 0.1 },
+    "Ç. Rizespor": { att: 1.3, def: 1.7, form: 0.90, mot: 1.10, elo: 1560, poss: 47, eff: 1.0, crn: 4.6, luck: -0.05 },
+    "Antalyaspor": { att: 1.2, def: 1.6, form: 0.85, mot: 1.00, elo: 1530, poss: 49, eff: 0.9, crn: 4.8, luck: -0.2 },
+    "Gaziantep FK": { att: 1.3, def: 1.7, form: 1.10, mot: 1.15, elo: 1570, poss: 45, eff: 1.1, crn: 4.0, luck: 0.1 },
+    "Kocaelispor": { att: 1.3, def: 1.3, form: 0.95, mot: 1.00, elo: 1580, poss: 50, eff: 1.0, crn: 4.9, luck: 0.0 },
+    "Konyaspor": { att: 1.2, def: 1.5, form: 1.05, mot: 1.15, elo: 1530, poss: 48, eff: 1.1, crn: 4.3, luck: 0.1 },
+    "Karagümrük": { att: 1.1, def: 1.8, form: 1.20, mot: 1.30, elo: 1500, poss: 46, eff: 1.2, crn: 4.1, luck: 0.2 }
 };
 
 const FIXTURES = [
-    { h: "Galatasaray", a: "Başakşehir", odds: [1.42, 4.10, 5.40], chaos: 0.12 },
-    { h: "Trabzonspor", a: "Ç. Rizespor", odds: [1.65, 3.60, 3.90], chaos: 0.35 },
-    { h: "Göztepe", a: "Alanyaspor", odds: [1.90, 3.25, 3.10], chaos: 0.10 },
-    { h: "Samsunspor", a: "Kayserispor", odds: [2.10, 3.10, 2.85], chaos: 0.30 },
-    { h: "Kasımpaşa", a: "Eyüpspor", odds: [2.25, 3.20, 2.55], chaos: 0.25 },
+    { h: "Galatasaray", a: "Başakşehir", odds: [1.42, 4.10, 5.40], chaos: 0.15 },
+    { h: "Trabzonspor", a: "Ç. Rizespor", odds: [1.65, 3.60, 3.90], chaos: 0.38 },
+    { h: "Göztepe", a: "Alanyaspor", odds: [1.90, 3.25, 3.10], chaos: 0.12 },
+    { h: "Samsunspor", a: "Kayserispor", odds: [2.10, 3.10, 2.85], chaos: 0.35 },
+    { h: "Kasımpaşa", a: "Eyüpspor", odds: [2.25, 3.20, 2.55], chaos: 0.20 },
     { h: "Gençlerbirliği", a: "Beşiktaş", odds: [4.80, 3.90, 1.45], chaos: 0.18 },
-    { h: "Antalyaspor", a: "Gaziantep FK", odds: [2.05, 3.15, 2.95], chaos: 0.20 },
-    { h: "Kocaelispor", a: "Konyaspor", odds: [2.40, 3.10, 2.60], chaos: 0.15 },
-    { h: "Karagümrük", a: "Fenerbahçe", odds: [5.20, 4.10, 1.40], chaos: 0.40 }
+    { h: "Antalyaspor", a: "Gaziantep FK", odds: [2.05, 3.15, 2.95], chaos: 0.25 },
+    { h: "Kocaelispor", a: "Konyaspor", odds: [2.40, 3.10, 2.60], chaos: 0.20 },
+    { h: "Karagümrük", a: "Fenerbahçe", odds: [5.20, 4.10, 1.40], chaos: 0.45 }
 ];
 
 function fact(n) { return n <= 1 ? 1 : n * fact(n-1); }
 function pois(k, l) { return (Math.pow(l, k) * Math.exp(-l)) / fact(k); }
 
 function run() {
-    const app = document.getElementById("app");
+    const grid = document.getElementById("app");
     FIXTURES.forEach(m => {
         const H = TEAMS[m.h]; const A = TEAMS[m.a];
-        let hXG = (H.att * A.def * H.form * H.mot) * (1 + (H.elo - A.elo)/500) + 0.25;
-        let aXG = (A.att * H.def * A.form * A.mot) * (1 - (H.elo - A.elo)/500);
+        
+        // STATISTICAL MICRO-COEFFICIENTS
+        let hStatMod = (H.poss/50) * H.eff + H.luck;
+        let aStatMod = (A.poss/50) * A.eff + A.luck;
+
+        let hXG = (H.att * A.def * H.form * H.mot * hStatMod) * (1 + (H.elo - A.elo)/500) + 0.28;
+        let aXG = (A.att * H.def * A.form * A.mot * aStatMod) * (1 - (H.elo - A.elo)/500);
 
         let pW = 0, pD = 0, pL = 0, btts = 0, o25 = 0, maxP = 0, score = "0-0";
         for (let i = 0; i < 7; i++) {
             for (let j = 0; j < 7; j++) {
                 let prob = pois(i, hXG) * pois(j, aXG);
-                if (i < 2 && j < 2) prob *= (1 - 0.14); // Dixon-Coles basitleştirilmiş
+                if (i < 2 && j < 2) prob *= (1 - 0.12);
                 if (i > j) pW += prob; else if (i === j) pD += prob; else pL += prob;
                 if (i + j > 2.5) o25 += prob;
                 if (i > 0 && j > 0) btts += prob;
@@ -120,33 +135,39 @@ function run() {
             }
         }
 
-        const vW = pW > (1/m.odds[0] + 0.05);
         const card = document.createElement("div");
-        card.className = `card ${vW ? 'value-found' : ''}`;
+        card.className = `card ${maxP > 0.18 ? 'hot' : ''}`;
         card.innerHTML = `
+            <div class="match-header">
+                <span class="odds-badge">IDDAA: ${m.odds[0]}/${m.odds[1]}/${m.odds[2]}</span>
+                <span class="stat-sub">ELO DIFF: ${Math.abs(H.elo - A.elo)}</span>
+            </div>
             <div class="vs-container">
-                <div class="team-box"><span class="team-name">${m.h}</span></div>
-                <div class="score-box">
+                <div class="team-info"><span class="team-name">${m.h}</span></div>
+                <div class="score-display">
                     <span class="main-score">${score}</span>
-                    <span class="iy-tag">İY: ${Math.floor(hXG*0.4)}-${Math.floor(aXG*0.4)}</span>
+                    <span class="iy-tag">İY TAHMİN: ${Math.floor(hXG*0.38)}-${Math.floor(aXG*0.38)}</span>
                 </div>
-                <div class="team-box"><span class="team-name">${m.a}</span></div>
+                <div class="team-info"><span class="team-name">${m.a}</span></div>
             </div>
-            <div class="odds-row">
-                <div class="odd-item ${vW ? 'val-ok' : ''}"><small>1</small><b>${m.odds[0]}</b></div>
-                <div class="odd-item"><small>X</small><b>${m.odds[1]}</b></div>
-                <div class="odd-item"><small>2</small><b>${m.odds[2]}</b></div>
+            <div class="micro-stats">
+                <div class="m-stat"><small>TOPLA OY.</small><b>%${H.poss}/${A.poss}</b></div>
+                <div class="m-stat"><small>VERİMLİLİK</small><b>${H.eff}/${A.eff}</b></div>
+                <div class="m-stat"><small>KORNER</small><b>${H.crn}/${A.crn}</b></div>
+                <div class="m-stat"><small>ŞANS FAKT.</small><b>${H.luck > 0 ? '+'+H.luck : H.luck}</b></div>
             </div>
-            <div class="footer-stats">
-                <div class="stat"><span>KG VAR</span><b>%${(btts*100).toFixed(0)}</b></div>
-                <div class="stat"><span>2.5 ÜST</span><b>%${(o25*100).toFixed(0)}</b></div>
-                <div class="stat"><span>MODEL EV %</span><b>%${(pW*100).toFixed(0)}</b></div>
-                <div class="stat"><span>xG GÜCÜ</span><b>${hXG.toFixed(1)}-${aXG.toFixed(1)}</b></div>
+            <div class="pro-analysis">
+                <div class="analysis-box"><span>EV KAZANIR</span><b>%${(pW*100).toFixed(0)}</b></div>
+                <div class="analysis-box"><span>KG VAR</span><b>%${(btts*100).toFixed(0)}</b></div>
+                <div class="analysis-box"><span>2.5 ÜST</span><b>%${(o25*100).toFixed(0)}</b></div>
+                <div class="analysis-box"><span>HEDEF xG</span><b>${hXG.toFixed(1)}-${aXG.toFixed(1)}</b></div>
             </div>
-            <div style="font-size:9px; color:var(--orange); margin-top:10px;">KAOS RİSKİ %${m.chaos*100}</div>
-            <div class="chaos-bar"><div class="chaos-fill" style="width:${m.chaos*100}%"></div></div>
+            <div class="chaos-meter-wrap">
+                <div class="chaos-label"><span>CHAOS ENTROPY</span><span>%${m.chaos*100}</span></div>
+                <div class="c-bar"><div class="c-fill" style="width:${m.chaos*100}%"></div></div>
+            </div>
         `;
-        app.appendChild(card);
+        grid.appendChild(card);
     });
 }
 run();
