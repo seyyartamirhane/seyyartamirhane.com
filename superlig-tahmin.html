@@ -2,37 +2,43 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>ULTRA ANALYST V16 | 26. Hafta (9 Maç Tam Liste)</title>
+    <title>ULTRA ANALYST V16 | 26. Hafta (9 Maç Tam Liste) - HT & FT</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #ff3e3e; --bg: #05050a; --surface: #0f0f1a; --border: rgba(255,255,255,0.08); --text: #f0f0f5; --muted: #6868a0; --green: #00ff88; }
-        body { font-family: 'Outfit'; background: var(--bg); color: var(--text); padding: 20px; margin: 0; }
+        :root { --red: #ff3e3e; --bg: #05050a; --surface: #0f0f1a; --border: rgba(255,255,255,0.08); --text: #f0f05; --muted: #6868a0; --green: #00ff88; --accent: #00d2ff; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); padding: 20px; margin: 0; }
         .wrap { max-width: 1300px; margin: auto; }
         header { text-align: center; padding: 30px; border-bottom: 2px solid var(--red); margin-bottom: 30px; }
-        h1 { font-family: 'Bebas Neue'; font-size: 50px; letter-spacing: 5px; margin: 0; }
+        h1 { font-family: 'Bebas Neue', cursive; font-size: 50px; letter-spacing: 5px; margin: 0; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 20px; }
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 15px; border-top: 4px solid var(--red); }
-        .vs { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 12px; border-top: 4px solid var(--red); box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+        .vs { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 12px 0; }
         .team { flex: 1; text-align: center; font-weight: 700; font-size: 15px; }
-        .main-score { font-family: 'Bebas Neue'; font-size: 48px; color: #fff; line-height: 1; }
-        .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
-        .stat-box { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 12px; text-align: center; }
+        .main-score { font-family: 'Bebas Neue', cursive; font-size: 44px; color: #fff; line-height: 1; }
+        .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+        .stat-box { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; text-align: center; }
         .stat-box small { display: block; font-size: 10px; color: var(--muted); }
         .stat-box b { color: var(--green); font-size: 16px; font-family: 'Bebas Neue'; }
-        .tag { font-size: 9px; padding: 3px 6px; background: #1a1a2e; border-radius: 4px; color: #00d2ff; }
+        .tag { font-size: 11px; padding: 4px 8px; background: #111126; border-radius: 6px; color: var(--accent); font-weight:700; }
+        .subline { font-size: 12px; color: var(--muted); margin-top:6px; text-align:center; }
+        .ht-row { display:flex; justify-content:space-between; gap:10px; margin-top:8px; background: rgba(255,255,255,0.01); padding:8px; border-radius:8px; }
+        .ht-item { flex:1; text-align:center; font-size:13px; color:var(--muted); }
     </style>
 </head>
 <body>
-
 <div class="wrap">
     <header>
         <h1>ULTRA ANALYST V16</h1>
-        <p style="color:var(--red); font-weight:700;">26. HAFTA | 9 MAÇLIK EKSİKSİZ ANALİZ PANELİ</p>
+        <p style="color:var(--red); font-weight:700;">26. HAFTA | 9 MAÇLIK EKSİKSİZ ANALİZ PANELİ — HT & FT</p>
+        <p class="subline">Not: Model örnektir. Parametreler (rho, halfFactor vb.) lig verileriyle kalibre edilmelidir.</p>
     </header>
     <div id="grid" class="grid"></div>
 </div>
 
 <script>
+/* -------------------------
+   Takım & fikstür verisi
+   ------------------------- */
 const TEAMS = {
     "Galatasaray": { elo: 1865, att: 2.65, def: 0.75, form: 1.15, mv: 295 },
     "Fenerbahçe": { elo: 1850, att: 2.45, def: 0.85, form: 1.12, mv: 265 },
@@ -54,7 +60,6 @@ const TEAMS = {
     "Fatih Karagümrük": { elo: 1490, att: 1.15, def: 1.85, form: 0.92, mv: 20 }
 };
 
-// 26. HAFTA GERÇEK VE TAM LİSTE (9 MAÇ)
 const FIXTURES = [
     { h: "Galatasaray", a: "Başakşehir FK", weather: 1.0, pitch: 1.0, ref: 1.05, hAbs: 1, aAbs: 0 },
     { h: "Fatih Karagümrük", a: "Fenerbahçe", weather: 1.0, pitch: 1.0, ref: 1.1, hAbs: 0, aAbs: 2 },
@@ -67,8 +72,14 @@ const FIXTURES = [
     { h: "Kasımpaşa", a: "Eyüpspor", weather: 1.0, pitch: 1.0, ref: 1.1, hAbs: 1, aAbs: 1 }
 ];
 
+/* -------------------------
+   Matematiksel yardımcılar
+   ------------------------- */
 function fact(n) { return n <= 1 ? 1 : n * fact(n - 1); }
 function pois(k, l) { return (Math.pow(l, k) * Math.exp(-l)) / fact(k); }
+
+// Dixon-Coles corr: küçük gollü skorlar arasındaki koreksiyonu verir.
+// rho'yu lig/sera verisiyle kalibre edin. Burada örnek bir değer var.
 function getDixonColesCorr(h, a, hL, aL, rho = -0.12) {
     if (h === 0 && a === 0) return 1 - (hL * aL * rho);
     if (h === 0 && a === 1) return 1 + (hL * rho);
@@ -77,43 +88,150 @@ function getDixonColesCorr(h, a, hL, aL, rho = -0.12) {
     return 1;
 }
 
+/* -------------------------
+   Tahmin fonksiyonu (HT + FT)
+   ------------------------- */
+function predictMatch(homeTeam, awayTeam, matchMeta, opts = {}) {
+    // seçenekler ve varsayılanlar
+    const rho = opts.rho ?? -0.12;
+    const halfFactor = opts.halfFactor ?? 0.46; // genelde 1.0 maç xG'sinin %45-48'i ilk yarı gelir (lig bazlı kalibre edin)
+    const maxGoals = opts.maxGoals ?? 8; // dağılım için üst sınır
+
+    const H = TEAMS[homeTeam], A = TEAMS[awayTeam];
+    // Basit xG hesaplama (örnek): bu formülü lig verisiyle değiştirin
+    let hXG = (H.att * A.def * H.form * matchMeta.weather * matchMeta.pitch) * (1 + (H.elo - A.elo)/500) + 0.28;
+    let aXG = (A.att * H.def * A.form * matchMeta.weather * matchMeta.pitch) * (1 - (H.elo - A.elo)/500);
+    hXG = Math.max(0.05, hXG - (matchMeta.hAbs * 0.15));
+    aXG = Math.max(0.05, aXG - (matchMeta.aAbs * 0.15));
+
+    // İlk yarı (HT) xG'leri
+    const hHTxG = hXG * halfFactor;
+    const aHTxG = aXG * halfFactor;
+
+    // FT hesaplama
+    let pW=0, pD=0, pL=0, o25=0, btts=0, maxP=0, bestS="0-0";
+    // HT hesaplama
+    let ht_W=0, ht_D=0, ht_L=0, ht_o15=0, ht_btts=0, ht_maxP=0, ht_bestS="0-0";
+
+    // exact distribution arrays (isteğe bağlı)
+    const distFT = {}; // "i-j":prob
+    const distHT = {};
+
+    for (let i = 0; i <= maxGoals; i++) {
+        for (let j = 0; j <= maxGoals; j++) {
+            const corrFT = getDixonColesCorr(i, j, hXG, aXG, rho);
+            const probFT = pois(i, hXG) * pois(j, aXG) * corrFT;
+            // toplu istatistikler FT
+            if (i > j) pW += probFT; else if (i === j) pD += probFT; else pL += probFT;
+            if (i + j > 2.5) o25 += probFT;
+            if (i > 0 && j > 0) btts += probFT;
+            if (probFT > maxP) { maxP = probFT; bestS = `${i}-${j}`; }
+            distFT[`${i}-${j}`] = probFT;
+        }
+    }
+
+    for (let i = 0; i <= maxGoals; i++) {
+        for (let j = 0; j <= maxGoals; j++) {
+            const corrHT = getDixonColesCorr(i, j, hHTxG, aHTxG, rho);
+            const probHT = pois(i, hHTxG) * pois(j, aHTxG) * corrHT;
+            // HT istatistikleri
+            if (i > j) ht_W += probHT; else if (i === j) ht_D += probHT; else ht_L += probHT;
+            if (i + j > 1.5) ht_o15 += probHT;
+            if (i > 0 && j > 0) ht_btts += probHT;
+            if (probHT > ht_maxP) { ht_maxP = probHT; ht_bestS = `${i}-${j}`; }
+            distHT[`${i}-${j}`] = probHT;
+        }
+    }
+
+    // normalize (küçük sayısal sapmaları düzeltme)
+    const totalFT = Object.values(distFT).reduce((s,x)=>s+x,0) || 1;
+    const totalHT = Object.values(distHT).reduce((s,x)=>s+x,0) || 1;
+    // normalize edilmemiş toplama etkileri nedeniyle küçük farklar olabilir; normalize edelim
+    Object.keys(distFT).forEach(k => distFT[k] = distFT[k] / totalFT);
+    Object.keys(distHT).forEach(k => distHT[k] = distHT[k] / totalHT);
+
+    // dönüş objesi
+    return {
+        xg: { full: { home: hXG, away: aXG }, half: { home: hHTxG, away: aHTxG } },
+        full: {
+            prob: { homeWin: pW, draw: pD, awayWin: pL },
+            o25: o25,
+            btts: btts,
+            mostLikelyScore: bestS,
+            dist: distFT
+        },
+        half: {
+            prob: { homeWin: ht_W, draw: ht_D, awayWin: ht_L },
+            o15: ht_o15,
+            btts: ht_btts,
+            mostLikelyScore: ht_bestS,
+            dist: distHT
+        }
+    };
+}
+
+/* -------------------------
+   Render & UI
+   ------------------------- */
 function run() {
     const grid = document.getElementById("grid");
+    grid.innerHTML = "";
     FIXTURES.forEach(m => {
-        const H = TEAMS[m.h]; const A = TEAMS[m.a];
-        let hXG = (H.att * A.def * H.form * m.weather * m.pitch) * (1 + (H.elo - A.elo)/500) + 0.28;
-        let aXG = (A.att * H.def * A.form * m.weather * m.pitch) * (1 - (H.elo - A.elo)/500);
-        hXG = Math.max(0.1, hXG - (m.hAbs * 0.15));
-        aXG = Math.max(0.1, aXG - (m.aAbs * 0.15));
+        const res = predictMatch(m.h, m.a, m, { rho: -0.12, halfFactor: 0.46, maxGoals: 8 });
 
-        let pW = 0, pD = 0, pL = 0, o25 = 0, btts = 0, maxP = 0, bestS = "0-0";
-        for (let i = 0; i < 7; i++) {
-            for (let j = 0; j < 7; j++) {
-                let prob = pois(i, hXG) * pois(j, aXG) * getDixonColesCorr(i, j, hXG, aXG);
-                if (i > j) pW += prob; else if (i === j) pD += prob; else pL += prob;
-                if (i + j > 2.5) o25 += prob;
-                if (i > 0 && j > 0) btts += prob;
-                if (prob > maxP) { maxP = prob; bestS = i + "-" + j; }
-            }
-        }
+        // yüzdeler (gösterim için)
+        const ftHomePct = (res.full.prob.homeWin*100).toFixed(0);
+        const ftDrawPct = (res.full.prob.draw*100).toFixed(0);
+        const ftAwayPct = (res.full.prob.awayWin*100).toFixed(0);
 
+        const htHomePct = (res.half.prob.homeWin*100).toFixed(0);
+        const htDrawPct = (res.half.prob.draw*100).toFixed(0);
+        const htAwayPct = (res.half.prob.awayWin*100).toFixed(0);
+
+        const ftBTTS = (res.full.btts*100).toFixed(0);
+        const htBTTS = (res.half.btts*100).toFixed(0);
+
+        const ftO25 = (res.full.o25*100).toFixed(0);
+        const htO15 = (res.half.o15*100).toFixed(0);
+
+        // kart HTML
         grid.innerHTML += `
-            <div class="card">
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <span class="tag">FORM: ${(H.form*100).toFixed(0)} / ${(A.form*100).toFixed(0)}</span>
-                    <span class="tag" style="color:var(--green)">DIXON-COLES AKTİF</span>
+            <div class="card" role="article" aria-label="${m.h} vs ${m.a}">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
+                    <span class="tag">FORM: ${(TEAMS[m.h].form*100).toFixed(0)} / ${(TEAMS[m.a].form*100).toFixed(0)}</span>
+                    <span class="tag" style="background:linear-gradient(90deg,var(--green),var(--accent)); color:#001; font-weight:800;">DIXON-COLES AKTİF</span>
                 </div>
+
                 <div class="vs">
                     <div class="team">${m.h}</div>
-                    <div class="main-score">${bestS}</div>
+                    <div style="text-align:center;">
+                        <div class="main-score">${res.full.mostLikelyScore}</div>
+                        <div style="font-size:12px; color:var(--muted); margin-top:4px;">(En olası FT skor)</div>
+                    </div>
                     <div class="team">${m.a}</div>
                 </div>
+
+                <div class="ht-row" aria-hidden="false">
+                    <div class="ht-item">
+                        <div style="font-weight:700; color:var(--accent);">İLK YARI (ÖN TAHMİN)</div>
+                        <div style="font-size:18px; margin-top:6px; font-family:'Bebas Neue';">${res.half.mostLikelyScore}</div>
+                        <div style="font-size:12px; color:var(--muted); margin-top:6px;">
+                            Ev %: <b style="color:var(--green)">${htHomePct}%</b> • Ber.: <b>${htDrawPct}%</b> • Dep. %: <b>${htAwayPct}%</b>
+                        </div>
+                    </div>
+                    <div class="ht-item" style="border-left:1px solid var(--border); padding-left:12px;">
+                        <div style="font-size:12px; color:var(--muted)">HT BTTS</div>
+                        <div style="font-size:18px; color:var(--green); font-weight:700; margin-top:6px;">%${htBTTS}</div>
+                        <div style="font-size:12px; color:var(--muted); margin-top:8px;">HT O1.5: <b style="color:var(--green)">${htO15}%</b></div>
+                    </div>
+                </div>
+
                 <div class="stats">
-                    <div class="stat-box"><small>KG VAR</small><b>%${(btts*100).toFixed(0)}</b></div>
-                    <div class="stat-box"><small>2.5 ÜST</small><b>%${(o25*100).toFixed(0)}</b></div>
-                    <div class="stat-box"><small>EV %</small><b>%${(pW*100).toFixed(0)}</b></div>
-                    <div class="stat-box"><small>DEP %</small><b>%${(pL*100).toFixed(0)}</b></div>
-                    <div class="stat-box" style="grid-column: span 2;"><small>Beklenen Gol (xG)</small><b>${hXG.toFixed(1)} - ${aXG.toFixed(1)}</b></div>
+                    <div class="stat-box"><small>KG VAR (FT)</small><b>%${ftBTTS}</b></div>
+                    <div class="stat-box"><small>2.5 ÜST (FT)</small><b>%${ftO25}</b></div>
+                    <div class="stat-box"><small>EV % (FT)</small><b>%${ftHomePct}</b></div>
+                    <div class="stat-box"><small>DEP % (FT)</small><b>%${ftAwayPct}</b></div>
+                    <div class="stat-box" style="grid-column: span 2;"><small>Beklenen Gol (xG) — HT / FT</small><b>${res.xg.half.home.toFixed(2)} - ${res.xg.half.away.toFixed(2)}  (HT)  •  ${res.xg.full.home.toFixed(2)} - ${res.xg.full.away.toFixed(2)}  (FT)</b></div>
                 </div>
             </div>
         `;
